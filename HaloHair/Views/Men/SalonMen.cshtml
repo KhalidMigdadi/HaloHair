@@ -1,0 +1,340 @@
+﻿
+@{
+    ViewData["Title"] = "SalonMen";
+}
+
+
+
+<div class="head-Salon">
+    <div>
+        <h1>Yousef Afandi</h1>
+        <p>
+            <span>5.0 </span><i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i> (5023). Hatamle Commercial Centre,
+            شارع الثقافة, Irbid 21110.
+            <a href="">Go to Salon</a>
+        </p>
+    </div>
+    <div>
+        <i class="fa-solid fa-share fa-3x"></i>
+        <i class="fa-regular fa-heart fa-3x"></i>
+    </div>
+</div>
+<div class="gallery">
+    <!-- Big Image (Left) -->
+    <img src="../Images/Men_Images/YousofAfandi/img.jpg"
+         alt="Salon Large"
+         class="large-image" />
+
+    <!-- Two Stacked Small Images (Right) -->
+    <img src="../Images/Men_Images/YousofAfandi/img1.webp"
+         alt="Salon Small 1" />
+    <img src="../Images/Men_Images/YousofAfandi/img4.webp"
+         alt="Salon Small 2" />
+</div>
+
+<h2>Services</h2>
+<div class="ser-container">
+    <div class="services">
+        <!-- service -->
+        <div class="services-salon">
+            <div class="filter-container">
+                <label for="service-filter">Filter by Service:</label>
+                <select id="service-filter" onchange="filterServices()">
+                    <option value="all">All Services</option>
+                    <option value="discount">Discounts</option>
+                    <option value="consultant">Consultant</option>
+                    <option value="haircut">Hair Cut</option>
+                    <option value="beard">Beard</option>
+                    <option value="packages">Packages</option>
+                </select>
+            </div>
+            <!-- Services List -->
+            <div class="service-list">
+                <div class="service" data-category="haircut">
+                    <div>
+                        <h3>Men's Haircut</h3>
+                        <p style="margin: 20px 0 10px; color: #666">45mins</p>
+
+                        <p>5 JOD</p>
+                    </div>
+                    <button class="book-btn"><a href="selectService.html" style="text-decoration: none; color: #000;">Book Now</a></button>
+                </div>
+
+                <div class="service" data-category="beard">
+                    <div>
+                        <h3>Beard Grooming</h3>
+                        <p style="margin: 20px 0 10px; color: #666">45mins</p>
+
+                        <p>3 JOD</p>
+                    </div>
+                    <button class="book-btn">Book Now</button>
+                </div>
+
+                <div class="service" data-category="discount">
+                    <div>
+                        <h3>Special Discounts</h3>
+                        <p style="margin: 20px 0 10px; color: #666">45mins</p>
+
+                        <p><del>5 JOD</del> <span style="color: red">3 JOD</span></p>
+                    </div>
+                    <button class="book-btn">Book Now</button>
+                </div>
+
+                <div class="service" data-category="consultant">
+                    <div>
+                        <h3>Hair Consultation</h3>
+                        <p style="margin: 20px 0 10px; color: #666">1hr</p>
+                        <p>5 JOD</p>
+                    </div>
+                    <button class="book-btn">Book Now</button>
+                </div>
+
+                <div class="service" data-category="packages">
+                    <div>
+                        <h3>Grooming Packages</h3>
+                        <p style="margin: 20px 0 10px; color: #666">45mins</p>
+                        <p>5 JOD</p>
+                    </div>
+                    <button class="book-btn">Book Now</button>
+                </div>
+
+                <button class="seeAll">See All</button>
+            </div>
+        </div>
+        <!-- team -->
+        <div class="sidebar">
+            <h2>Our Team</h2>
+
+            <div class="team-card">
+                <img src="../Images/Men_Images/YousofAfandi/team1.webp"
+                     alt="Team Member 1" />
+                <div class="info">
+                    <h3>Ahmad Khaled</h3>
+                    <p>Master Barber</p>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <img src="../Images/Men_Images/YousofAfandi/team2.webp"
+                     alt="Team Member 2" />
+                <div class="info">
+                    <h3>Mosa Al-Masri</h3>
+                    <p>Hair Stylist</p>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <img src="../Images/Men_Images/YousofAfandi/team3.webp"
+                     alt="Team Member 3" />
+                <div class="info">
+                    <h3>Omar Hassan</h3>
+                    <p>Beard Specialist</p>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <img src="../Images/Men_Images/YousofAfandi/team4.webp"
+                     alt="Team Member 4" />
+                <div class="info">
+                    <h3>Yousef Haddad</h3>
+                    <p>Color Expert</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="about-section">
+            <div class="about-text">
+                <h2>About Yousof Afandi Salon</h2>
+                <p>
+                    At Yousof Afandi, we specialize in delivering premium haircuts,
+                    beard grooming, and personalized styling. Our professional barbers
+                    bring years of experience to give you the best look, tailored to
+                    your style.
+                </p>
+                <p style="margin-bottom: 100px">
+                    Enjoy a relaxing atmosphere, top-tier products, and services
+                    designed to make you feel your best. Whether it’s a classic cut or
+                    a modern fade, we are here to enhance your style with precision.
+                </p>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d210.24253682748414!2d35.878266054795944!3d32.52933604891923!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151c770ceae606f7%3A0x22278ff2927cb675!2z2YrZiNiz2YEg2KPZgdmG2K_ZiiDYp9ix2KjYryAsIFlvdXNlZiBBZmFuZGkgSXJiaWQ!5e0!3m2!1sen!2sjo!4v1738956417160!5m2!1sen!2sjo"
+                        width="600"
+                        height="450"
+                        style="border: 0"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+
+        <!-- Opening time -->
+
+        <div class="opening-hours">
+            <h2>Opening Hours</h2>
+            <ul class="hours-list">
+                <li>
+                    <span>Saturday</span>
+                    <span class="highlight">9:00 AM - 9:00 PM</span>
+                </li>
+                <li>
+                    <span>Sunday - Monday</span>
+                    <span class="highlight">10:00 AM - 11:00 PM</span>
+                </li>
+                <li><span>Thuesday</span> <span class="closed">Closed</span></li>
+                <li>
+                    <span>Wednesday - Friday</span>
+                    <span class="highlight">10:00 AM - 11:00 PM</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- work -->
+
+        <div class="salon-work">
+            <h2>Our Salon Work</h2>
+
+            <div class="gallery">
+                <img src="../Images/Men_Images/YousofAfandi/work1.jpg"
+                     alt="Salon Work 1" />
+                <img src="../Images/Men_Images/YousofAfandi/work2.jpg"
+                     alt="Salon Work 2" />
+                <img src="../Images/Men_Images/YousofAfandi/work3.jpg"
+                     alt="Salon Work 3" />
+                <img src="../Images/Men_Images/YousofAfandi/work4jpg.jpg"
+                     alt="Salon Work 4" />
+                <img src="../Images/Men_Images/YousofAfandi/work5.jpg"
+                     alt="Salon Work 5" />
+                <img src="../Images/Men_Images/YousofAfandi/work6.jpg"
+                     alt="Salon Work 6" />
+            </div>
+        </div>
+
+        <!-- review -->
+        <div class="reviews-section">
+            <h2>What Our Customers Say</h2>
+
+            <div class="review-card">
+                <span class="customer-name">Ahmad Ali</span>
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p class="comment">
+                    "Great service! The best haircut I’ve ever had. Highly recommend!"
+                </p>
+            </div>
+
+            <div class="review-card">
+                <span class="customer-name">Saud Mahmoud</span>
+                <div class="stars">⭐⭐⭐⭐</div>
+                <p class="comment">
+                    "Nice place, friendly staff, and a relaxing atmosphere."
+                </p>
+            </div>
+
+            <div class="review-card">
+                <span class="customer-name">Omar Hassan</span>
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p class="comment">
+                    "The barbers are professional and really listen to what you want!"
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="book">
+        <h3>Yousef Afandi</h3>
+
+        <!-- Rating -->
+        <div class="rating">⭐⭐⭐⭐⭐ (4.9/5 - 320 Reviews)</div>
+
+        <!-- Top Services -->
+        <div class="services">
+            <b>Top Services:</b> Haircut, Beard Trim, Facial, Hair Coloring
+        </div>
+
+        <button type="submit">Book Now</button>
+
+        <br /><br />
+        <div class="icons">
+            <i class="fa-regular fa-clock "></i>
+            <span>Open</span> from 10:00AM to 12:00AM
+            <br /><br />
+            <i class="fa-solid fa-location-dot"></i> Hatamle Commercial Centre, شارع الثقافة, Irbid 21110
+            <br /><br />
+        </div>
+
+        <!-- Special Offer -->
+        <div class="offer">20% OFF on First Visit!</div>
+    </div>
+</div>
+
+<section class="new-container">
+    <h2>Nearby Barbers</h2>
+    <div class="container-withArrow">
+        <button class="arrow prev" id="prevBtn">❮</button>
+        <div class="new arrows-Home">
+            <div class="home-box new-box">
+                <img src="../Images/Men_Images/Salons/Salon11.jpg" alt="" />
+                <h3>The Name</h3>
+                <p style="display: inline">4.7</p>
+                <i class="fa-solid fa-star"></i> <span>(3.025)</span>
+                <div class="location">Irbid - Al-Yarmouk University str.</div>
+            </div>
+            <div class="home-box new-box">
+                <img src="../Images/Men_Images/Salons/Shop1.1.jpeg" alt="" />
+                <h3>The Name</h3>
+                <p style="display: inline">4.7</p>
+                <i class="fa-solid fa-star"></i> <span>(3.025)</span>
+                <div class="location">Irbid - Al-Yarmouk University str.</div>
+            </div>
+            <div class="home-box new-box">
+                <img src="../Images/Men_Images/Salons/Shop12.jpg" alt="" />
+                <h3>The Name</h3>
+                <p style="display: inline">4.7</p>
+                <i class="fa-solid fa-star"></i> <span>(3.025)</span>
+                <div class="location">Irbid - Al-Yarmouk University str.</div>
+            </div>
+            <div class="home-box new-box">
+                <img src="../Images/Men_Images/Salons/Shop1.2.jpeg" alt="" />
+                <h3>The Name</h3>
+                <p style="display: inline">4.7</p>
+                <i class="fa-solid fa-star"></i> <span>(3.025)</span>
+                <div class="location">Irbid - Al-Yarmouk University str.</div>
+            </div>
+            <div class="home-box new-box">
+                <img src="../Images/Men_Images/Salons/Salon1.webp" alt="" />
+                <h3>The Name</h3>
+                <p style="display: inline">4.7</p>
+                <i class="fa-solid fa-star"></i> <span>(3.025)</span>
+                <div class="location">Irbid - Al-Yarmouk University str.</div>
+            </div>
+            <div class="home-box new-box">
+                <img src="../Images/Men_Images/Salons/Shop2.jpg" alt="" />
+                <h3>The Name</h3>
+                <p style="display: inline">4.7</p>
+                <i class="fa-solid fa-star"></i> <span>(3.025)</span>
+                <div class="location">Irbid - Al-Yarmouk University str.</div>
+            </div>
+            <div class="home-box new-box">
+                <img src="../Images/Men_Images/Salons/Shop3.jpeg" alt="" />
+                <h3>The Name</h3>
+                <p style="display: inline">4.7</p>
+                <i class="fa-solid fa-star"></i> <span>(3.025)</span>
+                <div class="location">Irbid - Al-Yarmouk University str.</div>
+            </div>
+            <div class="home-box new-box">
+                <img src="../Images/Men_Images/Salons/Shop5.jpeg" alt="" />
+                <h3>The Name</h3>
+                <p style="display: inline">4.7</p>
+                <i class="fa-solid fa-star"></i> <span>(3.025)</span>
+                <div class="location">Irbid - Al-Yarmouk University str.</div>
+            </div>
+            <!-- Add more offer boxes as needed -->
+        </div>
+        <button class="arrow next">❯</button>
+    </div>
+</section>
+
+
+
+

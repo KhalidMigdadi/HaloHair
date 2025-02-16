@@ -1,0 +1,336 @@
+:root {
+    --main-color: #8892b0;
+    --main-text-color: #f8f8f8;
+    --transparent-color: rgb(15 116 143 / 70%);
+    --section-padding: 100px;
+    --para-color: #666;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: "Arial", sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* navBar */
+  
+  #navbar {
+    background-color: var(--main-color);
+  }
+  
+  .nav-item .bar {
+    color: #fff !important;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-item a:hover {
+    color: #000 !important; /* Add a hover effect for links */
+  }
+  
+  .navbar-expand-lg .navbar-nav {
+    margin-left: 250px; /* Align links to the center dynamically */
+    justify-content: center;
+  }
+  
+  .dropdown-menu-end a {
+    color: #000;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .dropdown-menu-end a:hover {
+    background-color: #f8f9fa;
+    color: var(--main-color);
+  }
+  
+
+  
+  .cart-nav:hover {
+    color: #000 !important;
+  }
+  
+  .dropdown-item:hover {
+    background-color: #ddd !important;
+  }
+  
+  .rounded-circle {
+    margin: 0;
+    width: 50px;
+    height: 50px;
+    object-fit: cover; /* Ensure proper image fit */
+  }
+  
+  .navbar-toggler {
+    border: none; /* Remove border for cleaner design */
+  }
+  
+  /* profile style */
+  
+  .container {
+    /* margin-left: 50% !important; */
+  }
+  
+  .profile-header {
+    background-color: #fff;
+    padding: 70px 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+
+  .info {
+    margin-top: 50px;
+  }
+
+
+  .tab-content .card {
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .tab-content .card-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+  }
+  
+  .nav-link {
+    color: black !important;
+    font-weight: bold !important;
+  }
+  
+  
+
+
+
+/* Points System Styling */
+.points-balance {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.points-balance .points {
+  font-size: 36px;
+  font-weight: bold;
+  color: #d4af37;
+}
+
+.points-balance .points span {
+  font-size: 18px;
+  color: #777;
+}
+
+.progress-bar {
+  width: 60%;
+  height: 10px;
+  background: #e0e0e0;
+  border-radius: 10px;
+  margin: 10px auto;
+  overflow: hidden;
+}
+
+.progress-bar .progress {
+  height: 100%;
+  background: #d4af37;
+  border-radius: 10px;
+}
+
+.progress-text {
+  font-size: 15px;
+  color: #777;
+}
+
+/* cards */
+
+/* Container for Cards */
+.row-container {
+  display: flex;
+  justify-content: space-around;
+  gap: 50px !important;  /* Adds space between the cards */
+  flex-wrap: wrap;  /* Makes the cards stack on smaller screens */
+  margin-top: 20px;
+}
+
+/* Card Styling */
+.card1, .card2, .card3 {
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 30%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.card1:hover, .card2:hover, .card3:hover {
+  transform: translateY(-10px);  /* Lifts the card on hover */
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);  /* Deeper shadow on hover */
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.points-required {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 25px;
+  font-weight: bold;
+}
+
+/* Button Styling */
+.redeem-btn {
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: var(--main-color) !important;
+  border: none !important;
+  border-radius: 5px;
+  padding: 12px;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.redeem-btn:hover {
+  background-color: #f57c00;
+}
+
+/* Hover Effect for Button */
+.redeem-btn:active {
+  transform: scale(0.98);  /* Slightly shrink on click */
+}
+
+/* Media Query for Mobile/Tablet */
+@media (max-width: 768px) {
+  .card1, .card2, .card3 {
+    width: 100%;  /* Each card takes full width on smaller screens */
+    margin-bottom: 20px;
+  }
+}
+
+
+
+
+
+
+
+  #profileTabs {
+    margin-left: 100px;
+  }
+  
+  .card,
+  #favorites,
+  #payment,
+  #settings {
+    margin-left: 100px;
+    width: 85%;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .active {
+    color: var(--main-color) !important;
+  }
+  
+  .rebook,
+  .payment,
+  .editProfile,
+  #saveChangesBtn {
+    background-color: var(--main-color) !important;
+    color: #fff !important;
+    border-color: var(--main-color) !important;
+    font-size: 15px !important;
+    padding: 10px 15px;
+    border-radius: 15px;
+    border: 1px solid var(--main-color);
+  }
+  
+  .rebook:hover,
+  .payment:hover,
+  .editProfile:hover,
+  #saveChangesBtn:hover {
+    background-color: #fff !important;
+    color: var(--main-color) !important;
+  }
+  
+  #closeBtn {
+    padding: 7px 15px;
+    background-color: transparent;
+    border-radius: 15px;
+  }
+  
+  #closeBtn:hover {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .choose {
+    color: var(--main-color);
+  }
+  
+  .modal-content {
+    width: 120% !important;
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  #deleteAccountBtn {
+    background-color: #e74c3c;
+    font-weight: 600;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 20px;
+  }
+  
+  #deleteAccountBtn:hover {
+    background-color: #fff;
+    color: var(--main-color);
+  }
+  
+  /* Start Footer */
+  
+  footer {
+    background-color: var(--main-color);
+    font-weight: 700;
+    color: #fff !important;
+    margin-top: 100px;
+  }
+  
+  .social-container .facebook:hover {
+    color: #1877f2;
+  }
+  
+  .social-container .twitter:hover {
+    color: #000000;
+  }
+  
+  .social-container .instagram:hover {
+    color: #e1306c;
+  }
+  
+  .social-container .linkedin:hover {
+    color: #0a66c2;
+  }
+
+  .d-lg-block {
+    color: #fff;
+  }
+
+  footer p {
+    color: #fff;
+}
+
+  
+  /* End Footer */
+  

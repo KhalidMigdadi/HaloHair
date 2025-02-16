@@ -1,0 +1,132 @@
+﻿
+@{
+    ViewData["Title"] = "CourseMen";
+}
+
+<section class="training-courses">
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero">
+            <div class="video-background">
+                <video autoplay loop muted>
+                    <source src="../Images/Men_Images/4177799-hd_1920_1080_30fps.mp4"
+                            type="video/mp4" />
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div class="overlay"></div>
+            <div class="content">
+                <h1>Barber Training Courses</h1>
+                <p class="subtitle">
+                    Learn from the best. Get certified. Start your career today.
+                </p>
+                <a href="#register" class="cta-button">Enroll Now</a>
+            </div>
+        </div>
+
+        <!-- Benefits Section -->
+        <div class="benefits">
+            <h2>Why Choose Us?</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <i class="fas fa-certificate"></i>
+                    <h3>Certified Training</h3>
+                    <p>
+                        Receive a professional certification recognized in the industry.
+                    </p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fas fa-users"></i>
+                    <h3>Expert Trainers</h3>
+                    <p>
+                        Learn from experienced barbers with years of practical
+                        knowledge.
+                    </p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fas fa-briefcase"></i>
+                    <h3>Job Opportunities</h3>
+                    <p>
+                        Get access to job placements and career support after
+                        graduation.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Course Details Section -->
+        <div class="course-details">
+            <h2>Our Courses</h2>
+            <div class="course-grid">
+                <div class="course-card">
+                    <img src="../Images/Men_Images/trainee.webp"
+                         alt="Beginner Course" />
+                    <h3>Beginner's Course</h3>
+                    <p>
+                        Master the basics of barbering, from tool usage to simple
+                        haircuts.
+                    </p>
+                    <a href="#register" class="course-button">Learn More</a>
+                </div>
+                <div class="course-card">
+                    <img src="../Images/Men_Images/trainee1.webp"
+                         alt="Advanced Course" />
+                    <h3>Advanced Course</h3>
+                    <p>
+                        Learn advanced techniques like beard styling and modern
+                        haircuts.
+                    </p>
+                    <a href="#register" class="course-button">Learn More</a>
+                </div>
+                <div class="course-card">
+                    <img src="../Images/Men_Images/trainee2.webp"
+                         alt="Specialization Course" />
+                    <h3>Specialization Course</h3>
+                    <p>
+                        Focus on niche skills like kids' haircuts and hair coloring.
+                    </p>
+                    <a href="#register" class="course-button">Learn More</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Registration Form Section -->
+        <div id="register" class="registration-form">
+            <h2>Enroll Now</h2>
+            <form>
+                <input type="text" placeholder="Full Name" required />
+                <input type="email" placeholder="Email Address" required />
+                <input type="tel" placeholder="Phone Number" required />
+                <select required>
+                    <option value="" disabled selected>Select a Course</option>
+                    <option value="beginner">Beginner's Course</option>
+                    <option value="advanced">Advanced Course</option>
+                    <option value="specialization">Specialization Course</option>
+                </select>
+                <textarea placeholder="Any notes or questions"></textarea>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+
+        <!-- Testimonials Section -->
+        <div class="testimonials">
+            <h2>What Our Graduates Say</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p>
+                        "The course was amazing! I learned so much and now I have my own
+                        barbershop."
+                    </p>
+                    <p class="author">- Ahmed, Graduate</p>
+                </div>
+                <div class="testimonial-card">
+                    <p>
+                        "Professional trainers and a great learning environment. Highly
+                        recommended!"
+                    </p>
+                    <p class="author">- Omar, Graduate</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

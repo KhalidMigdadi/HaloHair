@@ -1,0 +1,288 @@
+﻿
+@{
+    ViewData["Title"] = "ProfileMen";
+}
+
+<div class="container mt-5">
+    <!-- User Info Section -->
+    <div class="profile-header d-flex align-items-center mb-4 user-info">
+        <img src="../Images/Men_Images/khalid.jpg"
+             alt="User Avatar"
+             class="rounded-circle me-3"
+             style="width: 100px; height: 100px" />
+        <div class="info">
+            <h2>Khalid</h2>
+            <p>Email: khalid@gmail.com</p>
+            <p>Phone: +1234567890</p>
+
+            <button type="button" class="editProfile" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit Profile</button>
+        </div>
+    </div>
+
+
+    <!-- Modal for Edit Profile -->
+    <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editProfileModalLabel">Edit Your Profile</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Form inside the modal -->
+                    <form id="editProfileForm">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username" value="Sara" placeholder="Enter your username" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="email" value="sara@gmail.com" placeholder="Enter your email" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone</label>
+                            <input type="tel" class="form-control" id="phone" value="+1234567890" placeholder="Enter your phone number" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Old Password</label>
+                            <input type="password" class="form-control" id="password" placeholder="Enter new password" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">New Password</label>
+                            <input type="password" class="form-control" id="password" placeholder="Enter new password" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" id="password" placeholder="Enter new password" />
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="closeBtn" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="saveChangesBtn">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Tabs for Sections -->
+<ul class="nav nav-tabs mb-4" id="profileTabs" role="tablist">
+    <li class="nav-item">
+        <button class="nav-link active"
+                id="upcoming-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#upcoming"
+                type="button"
+                role="tab">
+            Upcoming Appointments
+        </button>
+    </li>
+    <li class="nav-item">
+        <button class="nav-link"
+                id="history-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#history"
+                type="button"
+                role="tab">
+            Booking History
+        </button>
+    </li>
+    <li class="nav-item">
+        <button class="nav-link"
+                id="statistics-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#statistics"
+                type="button"
+                role="tab">
+            User Statistics
+        </button>
+    </li>
+    <li class="nav-item">
+        <button class="nav-link"
+                id="favorites-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#favorites"
+                type="button"
+                role="tab">
+            Favorites
+        </button>
+    </li>
+    <li class="nav-item">
+        <button class="nav-link"
+                id="points-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#points"
+                type="button"
+                role="tab">
+            Points & Rewards
+        </button>
+    </li>
+    <li class="nav-item">
+        <button class="nav-link"
+                id="payment-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#payment"
+                type="button"
+                role="tab">
+            Payment Methods
+        </button>
+    </li>
+    <li class="nav-item">
+        <button class="nav-link"
+                id="settings-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#settings"
+                type="button"
+                role="tab">
+            Settings
+        </button>
+    </li>
+</ul>
+
+<!-- Tab Content -->
+<div class="tab-content" id="profileTabsContent">
+    <!-- Upcoming Appointments -->
+    <div class="tab-pane fade show active" id="upcoming" role="tabpanel">
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5>Salon Name: <span class="choose">Elegant Touch</span></h5>
+                <p>Date: 2025-02-01</p>
+                <p>Time: 3:00 PM</p>
+                <p>Service: Haircut</p>
+                <button class="btn btn-danger btn-sm">Cancel</button>
+                <button class="btn btn-outline-secondary btn-sm">
+                    Reschedule
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking History -->
+    <div class="tab-pane fade" id="history" role="tabpanel">
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5>Salon Name: <span class="choose">Glamorous Spa</span></h5>
+                <p>Date: 2025-01-15</p>
+                <p>Service: Facial</p>
+                <button class="btn btn-outline-primary btn-sm rebook">
+                    Rebook
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Statistics -->
+    <div class="tab-pane fade" id="statistics" role="tabpanel">
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5>Total Bookings: 25</h5>
+                <p>Upcoming Appointments: 2</p>
+                <p>Services Used: 12</p>
+                <p>Total Spent: JOD 450</p>
+                <button class="btn btn-outline-primary btn-sm">Rebook</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Favorites -->
+    <div class="tab-pane fade" id="favorites" role="tabpanel">
+        <p>No favorite salons or services yet. Start exploring!</p>
+    </div>
+
+    <!-- Points & Rewards -->
+    <div class="tab-pane fade" id="points" role="tabpanel">
+        <!-- Points Balance -->
+        <div class="points-balance mb-4">
+            <h3>Your Points Balance</h3>
+            <p class="points">1,250 <span>Points</span></p>
+            <div class="progress-bar">
+                <div class="progress" style="width: 50%;"></div>
+            </div>
+            <p class="progress-text">500 points to next reward</p>
+        </div>
+
+
+        <div class="row-container">
+            <div class="card1">
+                <h5 class="card-title">$10 Off Any Service</h5>
+                <p class="points-required">100 Points</p>
+                <div class="d-grid">
+                    <button class="btn btn-primary redeem-btn">Redeem Now</button>
+                </div>
+            </div>
+            <div class="card2">
+                <h5 class="card-title">Free Beard Trim</h5>
+                <p class="points-required">200 Points</p>
+                <div class="d-grid">
+                    <button class="btn btn-primary redeem-btn">Redeem Now</button>
+                </div>
+            </div>
+            <div class="card3">
+                <h5 class="card-title">Free Haircut + Styling</h5>
+                <p class="points-required">500 Points</p>
+                <div class="d-grid">
+                    <button class="btn btn-primary redeem-btn">Redeem Now</button>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Transaction History -->
+        <div class="transaction-history mt-4">
+            <h3>Transaction History</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Points</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>10/01/2023</td>
+                        <td>Earned for Booking</td>
+                        <td>+50</td>
+                    </tr>
+                    <tr>
+                        <td>09/25/2023</td>
+                        <td>Redeemed $10 Off</td>
+                        <td>-100</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Payment Methods -->
+    <div class="tab-pane fade" id="payment" role="tabpanel">
+        <a href="../HTML Pages/payment.html">
+            <button class="btn btn-primary btn-sm payment">
+                Add Payment Method
+            </button>
+        </a>
+    </div>
+
+    <!-- Settings -->
+    <div class="tab-pane fade" id="settings" role="tabpanel">
+        <h5>Profile Settings</h5>
+        <p>Update your preferences and account details.</p>
+
+        <!-- Delete Account Option -->
+        <div class="alert alert-danger">
+            <h6>Delete Your Account</h6>
+            <p>
+                If you wish to permanently delete your account, this action cannot
+                be undone.
+            </p>
+
+            <button id="deleteAccountBtn">Delete Account</button>
+        </div>
+    </div>
+</div>
+    </div>

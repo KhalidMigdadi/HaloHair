@@ -1,0 +1,164 @@
+:root {
+  --main-color: #8892b0;
+  --main-text-color: #f8f8f8;
+  --transparent-color: rgb(15 116 143 / 70%);
+  --section-padding: 100px;
+  --para-color: #666;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.head {
+  margin: 50px 3%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+}
+
+.barbers {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.barbers a {
+  text-decoration: none;
+}
+
+.barbers img {
+  width: 70px;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 10px;
+}
+
+.barbers p {
+  text-align: center;
+}
+
+/* Default styles for barber sections */
+.shuffle-barber,
+.barber1,
+.barber2,
+.barber3,
+.barber4 {
+  border: 3px solid #ccc; /* Default gray border */
+  padding: 20px;
+  margin: 10px;
+  border-radius: 50%;
+  text-align: center;
+  transition: border-color 0.3s ease-in-out; /* Smooth transition */
+}
+
+/* Style when the barber section is selected */
+.selected {
+  border: 5px solid #4caf50; /* Change to green (or any color you prefer) */
+}
+
+/* right side  */
+
+.book {
+  /* with scroll */
+
+  /* width: 500px;
+    min-height: 200px; 
+    max-height: 500px; 
+    overflow-y: auto;  */
+
+  /* without scroll */
+
+  width: 500px;
+  min-height: 200px;
+  height: auto; /* Makes height adjust dynamically */
+  overflow: hidden; /* Prevents unwanted scrollbars */
+
+  position: sticky;
+  top: 150px;
+  right: 0px;
+  background: white;
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+  border: 1px solid;
+}
+
+.book:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.book .head {
+  display: flex;
+}
+
+.book .head img {
+  width: 64px;
+  height: 64px;
+  margin-right: 20px;
+}
+
+
+.book h3 {
+  font-size: 20px;
+  color: #333;
+  font-weight: bold;
+}
+
+/* Rating */
+.rating {
+  color: #ffc107;
+  font-size: 12px;
+  margin-left: 5px;
+}
+
+.select-Barber {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+#selected-barber-name {
+  font-size: 20px;
+  margin-left: 10px;
+}
+
+.book .services {
+  font-size: 14px;
+  color: #555;
+  /* margin-bottom: 20px; */
+}
+
+@media (max-width: 426px) {
+  .book {
+    display: none;
+  }
+}
+
+.continue {
+  background-color: var(--main-color);
+  padding: 10px 20px;
+  border: none;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 10px;
+  margin-top: 10px;
+  font-weight: bold;
+  border-radius: 15px;
+}
+
+.continue a {
+  color: #fff;
+  text-decoration: none;
+}
