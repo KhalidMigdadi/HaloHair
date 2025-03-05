@@ -1,0 +1,434 @@
+﻿@{
+	ViewData["Title"] = "RegisterBarber";
+	Layout = "~/Views/Shared/_Layout_Services.cshtml";
+
+}
+
+@section Style {
+	<link href="~/css/RegisterBarber.css" rel="stylesheet" />
+}
+
+<section class="login-section">
+	<div class="login-container">
+		<!-- Left side: Form -->
+		<div class="arrow">
+			<a href="../HTML Pages/index.html">
+				<i class="fa-solid fa-arrow-left fa-2x"></i>
+			</a>
+		</div>
+		<div class="login-form">
+			<h1>For Business Use</h1>
+			<span class="wlcom">Welcome</span>
+			<p class="p1">
+				Ready to manage your business with ease? Sign up today to access
+				all the tools and features we offer, and get started on the path
+				to success. If you're already a member,
+				<a class="sign" href="loginBarber.html">log in here</a> to
+				continue.
+			</p>
+
+			<h2>Sign Up</h2>
+			<form action="#" method="POST">
+				<div class="form-group">
+					<label for="fName">First Name</label>
+					<input type="text"
+						   id="fName"
+						   name="fName"
+						   placeholder="Enter your email"
+						   required />
+
+					<label for="lName">Last Name</label>
+					<input type="text"
+						   id="lName"
+						   name="lName"
+						   placeholder="Enter your email"
+						   required />
+
+					<label for="email">Email</label>
+					<input type="email"
+						   id="email"
+						   name="email"
+						   placeholder="Enter your email"
+						   required />
+					<label for="password">Password</label>
+					<input type="password"
+						   id="password"
+						   name="password"
+						   placeholder="Enter your password"
+						   required />
+					<label for="password">Confirm Your Password</label>
+
+					<input id="confirmPassword"
+						   type="password"
+						   placeholder="Confirm Your Password" />
+					<label for="">Mobile Number</label>
+					<div class="phoneNumber">
+						<select class="dAybHm YLDpwi"
+								data-qa="phone-prefix"
+								name="mobileNumber-prefix">
+							<option value="0">United States 🇺🇸 +1</option>
+							<option value="1">United Kingdom 🇬🇧 +44</option>
+							<option value="2">Canada 🇨🇦 +1</option>
+							<option value="3">United Arab Emirates 🇦🇪 +971</option>
+							<option value="4">Afghanistan 🇦🇫 +93</option>
+							<option value="5">Åland Islands 🇦🇽 +358</option>
+							<option value="6">Albania 🇦🇱 +355</option>
+							<option value="7">Algeria 🇩🇿 +213</option>
+							<option value="8">American Samoa 🇦🇸 +1 684</option>
+							<option value="9">Andorra 🇦🇩 +376</option>
+							<option value="10">Angola 🇦🇴 +244</option>
+							<option value="11">Anguilla 🇦🇮 +1 264</option>
+							<option value="12">Antarctica 🇦🇶 +672</option>
+							<option value="13">Antigua And Barbuda 🇦🇬 +1 268</option>
+							<option value="14">Argentina 🇦🇷 +54</option>
+							<option value="15">Armenia 🇦🇲 +374</option>
+							<option value="16">Aruba 🇦🇼 +297</option>
+							<option value="17">Ascension Island +247</option>
+							<option value="18">Australia 🇦🇺 +61</option>
+							<option value="19">Austria 🇦🇹 +43</option>
+							<option value="20">Azerbaijan 🇦🇿 +994</option>
+							<option value="21">Bahamas 🇧🇸 +1 242</option>
+							<option value="22">Bahrain 🇧🇭 +973</option>
+							<option value="23">Bangladesh 🇧🇩 +880</option>
+							<option value="24">Barbados 🇧🇧 +1 246</option>
+							<option value="25">Belarus 🇧🇾 +375</option>
+							<option value="26">Belgium 🇧🇪 +32</option>
+							<option value="27">Belize 🇧🇿 +501</option>
+							<option value="28">Benin 🇧🇯 +229</option>
+							<option value="29">Bermuda 🇧🇲 +1 441</option>
+							<option value="30">Bhutan 🇧🇹 +975</option>
+							<option value="31">
+								Bolivia, Plurinational State Of 🇧🇴 +591
+							</option>
+							<option value="32">
+								Bonaire, Saint Eustatius And Saba 🇧🇶 +599
+							</option>
+							<option value="33">Bosnia &amp; Herzegovina 🇧🇦 +387</option>
+							<option value="34">Botswana 🇧🇼 +267</option>
+							<option value="35">Brazil 🇧🇷 +55</option>
+							<option value="36">
+								British Indian Ocean Territory 🇮🇴 +246
+							</option>
+							<option value="37">Brunei Darussalam 🇧🇳 +673</option>
+							<option value="38">Bulgaria 🇧🇬 +359</option>
+							<option value="39">Burkina Faso 🇧🇫 +226</option>
+							<option value="40">Burundi 🇧🇮 +257</option>
+							<option value="41">Cabo Verde 🇨🇻 +238</option>
+							<option value="42">Cambodia 🇰🇭 +855</option>
+							<option value="43">Cameroon 🇨🇲 +237</option>
+							<option value="44">Cayman Islands 🇰🇾 +1 345</option>
+							<option value="45">Central African Republic 🇨🇫 +236</option>
+							<option value="46">Chad 🇹🇩 +235</option>
+							<option value="47">Chile 🇨🇱 +56</option>
+							<option value="48">China 🇨🇳 +86</option>
+							<option value="49">Christmas Island 🇨🇽 +61</option>
+							<option value="50">Cocos (Keeling) Islands 🇨🇨 +61</option>
+							<option value="51">Colombia 🇨🇴 +57</option>
+							<option value="52">Comoros 🇰🇲 +269</option>
+							<option value="53">Cook Islands 🇨🇰 +682</option>
+							<option value="54">Costa Rica 🇨🇷 +506</option>
+							<option value="55">Côte d'Ivoire 🇨🇮 +225</option>
+							<option value="56">Croatia 🇭🇷 +385</option>
+							<option value="57">Cuba 🇨🇺 +53</option>
+							<option value="58">Curacao 🇨🇼 +599</option>
+							<option value="59">Cyprus 🇨🇾 +357</option>
+							<option value="60">Czech Republic 🇨🇿 +420</option>
+							<option value="61">
+								Democratic Republic Of Congo 🇨🇩 +243
+							</option>
+							<option value="62">Denmark 🇩🇰 +45</option>
+							<option value="63">Djibouti 🇩🇯 +253</option>
+							<option value="64">Dominica 🇩🇲 +1 767</option>
+							<option value="65">Dominican Republic 🇩🇴 +1</option>
+							<option value="66">Ecuador 🇪🇨 +593</option>
+							<option value="67">Egypt 🇪🇬 +20</option>
+							<option value="68">El Salvador 🇸🇻 +503</option>
+							<option value="69">Equatorial Guinea 🇬🇶 +240</option>
+							<option value="70">Eritrea 🇪🇷 +291</option>
+							<option value="71">Estonia 🇪🇪 +372</option>
+							<option value="72">Ethiopia 🇪🇹 +251</option>
+							<option value="73">European Union 🇪🇺 +388</option>
+							<option value="74">Falkland Islands 🇫🇰 +500</option>
+							<option value="75">Faroe Islands 🇫🇴 +298</option>
+							<option value="76">Fiji 🇫🇯 +679</option>
+							<option value="77">Finland 🇫🇮 +358</option>
+							<option value="78">France 🇫🇷 +33</option>
+							<option value="79">France, Metropolitan +241</option>
+							<option value="80">French Guiana 🇬🇫 +594</option>
+							<option value="81">French Polynesia 🇵🇫 +689</option>
+							<option value="82">Gabon 🇬🇦 +241</option>
+							<option value="83">Gambia 🇬🇲 +220</option>
+							<option value="84">Georgia 🇬🇪 +995</option>
+							<option value="85">Germany 🇩🇪 +49</option>
+							<option value="86">Ghana 🇬🇭 +233</option>
+							<option value="87">Gibraltar 🇬🇮 +350</option>
+							<option value="88">Greece 🇬🇷 +30</option>
+							<option value="89">Greenland 🇬🇱 +299</option>
+							<option value="90">Grenada 🇬🇩 +1 473</option>
+							<option value="91">Guadeloupe 🇬🇵 +590</option>
+							<option value="92">Guam 🇬🇺 +1 671</option>
+							<option value="93">Guatemala 🇬🇹 +502</option>
+							<option value="94">Guernsey 🇬🇬 +44</option>
+							<option value="95">Guinea 🇬🇳 +224</option>
+							<option value="96">Guinea-bissau 🇬🇼 +245</option>
+							<option value="97">Guyana 🇬🇾 +592</option>
+							<option value="98">Haiti 🇭🇹 +509</option>
+							<option value="99">Honduras 🇭🇳 +504</option>
+							<option value="100">Hong Kong 🇭🇰 +852</option>
+							<option value="101">Hungary 🇭🇺 +36</option>
+							<option value="102">Iceland 🇮🇸 +354</option>
+							<option value="103">India 🇮🇳 +91</option>
+							<option value="104">Indonesia 🇮🇩 +62</option>
+							<option value="105">
+								Iran, Islamic Republic Of 🇮🇷 +98
+							</option>
+							<option value="106">Iraq 🇮🇶 +964</option>
+							<option value="107">Ireland 🇮🇪 +353</option>
+							<option value="108">Isle Of Man 🇮🇲 +44</option>
+							<option value="109">Israel 🇮🇱 +972</option>
+							<option value="110">Italy 🇮🇹 +39</option>
+							<option value="111">Jamaica 🇯🇲 +1</option>
+							<option value="112">Japan 🇯🇵 +81</option>
+							<option value="113">Jersey 🇯🇪 +44</option>
+							<option value="114">Jordan 🇯🇴 +962</option>
+							<option value="115">Kazakhstan 🇰🇿 +7</option>
+							<option value="116">Kazakhstan 🇰🇿 +7 6</option>
+							<option value="117">Kazakhstan 🇰🇿 +7 7</option>
+							<option value="118">Kenya 🇰🇪 +254</option>
+							<option value="119">Kiribati 🇰🇮 +686</option>
+							<option value="120">
+								Korea, Democratic People's Republic Of 🇰🇵 +850
+							</option>
+							<option value="121">Korea, Republic Of 🇰🇷 +82</option>
+							<option value="122">Kosovo +383</option>
+							<option value="123">Kuwait 🇰🇼 +965</option>
+							<option value="124">Kyrgyzstan 🇰🇬 +996</option>
+							<option value="125">
+								Lao People's Democratic Republic 🇱🇦 +856
+							</option>
+							<option value="126">Latvia 🇱🇻 +371</option>
+							<option value="127">Lebanon 🇱🇧 +961</option>
+							<option value="128">Lesotho 🇱🇸 +266</option>
+							<option value="129">Liberia 🇱🇷 +231</option>
+							<option value="130">Libya 🇱🇾 +218</option>
+							<option value="131">Liechtenstein 🇱🇮 +423</option>
+							<option value="132">Lithuania 🇱🇹 +370</option>
+							<option value="133">Luxembourg 🇱🇺 +352</option>
+							<option value="134">Macao 🇲🇴 +853</option>
+							<option value="135">
+								Macedonia, The Former Yugoslav Republic Of 🇲🇰 +389
+							</option>
+							<option value="136">Madagascar 🇲🇬 +261</option>
+							<option value="137">Malawi 🇲🇼 +265</option>
+							<option value="138">Malaysia 🇲🇾 +60</option>
+							<option value="139">Maldives 🇲🇻 +960</option>
+							<option value="140">Mali 🇲🇱 +223</option>
+							<option value="141">Malta 🇲🇹 +356</option>
+							<option value="142">Marshall Islands 🇲🇭 +692</option>
+							<option value="143">Martinique 🇲🇶 +596</option>
+							<option value="144">Mauritania 🇲🇷 +222</option>
+							<option value="145">Mauritius 🇲🇺 +230</option>
+							<option value="146">Mayotte 🇾🇹 +262</option>
+							<option value="147">Mexico 🇲🇽 +52</option>
+							<option value="148">
+								Micronesia, Federated States Of 🇫🇲 +691
+							</option>
+							<option value="149">Moldova 🇲🇩 +373</option>
+							<option value="150">Monaco 🇲🇨 +377</option>
+							<option value="151">Mongolia 🇲🇳 +976</option>
+							<option value="152">Montenegro 🇲🇪 +382</option>
+							<option value="153">Montserrat 🇲🇸 +1 664</option>
+							<option value="154">Morocco 🇲🇦 +212</option>
+							<option value="155">Mozambique 🇲🇿 +258</option>
+							<option value="156">Myanmar 🇲🇲 +95</option>
+							<option value="157">Namibia 🇳🇦 +264</option>
+							<option value="158">Nauru 🇳🇷 +674</option>
+							<option value="159">Nepal 🇳🇵 +977</option>
+							<option value="160">Netherlands 🇳🇱 +31</option>
+							<option value="161">New Caledonia 🇳🇨 +687</option>
+							<option value="162">New Zealand 🇳🇿 +64</option>
+							<option value="163">Nicaragua 🇳🇮 +505</option>
+							<option value="164">Niger 🇳🇪 +227</option>
+							<option value="165">Nigeria 🇳🇬 +234</option>
+							<option value="166">Niue 🇳🇺 +683</option>
+							<option value="167">Norfolk Island 🇳🇫 +672</option>
+							<option value="168">
+								Northern Mariana Islands 🇲🇵 +1 670
+							</option>
+							<option value="169">Norway 🇳🇴 +47</option>
+							<option value="170">Oman 🇴🇲 +968</option>
+							<option value="171">Pakistan 🇵🇰 +92</option>
+							<option value="172">Palau 🇵🇼 +680</option>
+							<option value="173">
+								Palestinian Territory, Occupied 🇵🇸 +970
+							</option>
+							<option value="174">Panama 🇵🇦 +507</option>
+							<option value="175">Papua New Guinea 🇵🇬 +675</option>
+							<option value="176">Paraguay 🇵🇾 +595</option>
+							<option value="177">Peru 🇵🇪 +51</option>
+							<option value="178">Philippines 🇵🇭 +63</option>
+							<option value="179">Pitcairn 🇵🇳 +872</option>
+							<option value="180">Poland 🇵🇱 +48</option>
+							<option value="181">Portugal 🇵🇹 +351</option>
+							<option value="182">Puerto Rico 🇵🇷 +1</option>
+							<option value="183">Qatar 🇶🇦 +974</option>
+							<option value="184">Republic Of Congo 🇨🇬 +242</option>
+							<option value="185">Reunion 🇷🇪 +262</option>
+							<option value="186">Romania 🇷🇴 +40</option>
+							<option value="187">Russian Federation 🇷🇺 +7</option>
+							<option value="188">Russian Federation 🇷🇺 +7 3</option>
+							<option value="189">Russian Federation 🇷🇺 +7 4</option>
+							<option value="190">Russian Federation 🇷🇺 +7 8</option>
+							<option value="191">Rwanda 🇷🇼 +250</option>
+							<option value="192">Saint Barthélemy 🇧🇱 +590</option>
+							<option value="193">
+								Saint Helena, Ascension And Tristan Da Cunha 🇸🇭 +290
+							</option>
+							<option value="194">Saint Kitts And Nevis 🇰🇳 +1 869</option>
+							<option value="195">Saint Lucia 🇱🇨 +1 758</option>
+							<option value="196">Saint Martin 🇲🇫 +590</option>
+							<option value="197">
+								Saint Pierre And Miquelon 🇵🇲 +508
+							</option>
+							<option value="198">
+								Saint Vincent And The Grenadines 🇻🇨 +1 784
+							</option>
+							<option value="199">Samoa 🇼🇸 +685</option>
+							<option value="200">San Marino 🇸🇲 +378</option>
+							<option value="201">Sao Tome and Principe 🇸🇹 +239</option>
+							<option value="202">Saudi Arabia 🇸🇦 +966</option>
+							<option value="203">Senegal 🇸🇳 +221</option>
+							<option value="204">Serbia 🇷🇸 +381</option>
+							<option value="205">Seychelles 🇸🇨 +248</option>
+							<option value="206">Sierra Leone 🇸🇱 +232</option>
+							<option value="207">Singapore 🇸🇬 +65</option>
+							<option value="208">Sint Maarten 🇸🇽 +1 721</option>
+							<option value="209">Slovakia 🇸🇰 +421</option>
+							<option value="210">Slovenia 🇸🇮 +386</option>
+							<option value="211">Solomon Islands 🇸🇧 +677</option>
+							<option value="212">Somalia 🇸🇴 +252</option>
+							<option value="213">South Africa 🇿🇦 +27</option>
+							<option value="214">South Sudan 🇸🇸 +211</option>
+							<option value="215">Spain 🇪🇸 +34</option>
+							<option value="216">Sri Lanka 🇱🇰 +94</option>
+							<option value="217">Sudan 🇸🇩 +249</option>
+							<option value="218">Suriname 🇸🇷 +597</option>
+							<option value="219">Svalbard And Jan Mayen 🇸🇯 +47</option>
+							<option value="220">Swaziland 🇸🇿 +268</option>
+							<option value="221">Sweden 🇸🇪 +46</option>
+							<option value="222">Switzerland 🇨🇭 +41</option>
+							<option value="223">Syrian Arab Republic 🇸🇾 +963</option>
+							<option value="224">Taiwan 🇹🇼 +886</option>
+							<option value="225">Tajikistan 🇹🇯 +992</option>
+							<option value="226">
+								Tanzania, United Republic Of 🇹🇿 +255
+							</option>
+							<option value="227">Thailand 🇹🇭 +66</option>
+							<option value="228">
+								Timor-Leste, Democratic Republic of 🇹🇱 +670
+							</option>
+							<option value="229">Togo 🇹🇬 +228</option>
+							<option value="230">Tokelau 🇹🇰 +690</option>
+							<option value="231">Tonga 🇹🇴 +676</option>
+							<option value="232">Trinidad And Tobago 🇹🇹 +1 868</option>
+							<option value="233">Tristan de Cunha +290</option>
+							<option value="234">Tunisia 🇹🇳 +216</option>
+							<option value="235">Turkey 🇹🇷 +90</option>
+							<option value="236">Turkmenistan 🇹🇲 +993</option>
+							<option value="237">
+								Turks And Caicos Islands 🇹🇨 +1 649
+							</option>
+							<option value="238">Tuvalu 🇹🇻 +688</option>
+							<option value="239">Uganda 🇺🇬 +256</option>
+							<option value="240">Ukraine 🇺🇦 +380</option>
+							<option value="241">
+								United States Minor Outlying Islands 🇺🇲 +1
+							</option>
+							<option value="242">Uruguay 🇺🇾 +598</option>
+							<option value="243">Uzbekistan 🇺🇿 +998</option>
+							<option value="244">Vanuatu 🇻🇺 +678</option>
+							<option value="245">Vatican City State 🇻🇦 +379</option>
+							<option value="246">Vatican City State 🇻🇦 +39</option>
+							<option value="247">
+								Venezuela, Bolivarian Republic Of 🇻🇪 +58
+							</option>
+							<option value="248">Viet Nam 🇻🇳 +84</option>
+							<option value="249">
+								Virgin Islands (British) 🇻🇬 +1 284
+							</option>
+							<option value="250">Virgin Islands (US) 🇻🇮 +1 340</option>
+							<option value="251">Wallis And Futuna 🇼🇫 +681</option>
+							<option value="252">Western Sahara 🇪🇭 +212</option>
+							<option value="253">Yemen 🇾🇪 +967</option>
+							<option value="254">Zambia 🇿🇲 +260</option>
+							<option value="255">Zimbabwe 🇿🇼 +263</option>
+						</select>
+						<input autocomplete="tel"
+							   class="phone"
+							   data-qa="phone-input"
+							   inputmode="tel"
+							   name="mobileNumber"
+							   placeholder="Enter your mobile number"
+							   type="tel"
+							   value="" />
+					</div>
+
+					<div data-qa="geolocation-section" class="upDwR6">
+						<label data-qa="geolocation-section-label"
+							   class="Do8L56"
+							   for="input-react-aria9148730041-15">
+							<span class="_-wKcJJ rfrcdJ font-default-body-s-semibold">Country</span>
+						</label>
+						<div class="fWGpG_ orjac_ O_tO5_ gap-default-100 fWGpG_ OlO2M_"
+							 style="
+                      --direction-default: row;
+                      --display-default: flex;
+                      --grow-default: 1;
+					">
+							<div data-qa="input-structure-geolocation-section"
+								 class="countryContainer">
+								<input name="countryCode"
+									   class="country"
+									   type="text"
+									   readonly=""
+									   data-qa="input-input-structure-geolocation-section"
+									   value="Jordan" />
+								<div data-qa="change-geolocation-settings-link"
+									 class="_1h-sl3 xa-_O3 OGOkq3">
+									<button aria-labelledby="label-react-aria9148730041-16"
+											class="editCountry"
+											type="button"
+											aria-pressed="false"
+											aria-live="polite">
+										Edit
+
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<button type="submit" class="btn-submit">Sign Up</button>
+			</form>
+
+			<div class="extra-links">
+				<div>
+					<p>
+						Did you already have an account?
+						<a href="loginBarber.html">Login</a>
+					</p>
+				</div>
+				<div>
+					<p>Are you a customer looking to book an appointment?</p>
+					<a href="loginUser.html">Sign in as a personal</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- Right side: Image -->
+		<div class="login-image">
+			<img src="../Images/Login&SignUp/newBarber.jpg" alt="" />
+		</div>
+	</div>
+</section>

@@ -1,13 +1,23 @@
-﻿
-@{
-    ViewData["Title"] = "ConfirmBookingMen";
+﻿@{
+	ViewData["Title"] = "ConfirmBookingMen";
+	Layout = "~/Views/Shared/_Layout_Services.cshtml";
 }
+
+
+
+@section Style {
+	<link href="~/css/confirmBooking.css" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css?family=Raleway|Rock+Salt|Source+Code+Pro:300,400,600"
+		  rel="stylesheet" />
+}
+
+
 
 <div class="head">
     <a href="selectTime.html"><i class="fa-solid fa-arrow-left fa-2x"></i></a>
     <i class="fa-solid fa-xmark fa-2x"></i>
 </div>
-<div class="container">
+<div class="containerBook">
     <div class="left-side">
         <h1>Confirm Booking</h1>
 
@@ -45,7 +55,7 @@
             <div class="payment-title"></div>
             <div class="container preload">
                 <div class="creditcard">
-                    <div class="front">
+                    <div class="front" style="margin-left: -300px;">
                         <div id="ccsingle"></div>
                         <svg version="1.1"
                              id="cardfront"
@@ -336,3 +346,13 @@
         </div>
     </div>
 </div>
+
+
+@section Scripts {
+	<script src="~/js/confirmBooking.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/imask/3.4.0/imask.min.js"></script>
+}
+
+
+
+

@@ -2,6 +2,12 @@
 @{
 
     ViewData["Title"] = "Men";
+    Layout = "~/Views/Shared/_Layout_Men.cshtml";
+
+}
+
+@section Style {
+    <link href="~/css/men.css" rel="stylesheet" />
 }
 
 <!-- Start Slider Section -->
@@ -105,7 +111,7 @@
         <button class="arrow prev" id="prevBtn">❮</button>
         <div class="recomended arrows-Home">
             <div class="home-box rec-box">
-                <a href="salon.html">
+                <a asp-controller="Men" asp-action="SalonMen">
                     <img src="../Images/Men_Images/Salons/Salon1.webp" alt="" />
                 </a>
 
@@ -169,6 +175,7 @@
 </section>
 
 <!-- End Recomnded -->
+
 <!-- Start offers  -->
 
 <section class="new-container">
@@ -632,3 +639,6 @@
 </section>
 
 <!-- End Review  -->
+@section Scripts {
+    <script src="~/js/home.js"></script>
+}

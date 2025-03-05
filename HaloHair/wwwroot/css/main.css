@@ -20,61 +20,53 @@ body {
 /* navBar */
 
 #navbar {
-  background-color: var(--main-color);
-  height: 12%;
+    background-color: var(--main-color);
 }
 
 .nav-item .bar {
-  color: #fff !important;
-  font-size: 1.2rem;
-  transition: color 0.3s ease;
+    color: #fff !important;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
 }
 
 .nav-item a:hover {
-  color: #000 !important; /* Add a hover effect for links */
+    color: #000 !important; /* Add a hover effect for links */
 }
 
 .navbar-expand-lg .navbar-nav {
-  margin-left: 24%; /* Align links to the center dynamically */
-  justify-content: center;
+    margin-left: 250px; /* Align links to the center dynamically */
+    justify-content: center;
 }
 
 .dropdown-menu-end a {
-  color: #000;
-  transition: background-color 0.3s ease, color 0.3s ease;
+    color: #000;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.dropdown-menu-end a:hover {
-  background-color: #f8f9fa;
-  color: var(--main-color);
-}
+    .dropdown-menu-end a:hover {
+        background-color: #f8f9fa;
+        color: var(--main-color);
+    }
+
+
 
 .cart-nav:hover {
-  color: #000 !important;
+    color: #000 !important;
 }
 
 .dropdown-item:hover {
-  background-color: #ddd !important;
+    background-color: #ddd !important;
 }
 
 .rounded-circle {
-  margin: 0;
-  width: 50px;
-  height: 50px;
-  object-fit: cover; /* Ensure proper image fit */
+    margin: 0;
+    width: 50px;
+    height: 50px;
+    object-fit: cover; /* Ensure proper image fit */
 }
 
 .navbar-toggler {
-  border: none; /* Remove border for cleaner design */
-}
-
-.btn-Login {
-  background-color: #1E293B !important;
-  color: #fff !important;
-}
-
-.btn-Login:hover {
-  background-color: #fff !important;
+    border: none; /* Remove border for cleaner design */
 }
 
 

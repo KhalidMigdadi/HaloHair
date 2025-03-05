@@ -7,10 +7,23 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/men.css" asp-append-version="true" />
     <link href="~/css/salon.css" rel="stylesheet" asp-append-version="true"/>
-    @* <link rel="stylesheet" href="~/HaloHair.styles.css" asp-append-version="true" /> *@
+    <link rel="stylesheet" href="~/HaloHair.styles.css" asp-append-version="true" />
 
     <link href="~/css/aboutMen.css" rel="stylesheet" asp-append-version="true"/>
+
+
+
+
+
+
     <link href="~/css/ContactMen.css" rel="stylesheet" asp-append-version="true" />
+
+
+
+
+
+
+
     <link href="~/css/getJob.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/css/license.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/css/profileMen.css" rel="stylesheet" asp-append-version="true" />
@@ -95,7 +108,7 @@
                             <ul class="dropdown-menu dropdown-menu-end"
                                 aria-labelledby="navbarDropdownMenuLink">
                                 <li>
-                                    <a class="dropdown-item" href="profileMen.html">My profile</a>
+                                    <a class="dropdown-item" asp-controller="Men" asp-action="ProfileMen">My profile</a>
                                 </li>
                                 <li><a class="dropdown-item" href="#">Settings</a></li>
                                 <li><a class="dropdown-item" href="index.html">Logout</a></li>
@@ -108,11 +121,9 @@
         <!-- Navbar -->
     </header>
 
-    <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
-    </div>
 
     <!-- Footer -->
     <footer class="text-center text-lg-start text-muted">

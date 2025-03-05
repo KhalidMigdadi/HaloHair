@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewData["Title"] = "Gender";
+    Layout = "~/Views/Shared/_Layout_Services.cshtml";
+}
+
+@section Style {
+    <link href="~/css/gender.css" rel="stylesheet" />
+}
+
+<section class="gender-selection">
+    <h2>Select Your Salon</h2>
+    <div class="selection-container">
+
+        <!-- Male Barber Option -->
+        <a href="B_or_C.html" class="selection-card male">
+            <img src="../Images/Login&SignUp/menSaloon-removebg-preview.png" alt="Male Barber">
+            <h3>Men's Barber</h3>
+            <p>Professional haircuts, beard styling, and grooming services.</p>
+        </a>
+
+        <!-- Female Hairdresser Option -->
+        <a href="female-login.html" class="selection-card female">
+            <img src="../Images/Login&SignUp/hairdress.jpg" alt="Female Hairdresser">
+            <h3>Women's Hairdresser</h3>
+            <p>Hair styling, coloring, makeup, and beauty treatments.</p>
+        </a>
+
+    </div>
+</section>

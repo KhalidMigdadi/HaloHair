@@ -91,7 +91,7 @@ input {
     -o-transition: none !important;
 }
 
-.container {
+.containerCard {
     width: 100%;
     max-width: 400px;
     max-height: 251px;

@@ -17,61 +17,58 @@
     padding: 0;
     margin-top: 120px !important;
   }
-  
-  /* navBar */
-  
-  #navbar {
+
+/* navBar */
+
+#navbar {
     background-color: var(--main-color);
-    padding: 0px;
-    height: 10%;
-  }
-  
-  .nav-item .bar {
+}
+
+.nav-item .bar {
     color: #fff !important;
     font-size: 1.2rem;
     transition: color 0.3s ease;
-  }
-  
-  .nav-item a:hover {
+}
+
+.nav-item a:hover {
     color: #000 !important; /* Add a hover effect for links */
-  }
-  
-  .navbar-expand-lg .navbar-nav {
+}
+
+.navbar-expand-lg .navbar-nav {
     margin-left: 250px; /* Align links to the center dynamically */
     justify-content: center;
-  }
-  
-  .dropdown-menu-end a {
+}
+
+.dropdown-menu-end a {
     color: #000;
     transition: background-color 0.3s ease, color 0.3s ease;
-  }
-  
-  .dropdown-menu-end a:hover {
-    background-color: #f8f9fa;
-    color: var(--main-color);
-  }
-  
+}
 
-  
-  .cart-nav:hover {
+    .dropdown-menu-end a:hover {
+        background-color: #f8f9fa;
+        color: var(--main-color);
+    }
+
+
+
+.cart-nav:hover {
     color: #000 !important;
-  }
-  
-  .dropdown-item:hover {
+}
+
+.dropdown-item:hover {
     background-color: #ddd !important;
-  }
-  
-  .rounded-circle {
+}
+
+.rounded-circle {
     margin: 0;
     width: 50px;
     height: 50px;
     object-fit: cover; /* Ensure proper image fit */
-  }
-  
-  .navbar-toggler {
-    border: none; /* Remove border for cleaner design */
-  }
+}
 
+.navbar-toggler {
+    border: none; /* Remove border for cleaner design */
+}
 
 
 

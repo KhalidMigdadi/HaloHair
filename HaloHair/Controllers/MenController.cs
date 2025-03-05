@@ -62,10 +62,31 @@ namespace HaloHair.Controllers
             return View();
         }
 
-        public IActionResult LoginBarberMen()
+
+        public IActionResult B_or_C()
         {
             return View();
         }
+
+
+        public IActionResult Gender()
+        {
+            return View();
+        }
+
+        public IActionResult EnterPassword()
+        {
+            return View();
+        }
+
+
+        public IActionResult PaymentCard()
+        {
+            return View();
+        }
+
+
+
 
 
     }
