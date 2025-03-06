@@ -21,7 +21,10 @@ CREATE TABLE Barber (
     PhoneNumber NVARCHAR(20) NOT NULL,
     Gender CHAR(1) CHECK (Gender IN ('M', 'F')) NOT NULL, 
     CreatedAt DATETIME DEFAULT GETDATE(),
-    LastLogin DATETIME DEFAULT NULL
+    LastLogin DATETIME DEFAULT NULL,
+	SalonID INT NOT NULL,
+	FOREIGN KEY (SalonID) REFERENCES Salon(ID) 
+
 );
 
 CREATE TABLE SuperAdmins (
@@ -38,7 +41,7 @@ CREATE TABLE SuperAdmins (
 );
 
 -- Each Salon Location
-CREATE TABLE SalonBranches (
+CREATE TABLE Salon (
     ID INT PRIMARY KEY IDENTITY(1,1),
     Name NVARCHAR(100) NOT NULL, -- Branch name
     Address NVARCHAR(255) NOT NULL, -- Full address
@@ -49,14 +52,7 @@ CREATE TABLE SalonBranches (
     FOREIGN KEY (SuperAdminID) REFERENCES SuperAdmins(ID)
 );
 
--- Link barbers to specific salons
-CREATE TABLE BarberSalon (
-    ID INT PRIMARY KEY IDENTITY(1,1),
-    BarberID INT NOT NULL,
-    SalonID INT NOT NULL,
-    FOREIGN KEY (BarberID) REFERENCES Barber(ID),
-    FOREIGN KEY (SalonID) REFERENCES SalonBranches(ID)
-);
+
 
 -- services for salons 
 CREATE TABLE Services (
@@ -79,7 +75,7 @@ CREATE TABLE Appointments (
     FOREIGN KEY (ServiceID) REFERENCES Services(ID),
     FOREIGN KEY (UserID) REFERENCES Users(ID),
     FOREIGN KEY (BarberID) REFERENCES Barber(ID),
-    FOREIGN KEY (SalonID) REFERENCES SalonBranches(ID)
+    FOREIGN KEY (SalonID) REFERENCES Salon(ID)
 );
 
 
@@ -89,7 +85,7 @@ CREATE TABLE SalonServices (
     SalonID INT NOT NULL, -- Which salon offers this service
     ServiceID INT NOT NULL, -- Which service is offered
     Price DECIMAL(10,2) NOT NULL, -- Service price per salon
-    FOREIGN KEY (SalonID) REFERENCES SalonBranches(ID),
+    FOREIGN KEY (SalonID) REFERENCES Salon(ID),
     FOREIGN KEY (ServiceID) REFERENCES Services(ID)
 );
 
@@ -190,23 +186,26 @@ CREATE TABLE BookingCancellations (
 --Users (1) ↔ (M) Notifications
 --Users (1) ↔ (M) UserSubscriptions
 
---Barbers (1) ↔ (M) BarberSalon
+--Users (1) ↔ (M) BookingCancellations
+
 --Barbers (1) ↔ (M) Appointments
 --Barbers (1) ↔ (M) BarberAvailability
 --Barbers (1) ↔ (M) BarberServices
 
---SalonBranches (1) ↔ (M) BarberSalon
---SalonBranches (1) ↔ (M) Appointments
---SalonBranches (1) ↔ (M) SalonServices
+--Salon (1) ↔ (M) Appointments
+--Salon (1) ↔ (M) SalonServices
+--Salon (1) ↔ (M) Barbers
 
---SuperAdmins (1) ↔ (M) SalonBranches
+--SuperAdmins (1) ↔ (M) Salon
 
---Appointments (M) ↔ (M) Payments
---Appointments (M) ↔ (M) BookingCancellations
+--Appointments (1) ↔ (1) Payments 
+--Appointments (1) ↔ (M) BookingCancellations can canel the appoimtmtns one time or more 
 
 --Services (1) ↔ (M) SalonServices
---SalonServices (1) ↔ (M) BarberServices
+--SalonServices (1) ↔ (M) BarberServices each services can do it by many barbers
+
+--Subscriptions (1) ↔ (M) UserSubscriptions
 
 --Coupons (1) ↔ (M) Payments
 
---Subscriptions (1) ↔ (M) UserSubscriptions
+
