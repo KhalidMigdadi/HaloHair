@@ -31,6 +31,8 @@ public partial class Barber
 
     public bool IsOwner { get; set; }
 
+    public bool IsBlocked { get; set; }
+
     public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 
     public virtual ICollection<BarberService> BarberServices { get; set; } = new List<BarberService>();

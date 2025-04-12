@@ -27,6 +27,8 @@ public partial class User
 
     public string? ProfileImagePath { get; set; }
 
+    public bool IsBlocked { get; set; }
+
     public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 
     public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();

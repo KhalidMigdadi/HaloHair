@@ -117,143 +117,7 @@ namespace HaloHair.Controllers
         }
 
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> AddYourSalon(Salon model, int barberId, IFormFile salonImage, List<WorkingHour> workingHours)
-        //{
-        //    // التحقق من الجلسة إذا كانت الجلسة من الحلاق الصحيح
-        //    if (HttpContext.Session.GetInt32("BarberId") != barberId)
-        //    {
-        //        TempData["Error"] = "Session expired! Please register again.";
-        //        return RedirectToAction("RegisterBarber");
-        //    }
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        // التعامل مع الصورة
-        //        if (salonImage != null && salonImage.Length > 0)
-        //        {
-        //            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", salonImage.FileName);
-        //            using (var stream = new FileStream(filePath, FileMode.Create))
-        //            {
-        //                await salonImage.CopyToAsync(stream);
-        //            }
-        //            model.ImageUrl = "/images/" + salonImage.FileName;
-        //        }
-
-        //        // ربط الصالون بالحلاق
-        //        model.BarberOwnerId = barberId;
-
-        //        // إضافة الصالون إلى قاعدة البيانات
-        //        _context.Salons.Add(model);
-        //        await _context.SaveChangesAsync();
-
-        //        // ربط الحلاق بالصالون
-        //        var barber = await _context.Barbers.FirstOrDefaultAsync(b => b.Id == barberId);
-        //        if (barber != null)
-        //        {
-        //            barber.SalonId = model.Id;
-        //            barber.IsOwner = true;  // تعيين IsOwner كـ true للحلاق الذي يملك الصالون
-
-        //            await _context.SaveChangesAsync();
-        //        }
-
-        //        // إضافة working hours أو أيام العمل للصالون
-        //        if (workingHours != null)
-        //        {
-        //            foreach (var wh in workingHours)
-        //            {
-        //                wh.SalonId = model.Id; // تعيين الصالون الحالي
-        //                _context.WorkingHours.Add(wh);  // إضافة البيانات إلى قاعدة البيانات
-        //            }
-        //            await _context.SaveChangesAsync();
-        //        }
-
-        //        // إضافة الخدمات الثابتة للصالون الجديد
-        //        var fixedServices = await _context.Services.Where(s => s.SalonId == model.Id).ToListAsync();
-        //        foreach (var service in fixedServices)
-        //        {
-        //            _context.BarberServices.Add(new BarberService
-        //            {
-        //                BarberId = barberId,
-        //                ServiceId = service.Id,
-        //                Price = service.Price ?? 0,  // إذا كانت null سيتم تعيين 0
-        //                Duration = service.Duration ?? 0  // إذا كانت null سيتم تعيين 0
-        //            });
-        //        }
-
-        //        await _context.SaveChangesAsync();
-
-        //        // عرض رسالة النجاح
-        //        TempData["Success"] = "Salon added successfully! Now add your services.";
-        //        return RedirectToAction("AddServiceBefore", "BarberService", new { barberId = barberId });
-        //    }
-
-        //    return View(model);
-        //}
-
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> AddYourSalon(Salon model, int barberId, IFormFile salonImage, Dictionary<string, WorkingHoursModel> WorkingHours)
-        //{
-        //    // التحقق من الجلسة
-        //    if (HttpContext.Session.GetInt32("BarberId") != barberId)
-        //    {
-        //        TempData["Error"] = "Session expired! Please register again.";
-        //        return RedirectToAction("RegisterBarber");
-        //    }
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        // التعامل مع الصورة
-        //        if (salonImage != null && salonImage.Length > 0)
-        //        {
-        //            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", salonImage.FileName);
-        //            using (var stream = new FileStream(filePath, FileMode.Create))
-        //            {
-        //                await salonImage.CopyToAsync(stream);
-        //            }
-        //            model.ImageUrl = "/images/" + salonImage.FileName;
-        //        }
-
-        //        // ربط الصالون بالحلاق
-        //        model.BarberOwnerId = barberId;
-
-        //        // إضافة الصالون إلى قاعدة البيانات
-        //        _context.Salons.Add(model);
-        //        await _context.SaveChangesAsync();
-
-        //        // إضافة بيانات ساعات العمل لكل يوم
-        //        foreach (var day in WorkingHours)
-        //        {
-        //            var hour = day.Value;
-        //            bool isClosed = false; // تعيين قيمة افتراضية
-        //            if (hour.IsClosed != null) // إذا كانت القيمة موجودة
-        //            {
-        //                bool.TryParse(hour.IsClosed.ToString(), out isClosed); // تحويل القيمة إلى bool
-        //            }
-
-        //            _context.WorkingHours.Add(new WorkingHour
-        //            {
-        //                SalonId = model.Id,
-        //                DayOfWeek = day.Key,
-        //                OpeningTime = hour.OpeningTime.HasValue ? TimeOnly.FromTimeSpan(hour.OpeningTime.Value) : (TimeOnly?)null,
-        //                ClosingTime = hour.ClosingTime.HasValue ? TimeOnly.FromTimeSpan(hour.ClosingTime.Value) : (TimeOnly?)null,
-        //                IsClosed = isClosed // استخدام القيمة المحولة
-        //            });
-        //        }
-
-
-        //        await _context.SaveChangesAsync();
-
-        //        // عرض رسالة النجاح
-        //        TempData["Success"] = "Salon added successfully! Now add your services.";
-        //        return RedirectToAction("AddServiceBefore", "BarberService", new { barberId = barberId });
-        //    }
-
-        //    return View(model);
-        //}
+     
 
 
 
@@ -359,6 +223,11 @@ namespace HaloHair.Controllers
         {
             var loggedBabrber = _context.Barbers.FirstOrDefault(u => u.Email == barber.Email);
 
+            // Add this to set role if needed
+            if (loggedBabrber.Email == "admin@gmail.com")
+            {
+                HttpContext.Session.SetString("Email", loggedBabrber.Email);
+            }
             if (loggedBabrber != null)
             {
                 // Set session data
@@ -374,6 +243,7 @@ namespace HaloHair.Controllers
                 TempData["EmailError"] = "Email not found. Please try again.";
                 return RedirectToAction("RegisterBarber");
             }
+           
         }
 
         public IActionResult EnterPasswordB()
@@ -397,6 +267,13 @@ namespace HaloHair.Controllers
             if (string.IsNullOrEmpty(email))
             {
                 return RedirectToAction("LoginBarberMen", "Barber");
+            }
+
+            // Check if Super Admin
+            if (email == "admin@gmail.com" && password == "admin123")
+            {
+                HttpContext.Session.GetString("Email");
+                return RedirectToAction("Dashboard", "SuperAdmin");
             }
 
             var loggedBarber = _context.Barbers.FirstOrDefault(u => u.Email == email);

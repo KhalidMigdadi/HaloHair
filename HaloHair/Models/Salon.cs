@@ -31,6 +31,8 @@ public partial class Salon
 
     public string? AboutSalon { get; set; }
 
+    public bool IsVisible { get; set; }
+
     public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 
     public virtual Barber? BarberOwner { get; set; }

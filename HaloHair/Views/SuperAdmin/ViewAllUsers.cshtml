@@ -1,0 +1,47 @@
+﻿@model List<User>
+
+@{
+    ViewData["Title"] = "View All Users";
+    Layout = "~/Views/Shared/_Layout_SuperAdmin.cshtml";
+}
+
+<h2>View All Users</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.FirstName</td>
+                <td>@user.LastName</td>
+                <td>@user.Email</td>
+                <td>@user.PhoneNumber</td>
+                <td>
+                    @* <a href="@Url.Action("Edit", "SuperAdmin", new { id = user.Id })">Edit</a> | *@
+
+                    @if (user.IsBlocked)
+                    {
+                        <a class="btn btn-success btn-sm" href="@Url.Action("UnblockUser", "SuperAdmin", new { userId = user.Id })">
+                            Unblock
+                        </a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-danger btn-sm" href="@Url.Action("BlockUser", "SuperAdmin", new { userId = user.Id })">
+                            Block
+                        </a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

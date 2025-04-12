@@ -256,7 +256,7 @@ public partial class MyDbContext : DbContext
 
         modelBuilder.Entity<Favorite>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Favorite__3214EC07D40B5FD4");
+            entity.HasKey(e => e.Id).HasName("PK__Favorite__3214EC070A890E84");
 
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
@@ -264,11 +264,13 @@ public partial class MyDbContext : DbContext
 
             entity.HasOne(d => d.Salon).WithMany(p => p.Favorites)
                 .HasForeignKey(d => d.SalonId)
-                .HasConstraintName("FK__Favorites__Salon__76969D2E");
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Favorites_Salons");
 
             entity.HasOne(d => d.User).WithMany(p => p.Favorites)
                 .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__Favorites__UserI__75A278F5");
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Favorites_Users");
         });
 
         modelBuilder.Entity<LoyaltyPoint>(entity =>

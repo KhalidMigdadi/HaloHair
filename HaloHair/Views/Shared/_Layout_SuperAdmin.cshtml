@@ -1,0 +1,221 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - HaloHair</title>
+	<link rel="icon"
+		  href="~/css/BarberDash/img/kaiadmin/favicon.ico"
+		  type="image/x-icon" />
+
+	<!-- CSS Files -->
+	<link rel="stylesheet" href="~/css/BarberDash/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/BarberDash/css/plugins.min.css" />
+	<link rel="stylesheet" href="~/css/BarberDash/css/kaiadmin.min.css" />
+
+	<!-- CSS Just for demo purpose, don't include it in your project -->
+	<link rel="stylesheet" href="~/css/BarberDash/css/demo.css" />
+
+
+	<!-- Fonts and icons -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+
+    <link href="~/css/SuperAdmin/superAdmin.css" rel="stylesheet" />
+
+
+	@RenderSection("Styles", required: false)
+
+
+
+
+	<script src="~/css/BarberDash/js/plugin/webfont/webfont.min.js"></script>
+	<script>
+		WebFont.load({
+		  google: { families: ["Public Sans:300,400,500,600,700"] },
+		  custom: {
+			families: [
+			  "Font Awesome 5 Solid",
+			  "Font Awesome 5 Regular",
+			  "Font Awesome 5 Brands",
+			  "simple-line-icons",
+			],
+			urls: ["assets/css/fonts.min.css"],
+		  },
+		  active: function () {
+			sessionStorage.fonts = true;
+		  },
+		});
+	</script>
+
+
+</head>
+<body>
+
+    <div class="layout-container d-flex">
+        <!-- Sidebar -->
+        <div class="sidebar" data-background-color="dark">
+            <div class="sidebar-logo">
+                <!-- Logo Header -->
+                <div class="logo-header" data-background-color="dark">
+                    <a href="index.html" class="logo">
+                        <img src="~/css/BarberDash/img/kaiadmin/logo_light.svg"
+                             alt="navbar brand"
+                             class="navbar-brand"
+                             height="20" />
+                    </a>
+                    <div class="nav-toggle">
+                        <button class="btn btn-toggle toggle-sidebar">
+                            <i class="gg-menu-right"></i>
+                        </button>
+                        <button class="btn btn-toggle sidenav-toggler">
+                            <i class="gg-menu-left"></i>
+                        </button>
+                    </div>
+                    <button class="topbar-toggler more">
+                        <i class="gg-more-vertical-alt"></i>
+                    </button>
+                </div>
+                <!-- End Logo Header -->
+            </div>
+            <div class="sidebar-wrapper scrollbar scrollbar-inner">
+                <div class="sidebar-content">
+                    <ul class="nav nav-secondary">
+                        <li class="nav-item">
+                            <a href="@Url.Action("Dashboard", "SuperAdmin")">
+                                <i class="fas fa-home"></i>
+                                <p>Dashboard</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-section">
+                            <span class="sidebar-mini-icon">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </span>
+                            <h4 class="text-section">Components</h4>
+                        </li>
+
+
+                        <li class="nav-item">
+                            <a data-bs-toggle="collapse" href="#usersCollapse">
+                                <i class="fas fa-pen-square"></i>
+                                <p>Manage All Users</p>
+                                <span class="caret"></span>
+                            </a>
+                            <div class="collapse" id="usersCollapse">
+                                <ul class="nav nav-collapse">
+                                    <li>
+                                        <a href="@Url.Action("ViewAllUsers", "SuperAdmin")">
+                                            <span class="sub-item">View All Users</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="forms/forms.html">
+                                            <span class="sub-item">Make InVisable Users</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <!-- Manage All Barbers -->
+                        <li class="nav-item">
+                            <a data-bs-toggle="collapse" href="#barbersCollapse">
+                                <i class="fas fa-pen-square"></i>
+                                <p>Manage All Barbers</p>
+                                <span class="caret"></span>
+                            </a>
+                            <div class="collapse" id="barbersCollapse">
+                                <ul class="nav nav-collapse">
+                                    <li>
+                                        <a href="@Url.Action("ViewAllBarbers", "SuperAdmin")">
+                                            <span class="sub-item">View All Barbers</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="forms/forms.html">
+                                            <span class="sub-item">Make InVisable Barbers</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+
+
+
+                        <li class="nav-item">
+                            <a data-bs-toggle="collapse" href="#submenu">
+                                <i class="fas fa-bars"></i>
+                                <p>Manage Salons</p>
+                                <span class="caret"></span>
+                            </a>
+                            <div class="collapse" id="submenu">
+                                <ul class="nav nav-collapse">
+                                    <li>
+                                        <a asp-action="ViewAllSalons" asp-controller="SuperAdmin">
+                                            <span class="sub-item">View All Salons</span>
+                                        </a>
+                                    </li>
+
+                                   
+
+                                 
+                                </ul>
+                            </div>
+                        </li>
+
+
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- End Sidebar -->
+
+        <!-- Main Content -->
+        <div class="main-content flex-grow-1">
+                @RenderBody()
+        </div>
+    </div>
+
+ 
+	<!--   Core JS Files   -->
+	<script src="~/css/BarberDash/js/core/jquery-3.7.1.min.js"></script>
+	<script src="~/css/BarberDash/js/core/popper.min.js"></script>
+	<script src="~/css/BarberDash/js/core/bootstrap.min.js"></script>
+
+	<!-- jQuery Scrollbar -->
+	<script src="~/css/BarberDash/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+
+	<!-- Chart JS -->
+	<script src="~/css/BarberDash/js/plugin/chart.js/chart.min.js"></script>
+
+	<!-- jQuery Sparkline -->
+	<script src="~/css/BarberDash/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+
+	<!-- Chart Circle -->
+	<script src="~/css/BarberDash/js/plugin/chart-circle/circles.min.js"></script>
+
+	<!-- Datatables -->
+	<script src="~/css/BarberDash/js/plugin/datatables/datatables.min.js"></script>
+
+	<!-- Bootstrap Notify -->
+	<script src="~/css/BarberDash/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+
+	<!-- jQuery Vector Maps -->
+	<script src="~/css/BarberDash/js/plugin/jsvectormap/jsvectormap.min.js"></script>
+	<script src="~/css/BarberDash/js/plugin/jsvectormap/world.js"></script>
+
+	<!-- Sweet Alert -->
+	<script src="~/css/BarberDash/js/plugin/sweetalert/sweetalert.min.js"></script>
+
+	<!-- Kaiadmin JS -->
+	<script src="~/css/BarberDash/js/kaiadmin.min.js"></script>
+
+
+
+	@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

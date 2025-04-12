@@ -1,0 +1,56 @@
+﻿@model List<Salon>
+
+@{
+    ViewData["Title"] = "View All Salons";
+    Layout = "~/Views/Shared/_Layout_SuperAdmin.cshtml";
+}
+
+<h2>View All Salons</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Salon Name</th>
+            <th>Address</th>
+            <th>Phone Number</th>
+            <th>Visibility</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var salon in Model)
+        {
+            <tr>
+                <td>@salon.Name</td>
+                <td>@salon.Address</td>
+                <td>@salon.PhoneNumber</td>
+                <td>
+                    @if (salon.IsVisible)
+                    {
+                        <span class="badge bg-success">Visible</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">Hidden</span>
+                    }
+                </td>
+                <td>
+                    @if (salon.IsVisible)
+                    {
+                        <a class="btn btn-warning btn-sm"
+                           href="@Url.Action("MakeSalonInvisible", "SuperAdmin", new { salonId = salon.Id })">
+                            Make Invisible
+                        </a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-success btn-sm"
+                           href="@Url.Action("MakeSalonVisible", "SuperAdmin", new { salonId = salon.Id })">
+                            Make Visible
+                        </a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -17,7 +17,10 @@ namespace HaloHair.Controllers
         public IActionResult Men()
         {
             // First, get all salons with their barbers
-            var salons = _context.Salons.Include(s => s.Barbers).ToList();
+            var salons = _context.Salons
+                .Include(s => s.Barbers)
+                .Where(s => s.IsVisible == true)
+                .ToList();
 
             // Create a list to store our results
             var recommendedSalons = new List<SalonViewModel>();
@@ -64,9 +67,10 @@ namespace HaloHair.Controllers
             ViewBag.RecommendedSalons = topSalons;
 
             var newSalons = _context.Salons
-                        .OrderByDescending(s => s.CreatedAt) // أو حسب اسم العمود اللي بيمثل تاريخ التسجيل
-                        .Take(10)
-                        .ToList();
+                     .Where(s => s.IsVisible == true)
+                     .OrderByDescending(s => s.CreatedAt)
+                     .Take(10)
+                     .ToList();
 
             ViewBag.NewSalons = newSalons;
 
@@ -149,30 +153,6 @@ namespace HaloHair.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //public IActionResult LoginUserMen(string email)
-        //{
-        //    // البحث عن المستخدم باستخدام البريد الإلكتروني
-        //    var loggedUser = _context.Users.FirstOrDefault(u => u.Email == email);
-
-        //    if (loggedUser != null)
-        //    {
-        //        // حفظ معلومات المستخدم في الجلسة
-        //        HttpContext.Session.SetString("Email", loggedUser.Email);
-        //        HttpContext.Session.SetString("FirstName", loggedUser.FirstName);
-        //        HttpContext.Session.SetString("LastName", loggedUser.LastName);
-        //        HttpContext.Session.SetString("Phone", loggedUser.PhoneNumber);
-
-        //        // إعادة التوجيه إلى الصفحة لتأكيد كلمة المرور (إذا كنت بحاجة لذلك)
-        //        return RedirectToAction("EnterPassword", "Men");
-        //    }
-        //    else
-        //    {
-        //        // إذا كان البريد الإلكتروني غير موجود
-        //        TempData["EmailError"] = "البريد الإلكتروني غير موجود. يرجى المحاولة مرة أخرى.";
-        //        return RedirectToAction("LoginUserMen");
-        //    }
-        //}
 
 
         [HttpPost]
@@ -183,6 +163,13 @@ namespace HaloHair.Controllers
 
             if (loggedUser != null)
             {
+                // التحقق إذا كان المستخدم محظور
+                if (loggedUser.IsBlocked)
+                {
+                    TempData["BlockedError"] = "Your account has been banned. Please contact support.";
+                    return RedirectToAction("LoginUserMen");
+                }
+
                 // حفظ معلومات المستخدم في الجلسة
                 HttpContext.Session.SetString("Email", loggedUser.Email);
                 HttpContext.Session.SetString("FirstName", loggedUser.FirstName);
