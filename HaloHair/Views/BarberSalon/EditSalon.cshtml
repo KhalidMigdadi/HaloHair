@@ -1,0 +1,278 @@
+﻿
+@{
+    ViewData["Title"] = "EditSalon";
+    Layout = "~/Views/Shared/_Layout_Barber.cshtml";
+
+}
+
+@section Styles {
+    <link href="~/css/Barber/BarberSalon/delete.css" rel="stylesheet" />
+}
+
+
+
+
+
+
+
+<div class="wrapper">
+
+
+
+	<!-- Sidebar -->
+	<div class="sidebar" data-background-color="dark">
+		<div class="sidebar-logo">
+			<!-- Logo Header -->
+			<div class="logo-header" data-background-color="dark">
+				<a href="index.html" class="logo">
+					<img src="~/css/BarberDash/img/kaiadmin/logo_light.svg"
+						 alt="navbar brand"
+						 class="navbar-brand"
+						 height="20" />
+				</a>
+				<div class="nav-toggle">
+					<button class="btn btn-toggle toggle-sidebar">
+						<i class="gg-menu-right"></i>
+					</button>
+					<button class="btn btn-toggle sidenav-toggler">
+						<i class="gg-menu-left"></i>
+					</button>
+				</div>
+				<button class="topbar-toggler more">
+					<i class="gg-more-vertical-alt"></i>
+				</button>
+			</div>
+			<!-- End Logo Header -->
+		</div>
+		<div class="sidebar-wrapper scrollbar scrollbar-inner">
+			<div class="sidebar-content">
+				<ul class="nav nav-secondary">
+					<li class="nav-item active">
+						<a data-bs-toggle="collapse"
+						   href="#dashboard"
+						   class="collapsed"
+						   aria-expanded="false">
+							<i class="fas fa-home"></i>
+							<p>Dashboard</p>
+							<span class="caret"></span>
+						</a>
+
+					</li>
+					<li class="nav-section">
+						<span class="sidebar-mini-icon">
+							<i class="fa fa-ellipsis-h"></i>
+						</span>
+						<h4 class="text-section">Components</h4>
+					</li>
+					<li class="nav-item">
+						<a data-bs-toggle="collapse" href="#base">
+							<i class="fas fa-layer-group"></i>
+							<p>Your Scedual For This Week</p>
+							<span class="caret"></span>
+						</a>
+						<div class="collapse" id="base">
+							<ul class="nav nav-collapse">
+								<li>
+									<a href="components/avatars.html">
+										<span class="sub-item">Avatars</span>
+									</a>
+								</li>
+								<li>
+									<a href="components/buttons.html">
+										<span class="sub-item">Buttons</span>
+									</a>
+								</li>
+								<li>
+									<a href="components/gridsystem.html">
+										<span class="sub-item">Grid System</span>
+									</a>
+								</li>
+								<li>
+									<a href="components/panels.html">
+										<span class="sub-item">Panels</span>
+									</a>
+								</li>
+								<li>
+									<a href="components/notifications.html">
+										<span class="sub-item">Notifications</span>
+									</a>
+								</li>
+								<li>
+									<a href="components/sweetalert.html">
+										<span class="sub-item">Sweet Alert</span>
+									</a>
+								</li>
+								<li>
+									<a href="components/font-awesome-icons.html">
+										<span class="sub-item">Font Awesome Icons</span>
+									</a>
+								</li>
+								<li>
+									<a href="components/simple-line-icons.html">
+										<span class="sub-item">Simple Line Icons</span>
+									</a>
+								</li>
+								<li>
+									<a href="components/typography.html">
+										<span class="sub-item">Typography</span>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li class="nav-item">
+						<a href="#sidebarLayouts">
+							<i class="fas fa-th-list"></i>
+							<p>Appointments</p>
+							<span class="caret"></span>
+						</a>
+
+					</li>
+					<li class="nav-item">
+						<a data-bs-toggle="collapse" href="#forms">
+							<i class="fas fa-pen-square"></i>
+							<p>Sales</p>
+							<span class="caret"></span>
+						</a>
+						<div class="collapse" id="forms">
+							<ul class="nav nav-collapse">
+								<li>
+									<a href="forms/forms.html">
+										<span class="sub-item">Basic Form</span>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li class="nav-item">
+						<a href="tables/datatables.html">
+							<i class="fas fa-table"></i>
+
+							<p>Last Bookings</p>
+							<span class="caret"></span>
+						</a>
+
+					</li>
+					<li class="nav-item">
+						<a asp-action="AddService">
+							<i class="fas fa-map-marker-alt"></i>
+							<p>Services</p>
+						</a>
+
+					</li>
+					<li class="nav-item">
+						<a data-bs-toggle="collapse" href="#submenu">
+							<i class="fas fa-bars"></i>
+							<p>Manage My Salon</p>
+							<span class="caret"></span>
+						</a>
+						<div class="collapse" id="submenu">
+							<ul class="nav nav-collapse">
+								<li>
+									<a href="@Url.Action("AddService", "BarberService", new { barberId = ViewBag.BarberId })">
+										<span class="sub-item">Add New Services</span>
+									</a>
+
+								</li>
+								<li>
+									<a asp-action="MyService" asp-controller="BarberService">
+										<span class="sub-item">Edit My Services</span>
+									</a>
+
+								</li>
+								<li>
+									<a href="@Url.Action("CreateBarber", "Barber")">
+										<span class="sub-item">Add New Barbers</span>
+									</a>
+								</li>
+
+
+
+								<!-- إضافة رابط جديد لرفع صور الصالون -->
+								<li>
+									<a href="@Url.Action("UploadSalonImages", "BarberSalon", new { salonId = ViewBag.SalonId })">
+										<span class="sub-item">Upload Salon Images</span>
+									</a>
+
+								</li>
+
+								<!-- إضافة رابط جديد لتعديل الصالون -->
+								<li>
+									<a href="@Url.Action("EditSalon", "BarberSalon", new { salonId = ViewBag.SalonId })">
+										<span class="sub-item">Edit My Salon</span>
+									</a>
+								</li>
+
+
+
+							</ul>
+						</div>
+					</li>
+
+
+
+
+					<li class="nav-item">
+						<a href="@Url.Action("Team", "Barber", new { salonId = Model.Id })">
+							<i class="fas fa-desktop"></i>
+							<p>Team</p>
+							<span class="badge badge-success">4</span>
+						</a>
+
+
+
+					</li>
+					<li class="nav-item">
+						<a href="../../documentation/index.html">
+							<i class="fas fa-file"></i>
+							<p>Announce for job</p>
+							<span class="badge badge-secondary">1</span>
+						</a>
+					</li>
+
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- End Sidebar -->
+
+
+
+
+	<div class="main-panel">
+		<div class="main-header">
+
+
+			<div>
+				<h2>Edit Salon Images</h2>
+
+				<form asp-action="UploadSalonImages" asp-controller="BarberSalon" method="post" enctype="multipart/form-data">
+					<input type="hidden" name="SalonId" value="@Model.SalonId" />
+
+					<div class="form-group">
+						<label for="Images">Upload Salon Images:</label>
+						<input type="file" name="Images" id="Images" class="form-control" multiple />
+					</div>
+
+					<button type="submit" class="btn btn-primary mt-2">Upload Images</button>
+				</form>
+
+				<h3>Current Images:</h3>
+				<div class="image-gallery">
+					@foreach (var image in Model.SalonImages)
+					{
+						<div>
+							<img src="@image.ImageUrl" alt="Salon Image" style="width:150px;height:100px;" />
+							<form asp-action="DeleteSalonImage" asp-controller="BarberSalon" method="post">
+								<input type="hidden" name="imageId" value="@image.Id" />
+								<button type="submit" class="btn btn-danger">Delete</button>
+							</form>
+						</div>
+					}
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+</div>

@@ -1,0 +1,46 @@
+﻿@model List<TimeSlot>
+@{
+    ViewData["Title"] = "Choose a Time Slot";
+    Layout = "~/Views/Shared/_Layout_Services.cshtml";
+    var barberId = ViewBag.BarberId;
+    var selectedDate = ((DateTime)ViewBag.SelectedDate).ToString("yyyy-MM-dd");
+    int totalDuration = ViewBag.TotalDuration;
+    int slotsNeeded = ViewBag.SlotsNeeded;
+}
+<h2>Choose a Time Slot</h2>
+
+<div class="alert alert-info">
+    Your selected services require @totalDuration minutes
+</div>
+
+<form method="get" asp-action="SelectTime">
+    <input type="hidden" name="barberId" value="@barberId" />
+    <label>Select Date:</label>
+    <input type="date" name="selectedDate" value="@selectedDate" onchange="this.form.submit()" />
+</form>
+@if (!Model.Any())
+{
+    <p>No available time slots for the selected date that can accommodate your services.</p>
+}
+else
+{
+    <form asp-action="BookAppointment" method="post">
+        <input type="hidden" name="barberId" value="@barberId" />
+        <table class="table">
+            <tr>
+                <th>Select</th>
+                <th>Starting Time</th>
+                <th>Ending Time</th>
+            </tr>
+            @foreach (var slot in Model)
+            {
+                <tr>
+                    <td><input type="radio" name="startingSlotId" value="@slot.Id" required /></td>
+                    <td>@slot.StartTime.ToShortTimeString()</td>
+                    <td>@slot.StartTime.AddMinutes(totalDuration).ToShortTimeString()</td>
+                </tr>
+            }
+        </table>
+        <button type="submit" class="btn btn-success">Book Now</button>
+    </form>
+}

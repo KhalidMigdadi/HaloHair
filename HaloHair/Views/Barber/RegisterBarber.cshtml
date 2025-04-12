@@ -1,0 +1,121 @@
+﻿@{
+    ViewData["Title"] = "Register Barber";
+    Layout = "~/Views/Shared/_Layout_Services.cshtml";
+}
+
+@model Barber
+
+@section Style {
+    <link href="~/css/RegisterBarber.css" rel="stylesheet" />
+}
+
+<section class="login-section">
+    <div class="login-container">
+        <div class="arrow">
+            <a href="../HTML Pages/index.html">
+                <i class="fa-solid fa-arrow-left fa-2x"></i>
+            </a>
+        </div>
+
+        <!-- Left Side: Form -->
+        <div class="login-form">
+            <h1>For Business Use</h1>
+            <span class="wlcom">Welcome</span>
+            <p class="p1">
+                Ready to manage your business with ease? Sign up today to access
+                all the tools and features we offer, and get started on the path
+                to success. If you're already a member,
+                <a class="sign" href="@Url.Action("LoginBarberMen", "Barber")">log in here</a> and continue.
+            </p>
+
+            <h2>Sign Up</h2>
+
+            <!-- Display Success/Error messages -->
+            @if (TempData["Error"] != null)
+            {
+                <p class="text-danger">@TempData["Error"]</p>
+            }
+            @if (TempData["Success"] != null)
+            {
+                <p class="text-success">@TempData["Success"]</p>
+            }
+
+            <!-- Registration Form -->
+            <form asp-controller="Barber" asp-action="RegisterBarber" method="post">
+                @Html.AntiForgeryToken()
+
+                <!-- Hidden BarberId Field -->
+                <!-- إذا كان الحقل BarberId موجود في الـ Model -->
+                <input type="hidden" asp-for="Id" />
+
+
+                <!-- First Name -->
+                <div class="form-group">
+                    <label asp-for="FirstName"></label>
+                    <input asp-for="FirstName" class="form-control" placeholder="Enter your First Name" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+
+                <!-- Last Name -->
+                <div class="form-group">
+                    <label asp-for="LastName"></label>
+                    <input asp-for="LastName" class="form-control" placeholder="Enter your Last Name" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" placeholder="Enter your email" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" class="form-control" placeholder="Enter your password" required />
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Your Password</label>
+                    <input id="confirmPassword" name="confirmPassword" type="password" class="form-control" placeholder="Confirm Your Password" required />
+                </div>
+
+                <!-- Phone Number -->
+                <div class="form-group">
+                    <label asp-for="PhoneNumber"></label>
+                    <input asp-for="PhoneNumber" class="form-control" placeholder="Enter your mobile number" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+
+                <!-- Hidden Gender -->
+                <div class="form-group">
+                    <input type="hidden" asp-for="Gender" value="M" />
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary">Sign Up</button>
+            </form>
+
+            <!-- Additional Links -->
+            <div class="extra-links">
+                <div>
+                    <p>
+                        Did you already have an account?
+                        <a href="@Url.Action("LoginBarberMen", "Barber")">Login</a>
+                    </p>
+                </div>
+                <div>
+                    <p>Are you a customer looking to book an appointment?</p>
+                    <a href="@Url.Action("Login", "User")">Sign in as a personal</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side: Image -->
+        <div class="login-image">
+            <img src="../Images/Login&SignUp/newBarber.jpg" alt="Register Image" />
+        </div>
+    </div>
+</section>

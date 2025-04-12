@@ -1,0 +1,249 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    padding-top: 100px; /* Add this to give space for the fixed navbar */
+  }
+  
+  :root {
+    --main-color: #ffc0cb;
+    --main-text-color: #e91e63;
+    --transparent-color: rgb(15 116 143 / 70%);
+    --section-padding: 100px;
+    --para-color: #666;
+  }
+  
+  /* navBar */
+  
+  #navbar {
+    background-color: var(--main-color);
+  }
+  
+  .nav-item .bar {
+    color: #fff !important;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-item a:hover {
+    color: #000 !important; /* Add a hover effect for links */
+  }
+  
+  
+  
+  .navbar-expand-lg .navbar-nav {
+    margin-left: 250px; /* Align links to the center dynamically */
+    justify-content: center;
+  }
+  
+  .dropdown-menu-end a {
+    color: #000;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .dropdown-menu-end a:hover {
+    background-color: #f8f9fa;
+    color: var(--main-text-color);
+  }
+  
+  .navbar-scroll {
+    background-color: #ffc0cb; /* Removed !important */
+    transition: background-color 0.3s ease; /* Smooth scroll effect */
+    color: #000 !important;
+  }
+  
+  .cart-nav:hover {
+      color: #000 !important;
+  }
+  
+  .dropdown-item:hover {
+      background-color: #ddd !important;
+  }
+  
+  .rounded-circle {
+    margin: 0;
+    width: 50px;
+    height: 50px;
+    object-fit: cover; /* Ensure proper image fit */
+  }
+  
+  .navbar-toggler {
+    border: none; /* Remove border for cleaner design */
+  }
+  
+
+
+
+.head-component {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+
+
+}
+
+.head-component h1 {
+    font-weight: normal;
+    font-size: 40px;
+    position: relative;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+    margin-top: 80px;
+}
+
+/* the line that should we add the circle inside it  */
+.head-component h1::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 2px;
+    background-color: #333;
+    bottom: -30px;
+    width: 260px;
+
+}
+
+
+.head-component h1:after {
+    content: '';
+    position: absolute;
+    top: 143%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 15px;
+    height: 15px;
+    background-color: #fff;
+    border: 2px solid #333;
+    border-radius: 50%;
+
+}
+
+.head-component p {
+    width: 550px;
+    margin: 0 auto 100px;
+    max-width: 100%;
+    line-height: 2;
+    color: var(--para-color);
+}
+
+
+
+/* Cards For Quiz */
+
+.cards-container {
+   display: flex;
+   flex-basis: 1;
+   flex-wrap: wrap;
+   gap: 70px;
+   margin-left: 10%;
+
+   
+
+}
+
+
+
+.cards-container .card {
+    width: 26%;
+    transition: transform 0.3s;
+    height: 500px;
+    border-radius: 30px;
+}
+.cards-container .card:hover {
+    transform: scale(1.2)
+}
+
+.cards-container .card h3 {
+    text-align: center;
+    margin: 20px 0;
+}
+
+
+.cards-container .card img {
+    text-align: center;
+    margin: 20px auto;
+}
+
+
+.cards-container .card .it-Image {
+    text-align: center;
+    margin: 20px auto;
+    width: 350px;
+}
+
+
+.cards-container .card p{
+    text-align: center;
+    width: 90%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+
+
+
+
+.cards-container .card button {
+    width: 50%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    padding: 10px;
+    font-weight: bold;
+    background-color: var(--main-color);
+    color: #333333    ;
+    border-radius: 15px;
+    margin-top: 8px;
+    border-color: #333;
+}
+
+
+.cards-container .card .it-btn {
+    margin-top: 25px;
+} 
+
+@media (max-width: 426px) {
+    .cards-container {
+        flex-direction: column;
+    }
+    .cards-container .card {
+        width: 100%;
+        margin: -15px;
+        transition: none;
+
+    }
+    .cards-container .card:hover {
+        transform: scale(1)
+    }
+
+    .cards-container .card img {
+        width: 100%;
+    }
+}
+
+
+
+
+/* Start Footer */
+
+footer {
+    background-color: #ffc0cb;
+    font-weight: 700;
+    margin-top: 15%;
+  }
+  
+  .social-container .facebook:hover {
+    color: #1877f2;
+  }
+  
+  .social-container .twitter:hover {
+    color: #000000;
+  }
+  
+  .social-container .instagram:hover {
+    color: #e1306c;
+  }
+  
+  .social-container .linkedin:hover {
+    color: #0a66c2;
+  }
+  
+  /* End Footer */

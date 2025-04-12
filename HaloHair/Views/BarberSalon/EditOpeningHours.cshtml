@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewData["Title"] = "EditOpeningHours";
+    Layout = "~/Views/Shared/_Layout_Barber.cshtml";
+
+}
+
+<h2>Edit Opening Hours</h2>
+<form method="post" asp-action="EditOpeningHours">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Day</th>
+                <th>Opening Time</th>
+                <th>Closing Time</th>
+                <th>Closed</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.OpeningHours.Count; i++)
+            {
+                <tr>
+                    <td>@(Enum.GetName(typeof(DayOfWeek), Model.OpeningHours[i].DayOfWeek))</td>
+                    <td>
+                        <input type="hidden" name="openingHours[@i].Id" value="@Model.OpeningHours[i].Id" />
+                        <input type="time" name="openingHours[@i].OpeningTime" value="@Model.OpeningHours[i].OpeningTime" />
+                    </td>
+                    <td>
+                        <input type="time" name="openingHours[@i].ClosingTime" value="@Model.OpeningHours[i].ClosingTime" />
+                    </td>
+                    <td>
+                        <input type="checkbox" name="openingHours[@i].IsClosed" value="true" @(Model.OpeningHours[i].IsClosed ? "checked" : "") />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
+

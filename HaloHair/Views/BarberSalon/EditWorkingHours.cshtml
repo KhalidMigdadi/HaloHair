@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewData["Title"] = "EditWorkingHours";
+    Layout = "~/Views/Shared/_Layout_Barber.cshtml";
+
+}
+
+@model Dictionary<string, WorkingHoursModel>
+
+<h3>Edit Working Hours</h3>
+<form asp-action="EditWorkingHours" method="post">
+    <input type="hidden" name="salonId" value="@ViewBag.SalonId" />
+
+    @foreach (var day in Model)
+    {
+        <div class="form-group">
+            <label>@day.Key</label>
+            <input type="time" name="WorkingHours[@day.Key].OpeningTime" value="@day.Value.OpeningTime" class="form-control" />
+            <input type="time" name="WorkingHours[@day.Key].ClosingTime" value="@day.Value.ClosingTime" class="form-control" />
+            <input type="checkbox" name="WorkingHours[@day.Key].IsClosed" @(day.Value.IsClosed.HasValue && day.Value.IsClosed.Value ? "checked" : "") />
+            <label>Closed</label>
+        </div>
+    }
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>

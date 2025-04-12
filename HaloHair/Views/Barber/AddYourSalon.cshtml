@@ -1,0 +1,130 @@
+﻿@model HaloHair.Models.Salon
+@{
+	ViewData["Title"] = "Add Your Salon";
+	Layout = "~/Views/Shared/_Layout_Barber.cshtml";
+	// Layout = null;
+}
+
+@section Styles {
+	<link href="~/css/Barber/addSalon.css" rel="stylesheet" />
+}
+
+
+
+<h2 class="text-center my-5">Add Your Salon</h2>
+
+@if (TempData["Error"] != null)
+{
+	<div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+@if (TempData["Success"] != null)
+{
+	<div class="alert alert-success">@TempData["Success"]</div>
+}
+
+<form asp-action="AddYourSalon" method="post" enctype="multipart/form-data" class="mx-auto" style="max-width: 600px;">
+	@Html.AntiForgeryToken()
+
+	@* <input type="hidden" asp-for="OwnerId" /> *@
+	<input type="hidden" name="barberId" value="@Model.BarberOwnerId" />
+
+	<div class="form-group">
+		<label asp-for="Name" class="font-weight-bold">Salon Name</label>
+		<input asp-for="Name" class="form-control" placeholder="Enter salon name" required />
+	</div>
+
+	<div class="form-group">
+		<label asp-for="Address" class="font-weight-bold">Address</label>
+		<input asp-for="Address" class="form-control" placeholder="Enter salon address" required />
+	</div>
+
+	<div class="form-group">
+		<label asp-for="PhoneNumber" class="font-weight-bold">Phone Number</label>
+		<input asp-for="PhoneNumber" class="form-control" placeholder="Enter salon phone number" required />
+	</div>
+
+	<div class="form-group">
+		<label asp-for="OpeningTime" class="font-weight-bold">Opening Time</label>
+		<input asp-for="OpeningTime" type="time" class="form-control" required />
+	</div>
+
+	<div class="form-group">
+		<label asp-for="ClosingTime" class="font-weight-bold">Closing Time</label>
+		<input asp-for="ClosingTime" type="time" class="form-control" required />
+	</div>
+
+	<div class="form-group">
+		<label for="salonImage" class="font-weight-bold">Salon Image</label>
+		<input type="file" name="salonImage" class="form-control-file" />
+	</div>
+
+	@if (TempData["Error"] != null)
+	{
+		<div class="alert alert-danger">@TempData["Error"]</div>
+	}
+
+
+
+	<h4>Working Hours</h4>
+
+	<div class="form-group">
+		<label for="mondayOpeningTime" class="font-weight-bold">Monday</label>
+		<input type="time" id="mondayOpeningTime" name="WorkingHours[Monday][OpeningTime]" class="form-control" />
+		<input type="time" id="mondayClosingTime" name="WorkingHours[Monday][ClosingTime]" class="form-control" />
+		<label for="mondayClosed" class="font-weight-bold">Closed?</label>
+		<input type="checkbox" id="mondayClosed" name="WorkingHours[Monday][IsClosed]" />
+	</div>
+
+	<div class="form-group">
+		<label for="tuesdayOpeningTime" class="font-weight-bold">Tuesday</label>
+		<input type="time" id="tuesdayOpeningTime" name="WorkingHours[Tuesday][OpeningTime]" class="form-control" />
+		<input type="time" id="tuesdayClosingTime" name="WorkingHours[Tuesday][ClosingTime]" class="form-control" />
+		<label for="tuesdayClosed" class="font-weight-bold">Closed?</label>
+		<input type="checkbox" id="tuesdayClosed" name="WorkingHours[Tuesday][IsClosed]" />
+	</div>
+
+	<div class="form-group">
+		<label for="wednesdayOpeningTime" class="font-weight-bold">Wednesday</label>
+		<input type="time" id="wednesdayOpeningTime" name="WorkingHours[Wednesday][OpeningTime]" class="form-control" />
+		<input type="time" id="wednesdayClosingTime" name="WorkingHours[Wednesday][ClosingTime]" class="form-control" />
+		<label for="wednesdayClosed" class="font-weight-bold">Closed?</label>
+		<input type="checkbox" id="wednesdayClosed" name="WorkingHours[Wednesday][IsClosed]" />
+	</div>
+
+	<div class="form-group">
+		<label for="thursdayOpeningTime" class="font-weight-bold">Thursday</label>
+		<input type="time" id="thursdayOpeningTime" name="WorkingHours[Thursday][OpeningTime]" class="form-control" />
+		<input type="time" id="thursdayClosingTime" name="WorkingHours[Thursday][ClosingTime]" class="form-control" />
+		<label for="thursdayClosed" class="font-weight-bold">Closed?</label>
+		<input type="checkbox" id="thursdayClosed" name="WorkingHours[Thursday][IsClosed]" />
+	</div>
+
+	<div class="form-group">
+		<label for="fridayOpeningTime" class="font-weight-bold">Friday</label>
+		<input type="time" id="fridayOpeningTime" name="WorkingHours[Friday][OpeningTime]" class="form-control" />
+		<input type="time" id="fridayClosingTime" name="WorkingHours[Friday][ClosingTime]" class="form-control" />
+		<label for="fridayClosed" class="font-weight-bold">Closed?</label>
+		<input type="checkbox" id="fridayClosed" name="WorkingHours[Friday][IsClosed]" />
+	</div>
+
+	<div class="form-group">
+		<label for="saturdayOpeningTime" class="font-weight-bold">Saturday</label>
+		<input type="time" id="saturdayOpeningTime" name="WorkingHours[Saturday][OpeningTime]" class="form-control" />
+		<input type="time" id="saturdayClosingTime" name="WorkingHours[Saturday][ClosingTime]" class="form-control" />
+		<label for="saturdayClosed" class="font-weight-bold">Closed?</label>
+		<input type="checkbox" id="saturdayClosed" name="WorkingHours[Saturday][IsClosed]" />
+	</div>
+
+	<div class="form-group">
+		<label for="sundayOpeningTime" class="font-weight-bold">Sunday</label>
+		<input type="time" id="sundayOpeningTime" name="WorkingHours[Sunday][OpeningTime]" class="form-control" />
+		<input type="time" id="sundayClosingTime" name="WorkingHours[Sunday][ClosingTime]" class="form-control" />
+		<label for="sundayClosed" class="font-weight-bold">Closed?</label>
+		<input type="checkbox" id="sundayClosed" name="WorkingHours[Sunday][IsClosed]" />
+	</div>
+
+	<div class="form-group text-center">
+		<button type="submit" class="btn btn-success">Add Salon</button>
+	</div>
+</form>

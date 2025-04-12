@@ -1,0 +1,541 @@
+﻿@{
+	ViewData["Title"] = "Profile";
+
+}
+@model HaloHair.Models.ProfileViewModel
+
+
+
+<div class="container mt-5">
+	<!-- User Info Section -->
+	<div class="profile-header d-flex align-items-center mb-4 user-info">
+		<img src="~/@Model.User.ProfileImagePath"
+			 alt="User Avatar"
+			 class="rounded-circle me-3"
+			 style="width: 100px; height: 100px" />
+
+		<div class="info">
+			<h2>@Model.User.FirstName @Model.User.LastName</h2>
+			<p>Email: @Model.User.Email</p>
+			<p>Phone: @Model.User.PhoneNumber</p>
+			<p>Gender: @Model.User.Gender</p>
+
+
+
+			<button type="button"
+					class="editProfile"
+					data-bs-toggle="modal"
+					data-bs-target="#editProfileModal">
+				Edit Profile
+			</button>
+		</div>
+	</div>
+
+	<!-- Modal for Edit Profile -->
+	<div class="modal fade"
+		 id="editProfileModal"
+		 tabindex="-1"
+		 aria-labelledby="editProfileModalLabel"
+		 aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="editProfileModalLabel">
+						Edit Your Profile
+					</h5>
+					<button type="button"
+							class="btn-close"
+							data-bs-dismiss="modal"
+							aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<!-- Form inside the modal -->
+					<form id="editProfileForm" asp-action="EditProfile" method="post" enctype="multipart/form-data">
+						<div class="mb-3">
+							<label for="profileImage" class="form-label">Upload New Profile Picture</label>
+							<input type="file" class="form-control" name="ProfileImage" id="profileImage" />
+						</div>
+
+
+						<div class="mb-3">
+							<label for="FirstName" class="form-label">First Name</label>
+							<input type="text" class="form-control" name="FirstName" id="FirstName" value="@Model.User.FirstName" required />
+						</div>
+						<div class="mb-3">
+							<label for="LastName" class="form-label">Last Name</label>
+							<input type="text" class="form-control" name="LastName" id="LastName" value="@Model.User.LastName" required />
+						</div>
+						<div class="mb-3">
+							<label for="Email" class="form-label">Email address</label>
+							<input type="email" class="form-control" name="Email" id="Email" value="@Model.User.Email" required />
+						</div>
+						<div class="mb-3">
+							<label for="PhoneNumber" class="form-label">Phone</label>
+							<input type="tel" class="form-control" name="PhoneNumber" id="PhoneNumber" value="@Model.User.PhoneNumber" required />
+						</div>
+
+						<!-- كلمة المرور اختيارية -->
+						@*    <div class="mb-3">
+                            <label for="NewPassword" class="form-label">New Password</label>
+                            <input type="password" class="form-control" name="NewPassword" id="NewPassword" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="ConfirmPassword" class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" name="ConfirmPassword" id="ConfirmPassword" />
+                        </div> *@
+
+						<input type="hidden" name="Id" value="@Model.User.Id" />
+					</form>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" id="closeBtn" data-bs-dismiss="modal">
+						Close
+					</button>
+					<button type="submit" class="btn btn-primary" form="editProfileForm">Save Changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Tabs for Sections -->
+<ul class="nav nav-tabs mb-4" id="profileTabs" role="tablist">
+	<li class="nav-item">
+		<button class="nav-link active"
+				id="upcoming-tab"
+				data-bs-toggle="tab"
+				data-bs-target="#upcoming"
+				type="button"
+				role="tab">
+			Upcoming Appointments
+		</button>
+	</li>
+	<li class="nav-item">
+		<button class="nav-link"
+				id="history-tab"
+				data-bs-toggle="tab"
+				data-bs-target="#history"
+				type="button"
+				role="tab">
+			Booking History
+		</button>
+	</li>
+	<li class="nav-item">
+		<button class="nav-link"
+				id="statistics-tab"
+				data-bs-toggle="tab"
+				data-bs-target="#statistics"
+				type="button"
+				role="tab">
+			Reviews
+		</button>
+	</li>
+	<li class="nav-item">
+		<button class="nav-link"
+				id="favorites-tab"
+				data-bs-toggle="tab"
+				data-bs-target="#favorites"
+				type="button"
+				role="tab">
+			Favorites
+		</button>
+	</li>
+	<li class="nav-item">
+		<button class="nav-link"
+				id="points-tab"
+				data-bs-toggle="tab"
+				data-bs-target="#points"
+				type="button"
+				role="tab">
+			Points & Rewards
+		</button>
+	</li>
+	<li class="nav-item">
+		<button class="nav-link"
+				id="payment-tab"
+				data-bs-toggle="tab"
+				data-bs-target="#payment"
+				type="button"
+				role="tab">
+			Payment Methods
+		</button>
+	</li>
+	<li class="nav-item">
+		<button class="nav-link"
+				id="settings-tab"
+				data-bs-toggle="tab"
+				data-bs-target="#settings"
+				type="button"
+				role="tab">
+			Settings
+		</button>
+	</li>
+</ul>
+
+<!-- Tab Content -->
+<div class="tab-content" id="profileTabsContent">
+	<!-- Upcoming Appointments -->
+	<div class="tab-pane fade show active" id="upcoming" role="tabpanel">
+		<div class="card mb-3">
+			<div class="card-body">
+				<h5>Salon Name: <span class="choose">Elegant Touch</span></h5>
+				<p>Date: 2025-02-01</p>
+				<p>Time: 3:00 PM</p>
+				<p>Service: Haircut</p>
+				<button class="btn btn-danger btn-sm">Cancel</button>
+				<button class="btn btn-outline-secondary btn-sm">Reschedule</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- Booking History -->
+
+	<div class="tab-pane fade" id="history" role="tabpanel">
+		@if (Model.User.BookingsHistories != null && Model.User.BookingsHistories.Any())
+		{
+			foreach (var booking in Model.User.BookingsHistories)
+			{
+				<div class="card mb-3">
+					<div class="card-body">
+						<h5>Salon Name: <span class="choose">@booking.Barber?.Salon?.Name</span></h5>
+						<p>Date: @booking.BookingDate.ToShortDateString()</p>
+						<p>Time: @booking.StartTime.ToString("hh\\:mm")</p>
+						<p>Duration: @booking.TotalDuration minutes</p>
+						<p>Price: JOD @booking.TotalPrice</p>
+						<p>Status: @booking.Status</p>
+						<button class="btn btn-outline-primary btn-sm rebook">
+							Rebook
+						</button>
+					</div>
+				</div>
+			}
+		}
+		else
+		{
+			<p>You have no booking history yet.</p>
+		}
+	</div>
+
+
+
+<!-- Review Tab -->
+<div class="tab-pane fade" id="statistics" role="tabpanel">
+	@if (Model.User.BookingsHistories != null && Model.User.BookingsHistories.Any())
+	{
+		foreach (var booking in Model.User.BookingsHistories)
+		{
+			if (booking.Status == "Completed")
+			{
+				<div class="card mb-3">
+					<div class="card-body">
+						<h5>Salon Name: <span class="choose">@booking.Barber?.Salon?.Name</span></h5>
+						<p>Date: @booking.BookingDate.ToShortDateString()</p>
+						<p>Time: @booking.StartTime.ToString("hh\\:mm")</p>
+						<p>Duration: @booking.TotalDuration minutes</p>
+						<p>Price: JOD @booking.TotalPrice</p>
+						<p>Status: @booking.Status</p>
+
+						<!-- Review Button -->
+						<button class="btn btn-outline-primary btn-sm" onclick="openReviewModal(@booking.Id)">
+							Leave your review
+						</button>
+
+					</div>
+				</div>
+			}
+		}
+	}
+	else
+	{
+		<p>No completed bookings yet.</p>
+	}
+</div>
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="reviewModalLabel">Leave Your Review</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form id="reviewForm">
+					@Html.AntiForgeryToken()
+
+					<input type="hidden" id="bookingId" name="bookingId" />
+					<div class="mb-3">
+						<label for="rating" class="form-label">Rating (1 to 5):</label>
+						<select class="form-select" id="rating" name="rating" required>
+							<option value="">Choose a rating</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+						</select>
+					</div>
+					<div class="mb-3">
+						<label for="comment" class="form-label">Comment (optional):</label>
+						<textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
+					</div>
+					<button type="button" class="btn btn-primary" onclick="submitReview()">Submit</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<!-- Favorites Tab -->
+<div class="tab-pane fade" id="favorites" role="tabpanel">
+	@if (ViewBag.FavoriteSalons != null && ViewBag.FavoriteSalons.Count > 0)
+	{
+		foreach (var salon in ViewBag.FavoriteSalons)
+		{
+			<div class="card mb-3">
+				<div class="card-body">
+					<h5>Salon Name: <span class="choose">@salon.Name</span></h5>
+					<p>Address: @salon.Address</p>
+
+					<!-- عرض صورة الصالون -->
+					@if (salon.SalonImages != null && salon.SalonImages.Count > 0)
+					{
+						<img src="@salon.SalonImages.First().ImageUrl" class="card-img-top" alt="@salon.Name">
+					}
+					else
+					{
+						<img src="~/images/default-salon.jpg" class="card-img-top" alt="Default Salon Image">
+					}
+
+
+
+					<div class="mt-3">
+						<!-- زر عرض الصالون -->
+						<a href="@Url.Action("SalonMen", "MenSalon", new { id = salon.Id })" class="btn btn-primary btn-sm">
+							View Salon
+						</a>
+
+						<!-- زر إزالة من المفضلة -->
+						<button class="btn btn-outline-danger btn-sm remove-favorite" data-salon-id="@salon.Id">
+							<i class="fa-solid fa-trash"></i> Remove
+						</button>
+					</div>
+				</div>
+			</div>
+		}
+	}
+	else
+	{
+		<p>No favorite salons or services yet. Start exploring!</p>
+	}
+</div>
+
+<!-- Points & Rewards -->
+<div class="tab-pane fade" id="points" role="tabpanel">
+	<!-- Points Balance -->
+	<div class="points-balance mb-4">
+		<h3>Your Points Balance</h3>
+		<p class="points">1,250 <span>Points</span></p>
+		<div class="progress-bar">
+			<div class="progress" style="width: 50%"></div>
+		</div>
+		<p class="progress-text">500 points to next reward</p>
+	</div>
+
+	<div class="row-container">
+		<div class="card1">
+			<h5 class="card-title">$10 Off Any Service</h5>
+			<p class="points-required">100 Points</p>
+			<div class="d-grid">
+				<button class="btn btn-primary redeem-btn">Redeem Now</button>
+			</div>
+		</div>
+		<div class="card2">
+			<h5 class="card-title">Free Beard Trim</h5>
+			<p class="points-required">200 Points</p>
+			<div class="d-grid">
+				<button class="btn btn-primary redeem-btn">Redeem Now</button>
+			</div>
+		</div>
+		<div class="card3">
+			<h5 class="card-title">Free Haircut + Styling</h5>
+			<p class="points-required">500 Points</p>
+			<div class="d-grid">
+				<button class="btn btn-primary redeem-btn">Redeem Now</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- Transaction History -->
+	<div class="transaction-history mt-4">
+		<h3>Transaction History</h3>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Date</th>
+					<th>Description</th>
+					<th>Points</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>10/01/2023</td>
+					<td>Earned for Booking</td>
+					<td>+50</td>
+				</tr>
+				<tr>
+					<td>09/25/2023</td>
+					<td>Redeemed $10 Off</td>
+					<td>-100</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<!-- Payment Methods -->
+<div class="tab-pane fade" id="payment" role="tabpanel">
+	<a href="../HTML Pages/payment.html">
+		<button class="btn btn-primary btn-sm payment">
+			Add Payment Method
+		</button>
+	</a>
+</div>
+
+<!-- Settings -->
+<div class="tab-pane fade" id="settings" role="tabpanel">
+	<h5>Profile Settings</h5>
+	<p>Update your preferences and account details.</p>
+
+	<!-- Delete Account Option -->
+	<div class="alert alert-danger">
+		<h6>Delete Your Account</h6>
+		<p>
+			If you wish to permanently delete your account, this action cannot
+			be undone.
+		</p>
+
+		<button id="deleteAccountBtn">Delete Account</button>
+	</div>
+</div>
+</div>
+
+
+
+
+
+@* for review *@
+
+<script>
+		function openReviewModal(bookingId) {
+		// Set the hidden bookingId in the form
+		document.getElementById('bookingId').value = bookingId;
+
+		// Open the Modal
+		var reviewModal = new bootstrap.Modal(document.getElementById('reviewModal'));
+		reviewModal.show();
+	}
+
+	// Submit the review function
+	function submitReview() {
+		var bookingId = document.getElementById('bookingId').value;
+		var rating = document.getElementById('rating').value;
+		var comment = document.getElementById('comment').value;
+
+		if (!rating) {
+			alert("Please select a rating first.");
+			return;
+		}
+
+		console.log("Sending data:", { bookingId, rating, comment }); // Log sent data
+
+		$.ajax({
+			url: '/MenProfile/AddReview',
+			type: 'POST',
+			data: {
+				bookingId: parseInt(bookingId),
+				rating: parseInt(rating),
+				comment: comment
+			},
+			success: function (response) {
+				console.log("Response:", response); // Log response
+				if (response.success) {
+					alert("Review submitted successfully!");
+					location.reload();
+				} else {
+					alert(response.message || "An error occurred while submitting the review.");
+				}
+			},
+			error: function (xhr, status, error) {
+				console.error("Error details:", xhr.responseText, status, error);
+				alert("An error occurred while submitting the review: " + (xhr.responseText || error));
+			}
+		});
+	}
+
+
+
+	@* to removeEventListener favourite  *@
+	// Make sure the script runs after the page is fully loaded
+	document.addEventListener('DOMContentLoaded', function() {
+		// Log to confirm script is running
+		console.log('Script loaded and running');
+
+		// Use direct method to bind click events to buttons
+		var removeButtons = document.querySelectorAll('.remove-favorite');
+		console.log('Found remove buttons:', removeButtons.length);
+
+		removeButtons.forEach(function(button) {
+			button.addEventListener('click', function() {
+				console.log('Button clicked!');
+				var salonId = this.getAttribute('data-salon-id');
+				var card = this.closest('.card');
+
+				// Use fetch API instead of jQuery for compatibility
+				fetch('/MenSalon/ToggleFavorite', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/x-www-form-urlencoded',
+						'X-Requested-With': 'XMLHttpRequest'
+					},
+					body: 'salonId=' + salonId
+				})
+				.then(response => response.json())
+				.then(result => {
+					if (result.success) {
+						// Visually remove the card
+						card.style.opacity = '0';
+						setTimeout(function() {
+							card.remove();
+							// Check if there are other cards left
+							if (document.querySelectorAll('#favorites .card').length === 0) {
+								document.getElementById('favorites').innerHTML = '<p>No favorite salons or services yet. Start exploring!</p>';
+							}
+						}, 300);
+						showNotification('Salon removed from favorites');
+					} else {
+						showNotification(result.message || 'An error occurred while removing the salon from favorites', 'error');
+					}
+				})
+				.catch(error => {
+					console.error('Error:', error);
+					showNotification('An error occurred while connecting to the server', 'error');
+				});
+			});
+		});
+
+		// Function to show notifications
+		function showNotification(message, type = 'success') {
+			alert(message);
+		}
+	});
+
+
+</script>

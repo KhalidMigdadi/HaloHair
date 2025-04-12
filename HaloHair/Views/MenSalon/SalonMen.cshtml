@@ -1,0 +1,408 @@
+﻿@model HaloHair.Models.Salon
+
+
+@{
+	ViewData["Title"] = "SalonMen";
+	Layout = "~/Views/Shared/_Layout_Men.cshtml";
+}
+
+@section Style {
+	<link href="~/css/salon.css" rel="stylesheet" />
+	<link href="~/css/Men/Salon/SalonMen.css" rel="stylesheet" />
+}
+
+
+
+<div class="head-Salon">
+	<div>
+		<h1>@Model.Name</h1>
+		@* 	<p>
+			<span>5.0 </span><i class="fa-solid fa-star"></i>
+			<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
+			<i class="fa-solid fa-star"></i>
+			<i class="fa-solid fa-star"></i> (5023). Hatamle Commercial Centre,
+			شارع الثقافة, Irbid 21110.
+			<a href="">Go to Salon</a>
+		</p> *@
+	</div>
+	<div>
+		<i class="fa-solid fa-share fa-3x"></i>
+		<i class="fa-regular fa-heart fa-3x favorite-icon"
+		   id="favorite-@Model.Id"
+		   data-salon-id="@Model.Id"
+		   data-is-favorite="@ViewBag.IsFavorite"></i>
+	</div>
+</div>
+<div class="gallery">
+	@if (Model.SalonImages.Any())
+	{
+		<!-- الصورة الرئيسية -->
+		<div class="large-image-container">
+			<img src="@Model.SalonImages.First().ImageUrl" alt="Salon Large" class="large-image" />
+		</div>
+
+		<!-- باقي الصور الصغيرة -->
+		<div class="small-images">
+			@foreach (var image in Model.SalonImages.Skip(1))
+			{
+				<img src="@image.ImageUrl" alt="Salon Small" class="small-image" />
+			}
+		</div>
+	}
+	else
+	{
+		<p>No images available for this salon.</p>
+	}
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<h2>Services</h2>
+<div class="ser-container">
+	<div class="services">
+		<!-- service -->
+		<div class="services-salon">
+
+
+			<div class="filter-container">
+				<label for="service-filter">Filter by Service:</label>
+				<select id="service-filter" onchange="filterServices()">
+					<option value="all">All Services</option>
+					<option value="discount">Discounts</option>
+					<option value="consultant">Consultant</option>
+					<option value="haircut">Hair Cut</option>
+					<option value="beard">Beard</option>
+					<option value="packages">Packages</option>
+				</select>
+			</div>
+
+
+
+
+			<!-- Services List -->
+			<div class="service-list">
+				@if (Model.Services.Any())
+				{
+					<!-- عرض أول 5 خدمات فقط -->
+					@foreach (var service in Model.Services.Take(5))
+					{
+						<div class="service" data-category="@GetServiceCategory(service.ServiceName)">
+							<div>
+								<h3>@service.ServiceName</h3>
+								<p style="margin: 20px 0 10px; color: #666">@service.Duration mins</p>
+								<p>@service.Price JOD</p>
+							</div>
+							<button class="book-btn"
+									onclick="updateBookingDetails('@service.ServiceName', @service.Duration, @service.Price)">
+								Book Now
+							</button>
+						</div>
+					}
+
+					<!-- إضافة زر See All -->
+
+					<button class="seeAll" onclick="window.location.href='@Url.Action("SelectService", "MenAppointments", new { salonId = Model.Id })'">See All</button>
+				}
+				else
+				{
+					<p>No services available for this salon.</p>
+				}
+			</div>
+
+
+
+		</div>
+		<!-- team -->
+		<div class="sidebar">
+			<h2>Our Team</h2>
+
+			<div class="team-container">
+				@foreach (var barber in Model.Barbers)
+				{
+					<div class="team-card">
+						<img src="~/Images/Barbers/@(barber.Id).webp"
+							 alt="@barber.FirstName @barber.LastName"
+							 onerror="this.onerror=null; this.src='~/Images/default-barber.jpg';" />
+						<div class="info">
+							<h3>@barber.FirstName @barber.LastName</h3>
+							<p>@(barber.UserType ?? "Barber")</p>
+						</div>
+					</div>
+				}
+			</div>
+
+
+
+
+
+		</div>
+
+		<div class="about-section">
+			<div class="about-text">
+				<h2>About @Model.Name Salon</h2>
+				<p style="margin-bottom: 100px">
+					@Model.AboutSalon
+				</p>
+
+
+
+
+				<h2>Salon Location</h2>
+				<div class="card mb-4">
+					<div class="card-header">
+						<h4>@Model.Name</h4>
+					</div>
+					<div class="card-body">
+						<p><strong>العنوان:</strong> @Model.Address</p>
+						<!-- معلومات أخرى -->
+					</div>
+				</div>
+
+				<!-- قسم الخريطة -->
+				@if (Model.Latitude != null && Model.Longitude != null)
+				{
+					<div class="card">
+						<div class="card-header">
+							<h5>موقع الصالون</h5>
+						</div>
+						<div class="card-body">
+							<div id="salon-map" style="height: 400px; width: 100%;"></div>
+						</div>
+					</div>
+
+
+
+
+					<!-- Opening time -->
+
+					<div class="opening-hours">
+						<h3>Working Hours</h3>
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Day</th>
+									<th>Opening Time</th>
+									<th>Closing Time</th>
+									<th>Status</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var hour in Model.WorkingHours)
+								{
+									<tr>
+										<td>@hour.DayOfWeek</td>
+										<td>@hour.OpeningTime?.ToString("HH:mm")</td>
+										<td>@hour.ClosingTime?.ToString("HH:mm")</td>
+										<td>@(hour.IsClosed ? "Closed" : "Open")</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+
+					</div>
+
+					<!-- work -->
+					<div class="salon-work">
+						<h2>Our Salon Work</h2>
+						@foreach (var barber in Model.Barbers)
+						{
+							<div>
+								<h5>Work Images</h5>
+								<div class="work-images">
+									@foreach (var workImage in barber.BarberWorkImages)
+									{
+										<div class="work-image">
+											<img src="@workImage.ImageUrl" alt="Work Image" class="img-thumbnail" />
+										</div>
+									}
+								</div>
+							</div>
+						}
+					</div>
+
+
+
+					<!-- review -->
+					<div class="reviews-section">
+						<h2>What Our Customers Say</h2>
+
+						@if (Model.Reviews != null && Model.Reviews.Any())
+						{
+							@foreach (var review in Model.Reviews.OrderByDescending(r => r.CreatedAt).Take(5))
+							{
+								<div class="review-card">
+									<span class="customer-name">@review.User.FirstName @review.User.LastName</span>
+									<div class="stars">
+										@for (int i = 0; i < (review.Rating ?? 0); i++)
+										{
+											<span>⭐</span>
+										}
+									</div>
+									<p class="comment">@review.Comment</p>
+								</div>
+							}
+						}
+						else
+						{
+							<p>No reviews available yet.</p>
+						}
+					</div>
+
+					<div class="book">
+						<h3>@Model.Name</h3>
+
+						<div class="rating">⭐⭐⭐⭐⭐ (4.9/5 - 320 Reviews)</div>
+
+						<!-- تفاصيل الخدمات المختارة -->
+						<div class="services">
+							<b>Selected Services:</b> <span id="selected-service">Choose a service</span>
+						</div>
+
+						<div class="services">
+							<b>Duration:</b> <span id="selected-duration">--</span> mins
+						</div>
+
+						<div class="services">
+							<b>Price:</b> <span id="selected-price">--</span> JOD
+						</div>
+
+						<button type="submit">Confirm Booking</button>
+					</div>
+
+
+
+
+
+					@section Scripts {
+					<!-- Include salon.js -->
+					<script src="~/js/salon.js"></script>
+
+					<!-- Favorite Logic -->
+					<script>
+						$(document).ready(function () {
+							// Check if the salon is already favorited and update the icon
+							updateFavoriteIcon();
+
+							// Handle favorite icon click
+							$('.favorite-icon').click(function () {
+								var salonId = $(this).data('salon-id');
+								toggleFavorite(salonId);
+							});
+
+							// Toggle favorite state
+							function toggleFavorite(salonId) {
+								$.ajax({
+									url: '@Url.Action("ToggleFavorite", "MenSalon")',
+									type: 'POST',
+									data: { salonId: salonId },
+									success: function (result) {
+										if (result.success) {
+											$('#favorite-' + salonId).data('is-favorite', result.isFavorite);
+											updateFavoriteIcon();
+
+											if (result.isFavorite) {
+												showNotification('تمت إضافة الصالون إلى المفضلة بنجاح');
+											} else {
+												showNotification('تمت إزالة الصالون من المفضلة');
+											}
+										} else {
+											showNotification('حدث خطأ، يرجى تسجيل الدخول أولاً', 'error');
+										}
+									},
+									error: function () {
+										showNotification('حدث خطأ في الاتصال بالخادم', 'error');
+									}
+								});
+							}
+
+							// Update favorite icon style
+							function updateFavoriteIcon() {
+								$('.favorite-icon').each(function () {
+									var isFavorite = $(this).data('is-favorite') === true;
+									if (isFavorite) {
+										$(this).removeClass('fa-regular').addClass('fa-solid');
+										$(this).css('color', '#e91e63');
+									} else {
+										$(this).removeClass('fa-solid').addClass('fa-regular');
+										$(this).css('color', '');
+									}
+								});
+							}
+
+							// Show notifications
+							function showNotification(message, type = 'success') {
+								// You can replace this with a notification library like Toastr
+								alert(message);
+							}
+						});
+					</script>
+
+					<!-- Leaflet Map Integration -->
+					<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+					<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+					<script>
+						document.addEventListener('DOMContentLoaded', function () {
+							// Salon coordinates
+							var salonLat = @Model.Latitude;
+							var salonLng = @Model.Longitude;
+
+							// Initialize the map
+							var map = L.map('salon-map').setView([salonLat, salonLng], 15);
+
+							// Add map tile layer
+							L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+								attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+							}).addTo(map);
+
+							// Add salon marker
+							var marker = L.marker([salonLat, salonLng]).addTo(map);
+
+							// Optional: Add a highlight circle
+							var circle = L.circle([salonLat, salonLng], {
+								color: 'blue',
+								fillColor: '#3388ff',
+								fillOpacity: 0.2,
+								radius: 200
+							}).addTo(map);
+
+							// Add popup info
+							marker.bindPopup("<b>@Model.Name</b><br>@Model.Address").openPopup();
+						});
+					</script>
+					}
+
+					<!-- If no location available -->
+					@if (Model.Latitude == null || Model.Longitude == null)
+					{
+						<div class="alert alert-info">
+							There is no location yet
+						</div>
+					}
+
+					@functions {
+					public string GetServiceCategory(string serviceName)
+					{
+						if (string.IsNullOrEmpty(serviceName)) return "other";
+
+						serviceName = serviceName.ToLower();
+
+						if (serviceName.Contains("discount")) return "discount";
+						if (serviceName.Contains("consult")) return "consultant";
+						if (serviceName.Contains("hair cut") || serviceName.Contains("haircut")) return "haircut";
+						if (serviceName.Contains("beard")) return "beard";
+						if (serviceName.Contains("package")) return "packages";
+
+						return "other";
+					}
+				}
+				}

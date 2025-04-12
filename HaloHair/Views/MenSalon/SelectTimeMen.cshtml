@@ -1,0 +1,109 @@
+﻿@{
+	ViewData["Title"] = "SelectTimeMen";
+	Layout = "~/Views/Shared/_Layout_Services.cshtml";
+
+}
+
+@section Style {
+	<link href="~/css/selectTime.css" rel="stylesheet" />
+}
+
+
+<div class="head">
+	<a href="selectService.html"><i class="fa-solid fa-arrow-left fa-2x"></i></a>
+	<i class="fa-solid fa-xmark fa-2x"></i>
+</div>
+
+<div class="container">
+	<div class="left-side">
+		<h1>Select Time & Date</h1>
+		<div class="custom-dropdown">
+			<button class="dropdown-btn" id="selected-barber">
+				<img src="../Images/Men_Images/YousofAfandi/team1.webp"
+					 id="barber-img"
+					 alt="" />
+				<span>Select a Barber</span>
+				<i class="arrow">&#9662;</i>
+				<!-- Dropdown arrow -->
+			</button>
+			<ul class="dropdown-list" id="dropdown-list">
+				<li onclick="selectBarber('Ahmad Khaled', '../Images/Men_Images/YousofAfandi/team1.webp')">
+					<img src="../Images/Men_Images/YousofAfandi/team1.webp" alt="" />
+					Ahmad Khaled
+				</li>
+				<li onclick="selectBarber('Mosa Al-Masri', '../Images/Men_Images/YousofAfandi/team2.webp')">
+					<img src="../Images/Men_Images/YousofAfandi/team2.webp" alt="" />
+					Mosa Al-Masri
+				</li>
+				<li onclick="selectBarber('Omar Hassan', '../Images/Men_Images/YousofAfandi/team3.webp')">
+					<img src="../Images/Men_Images/YousofAfandi/team3.webp" alt="" />
+					Omar Hassan
+				</li>
+				<li onclick="selectBarber('Yousef Haddad', '../Images/Men_Images/YousofAfandi/team4.webp')">
+					<img src="../Images/Men_Images/YousofAfandi/team4.webp" alt="" />
+					Yousef Haddad
+				</li>
+			</ul>
+		</div>
+
+		<!-- Date Selection -->
+
+		<div class="date-picker">
+			<!-- <label for="date-select">Select Date:</label> -->
+			<input type="date" id="date-select" min="" />
+		</div>
+
+		<!-- Time Slots (Dynamically Updated) -->
+		<div id="time-slots-container">
+			<h3>Available Time Slots:</h3>
+			<div id="time-slots"></div>
+		</div>
+	</div>
+
+	<!-- Right-Side Box -->
+	<div class="right-side">
+		<div class="book">
+			<div class="head">
+				<div>
+					<img src="../Images/Men_Images/YousofAfandi/shop.png" alt="" />
+					<div class="rating">⭐ (4.9)</div>
+				</div>
+				<div class="info">
+					<h3>Yousef Afandi</h3>
+					<i class="fa-solid fa-location-dot"></i> Hatamle Commercial
+					Centre, شارع الثقافة, Irbid 21110
+				</div>
+			</div>
+
+			<!-- Selected Barber Name -->
+			<div class="select-Barber">
+				<i class="fa-solid fa-user-large"></i>
+				<span id="selected-barber-name">None</span>
+			</div>
+
+			<!-- Selected Date -->
+			<div class="selected-date">
+				<i class="fa-solid fa-calendar-days"></i>
+				<span id="selected-date">None</span>
+			</div>
+
+			<!-- Selected Time -->
+			<div class="selected-time">
+				<i class="fa-regular fa-clock"></i>
+				<span id="selected-time">None</span>
+			</div>
+
+			<hr />
+			<h3>Total: <span id="total-price">0</span> JOD</h3>
+
+			<button class="continue">
+				<a href="confirmBooking.html">Continue</a>
+			</button>
+		</div>
+	</div>
+</div>
+
+
+@section Scripts {
+	<script src="~/js/selectTime.js"></script>
+}

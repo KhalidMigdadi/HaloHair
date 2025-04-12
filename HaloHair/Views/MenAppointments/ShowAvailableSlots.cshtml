@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewData["Title"] = "ShowAvailableSlots";
+}
+
+@foreach (var slot in Model)
+{
+    <form method="post" asp-action="BookSlot">
+        <input type="hidden" name="timeSlotId" value="@slot.Id" />
+        <button type="submit" class="btn btn-success">
+            احجز @slot.StartTime.ToShortTimeString()
+        </button>
+    </form>
+}
+

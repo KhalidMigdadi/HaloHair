@@ -1,0 +1,406 @@
+/* Basic Layout for the About Page */
+:root {
+    --main-color: #8892B0;
+    --main-text-color: #F8F8F8;
+    --transparent-color: rgb(15 116 143 / 70%);
+    --section-padding: 100px;
+    --para-color: #666;
+  }
+  
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: "Arial", sans-serif;
+    margin: 0;
+    padding: 0;
+    
+  }
+
+/* navBar */
+
+#navbar {
+    background-color: var(--main-color);
+}
+
+.nav-item .bar {
+    color: #fff !important;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+.nav-item a:hover {
+    color: #000 !important; /* Add a hover effect for links */
+}
+
+.navbar-expand-lg .navbar-nav {
+    margin-left: 250px; /* Align links to the center dynamically */
+    justify-content: center;
+}
+
+.dropdown-menu-end a {
+    color: #000;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+    .dropdown-menu-end a:hover {
+        background-color: #f8f9fa;
+        color: var(--main-color);
+    }
+
+
+
+.cart-nav:hover {
+    color: #000 !important;
+}
+
+.dropdown-item:hover {
+    background-color: #ddd !important;
+}
+
+.rounded-circle {
+    margin: 0;
+    width: 50px;
+    height: 50px;
+    object-fit: cover; /* Ensure proper image fit */
+}
+
+.navbar-toggler {
+    border: none; /* Remove border for cleaner design */
+}
+    
+    
+    
+    
+    
+    
+    
+    
+    /* Main Styles for Contact Us Section */
+    .contact-us {
+      padding: 60px 20px;
+      background-color: #fef5f9;
+      color: #333;
+      font-family: Arial, sans-serif;
+      margin-top: 50px;
+      
+    }
+    
+    .contact-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .contact-header h1 {
+      font-size: 2.5rem;
+      color: var(--main-color);
+      margin-bottom: 10px;
+    }
+    
+    .contact-header p {
+      font-size: 1rem;
+      color: #666;
+    }
+    
+    .contact-content {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 50px;
+    }
+    
+    .contact-form,
+    .contact-info {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      
+    }
+    
+    
+    
+    /* Adjustments for smaller screens */
+    @media screen and (max-width: 768px) {
+      .contact-content {
+        grid-template-columns: auto; /* Stacks items vertically on smaller screens */
+      }
+     
+    }
+    
+    
+    .contact-form h2,
+    .contact-info h2 {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      color: var(--main-color);
+    }
+    
+    .form-group {
+      margin-bottom: 15px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #555;
+    }
+    
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1rem;
+      color: #333;
+    }
+  
+    input:focus,
+    textarea:focus {
+      color: var(--main-color);
+      /* background-color: var(--bs-body-bg); */
+      outline: 0;
+      box-shadow: 0 0 0 .25rem var(--main-color);
+      /* border-color: transparent; */
+    }
+    
+    .form-group textarea {
+      resize: none;
+    }
+    
+    .btn-submit {
+      background-color: var(--main-color);
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .btn-submit:hover {
+      background-color: var(--main-color);
+    }
+    
+    /* Contact Info Styles */
+    .contact-info ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 20px 0;
+    }
+    
+    .contact-info ul li {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      font-size: 1rem;
+      color: #666;
+    }
+    
+    .contact-info ul li i {
+      margin-right: 10px;
+      color: var(--main-color);
+    }
+    
+    .contact-info ul li a {
+      color: #333;
+      text-decoration: none;
+    }
+    
+    .contact-info ul li a:hover {
+      color: var(--main-color);
+    }
+    
+    /* View Map Button */
+    .btn-view-map {
+      display: inline-block;
+      background-color: var(--main-color);
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-top: 15px;
+    }
+    
+    .btn-view-map:hover {
+      background-color: var(--main-color);
+    }
+    
+    /* Social Media Links */
+    .social-media {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .social-media h3 {
+      font-size: 1.2rem;
+      margin-right: 15px;
+      color: #666;
+    }
+    
+    .social-media a {
+      color: var(--main-color);
+      font-size: 1.2rem;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    .social-media a:hover {
+      color: var(--main-color);
+    }
+    
+    
+    .contact-info {
+      flex: 1 1 100%; /* Full width */
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .contact-info h2 {
+      font-size: 2rem;
+      color: var(--main-color);
+      margin-bottom: 20px;
+    }
+    
+    .contact-info ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 30px 0;
+    }
+    
+    .contact-info ul li {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+      color: #666;
+    }
+    
+    .contact-info ul li i {
+      margin-right: 15px;
+      font-size: 1.5rem;
+      color: var(--main-color);
+    }
+    
+    .contact-info ul li strong {
+      margin-right: 10px;
+      color: #333;
+    }
+    
+    .contact-info ul li a {
+      color: #333;
+      text-decoration: none;
+    }
+    
+    .contact-info ul li a:hover {
+      color: var(--main-color);
+    }
+    
+    /* Office Hours */
+    .contact-hours {
+      margin-bottom: 20px;
+    }
+    
+    .contact-hours h3 {
+      font-size: 1.5rem;
+      color: var(--main-color);
+      margin-bottom: 10px;
+    }
+    
+    .contact-hours p {
+      font-size: 1rem;
+      color: #555;
+      margin-bottom: 5px;
+    }
+    
+    /* Extra Help Section */
+    .contact-extra {
+      margin-bottom: 20px;
+    }
+    
+    .contact-extra h3 {
+      font-size: 1.5rem;
+      color: var(--main-color);
+      margin-bottom: 10px;
+    }
+    
+    .contact-extra p a {
+      color: var(--main-color);
+      text-decoration: none;
+      font-weight: bold;
+    }
+    
+    .contact-extra p a:hover {
+      text-decoration: underline;
+    }
+    
+    /* Social Media Links */
+    .social-media {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .social-media h3 {
+      font-size: 1.5rem;
+      margin-right: 15px;
+      color: #666;
+    }
+    
+    .social-media a {
+      color: var(--main-color);
+      font-size: 1.5rem;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    .social-media a:hover {
+      color: #ffc0cb;
+    }
+    
+    
+    
+      /* Start Footer */
+  
+      footer {
+        background-color: var(--main-color);
+        font-weight: 700;
+        color: #fff !important;
+      }
+      
+      .social-container .facebook:hover {
+        color: #1877f2;
+      }
+      
+      .social-container .twitter:hover {
+        color: #000000;
+      }
+      
+      .social-container .instagram:hover {
+        color: #e1306c;
+      }
+      
+      .social-container .linkedin:hover {
+        color: #0a66c2;
+      }
+    
+      .d-lg-block {
+        color: #fff;
+      }
+    
+      footer p {
+        color: #fff;
+    }
+    
+      
+      /* End Footer */

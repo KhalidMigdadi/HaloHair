@@ -1,0 +1,69 @@
+﻿@{
+    ViewData["Title"] = "LoginUserMen";
+    Layout = "~/Views/Shared/_Layout_Services.cshtml";
+
+}
+
+@section Style {
+    <link href="~/css/loginUser.css" rel="stylesheet" />
+}
+
+<section class="login-section">
+    <div class="containerLogin">
+        <div class="login-container">
+            <!-- Left side: Form -->
+            <div class="login-form">
+                <div class="arrow">
+                    <a href="B_or_C.html">
+                        <i class="fa-solid fa-arrow-left fa-2x"></i>
+                    </a>
+                </div>
+                <h1>For User Use</h1>
+                <span class="wlcom">Welcome back!</span>
+                <p class="p1">
+                    Sign up or log in to book and manage your appointments
+                </p>
+                <form asp-action="LoginUserMen" asp-controller="Men" method="post">
+                    <div class="form-group">
+                        <input type="email"
+                               id="email"
+                               name="email"
+                               placeholder="Enter your email"
+                               required />
+                    </div>
+                    <button type="submit" class="btn-submit">Continue</button>
+
+
+                </form>
+                @if (TempData["EmailError"] != null)
+                {
+                    <div class="alert alert-danger">
+                        @TempData["EmailError"]
+                    </div>
+                }
+
+                <div class="social-login">
+                    <button class="google-btn">
+                        <i class="fab fa-google"></i> Login with Google
+                    </button>
+                    <button class="facebook-btn">
+                        <i class="fab fa-facebook-f"></i> Login with Facebook
+                    </button>
+                    <button class="apple-btn">
+                        <i class="fab fa-apple"></i> Continue with Apple
+                    </button>
+                </div>
+
+                <div class="extra-links">
+                    <p>Own a barber shop or salon? Start accepting online appointments today!</p>
+                    <a href="loginBarber.html">Sign in as a Business</a>
+                </div>
+            </div>
+
+            <!-- Right side: Image -->
+            <div class="login-image">
+                <!-- You can place your image here -->
+            </div>
+        </div>
+    </div>
+</section>

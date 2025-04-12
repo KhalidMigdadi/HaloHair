@@ -1,0 +1,132 @@
+﻿/* التصميم العام للصفحة */
+div > h2 {
+    color: #343a40;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f0f0f0;
+    font-size: 28px;
+}
+
+/* تصميم نموذج الرفع */
+form[asp-action="UploadSalonImages"] {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #495057;
+    }
+
+.form-control {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+    .form-control:focus {
+        border-color: #80bdff;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+    .btn-primary:hover {
+        background-color: #0069d9;
+    }
+
+/* عنوان معرض الصور الحالية */
+h3 {
+    color: #495057;
+    margin: 25px 0 15px 0;
+    font-size: 22px;
+}
+
+/* تصميم معرض الصور (معدل من النسخة السابقة) */
+.image-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 25px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+    .image-gallery > div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: white;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        transition: all 0.3s ease;
+    }
+
+        .image-gallery > div:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+    .image-gallery img {
+        border-radius: 6px;
+        object-fit: cover;
+        margin-bottom: 15px;
+        border: 1px solid #eee;
+        width: 150px !important;
+        height: 100px !important;
+    }
+
+    .image-gallery .btn-danger {
+        width: 100%;
+        padding: 8px;
+        font-size: 14px;
+        background-color: #dc3545;
+        border: none;
+        border-radius: 4px;
+        color: white;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+        .image-gallery .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+    .image-gallery form {
+        width: 100%;
+    }
+
+/* تصميم متجاوب */
+@media (max-width: 768px) {
+    .image-gallery {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+    }
+
+    div > h2 {
+        font-size: 24px;
+    }
+}

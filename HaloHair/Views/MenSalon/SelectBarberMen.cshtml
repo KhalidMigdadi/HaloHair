@@ -1,0 +1,86 @@
+﻿@{
+	ViewData["Title"] = "SelectBarberMen";
+	Layout = "~/Views/Shared/_Layout_Services.cshtml";
+}
+
+@section Style {
+	<link href="~/css/selectBarber.css" rel="stylesheet" />
+}
+
+<div class="head">
+	<i class="fa-solid fa-arrow-left fa-2x"></i>
+	<i class="fa-solid fa-xmark fa-2x"></i>
+</div>
+<div class="container">
+	<div class="left-side">
+		<h1>Select Your Barber</h1>
+		<div class="barbers">
+			<div class="shuffle-barber">
+				<a href="#" onclick="selectBarber('Random Barber', this)">
+					<img src="../Images/Men_Images/YousofAfandi/unknown.jpg" alt="">
+					<p>Random Barber</p>
+				</a>
+			</div>
+			<div class="barber1">
+				<a href="#" onclick="selectBarber('Ahmad Khaled', this)">
+					<img src="../Images/Men_Images/YousofAfandi/team1.webp" alt="">
+					<p>Ahmad Khaled</p>
+				</a>
+			</div>
+			<div class="barber2">
+				<a href="#" onclick="selectBarber('Mosa Al-Masri', this)">
+					<img src="../Images/Men_Images/YousofAfandi/team2.webp" alt="">
+					<p>Mosa Al-Masri</p>
+				</a>
+			</div>
+			<div class="barber3">
+				<a href="#" onclick="selectBarber('Omar Hassan', this)">
+					<img src="../Images/Men_Images/YousofAfandi/team3.webp" alt="">
+					<p>Omar Hassan</p>
+				</a>
+			</div>
+			<div class="barber4">
+				<a href="#" onclick="selectBarber('Yousef Haddad', this)">
+					<img src="../Images/Men_Images/YousofAfandi/team4.webp" alt="">
+					<p>Yousef Haddad</p>
+				</a>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="right-side">
+		<div class="book">
+			<div class="head">
+				<div>
+					<img src="../Images/Men_Images/YousofAfandi/shop.png" alt="" />
+					<div class="rating">⭐ (4.9)</div>
+				</div>
+				<div class="info">
+					<h3>Yousef Afandi</h3>
+					<i class="fa-solid fa-location-dot"></i> Hatamle Commercial Centre, شارع الثقافة, Irbid 21110
+				</div>
+			</div>
+
+			<!-- Selected Barber Name Section -->
+			<div class="select-Barber">Selected Barber: <span id="selected-barber-name">None</span></div>
+
+			<div class="selected-services"></div>
+			<!-- Services will be added here -->
+			<div>Total Time: <span id="total-time">0 mins</span></div>
+
+			<hr />
+			<h3>Total: <span id="total-price">0</span> JOD</h3>
+			<!-- Total Price Section -->
+
+			<button class="continue"><a href="selectTime.html">Continue</a></button>
+		</div>
+	</div>
+
+
+</div>
+
+
+@section Scripts {
+	<script src="~/js/selectBarber.js"></script>
+}

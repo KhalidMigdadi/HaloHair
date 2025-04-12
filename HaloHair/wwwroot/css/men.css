@@ -1,0 +1,892 @@
+:root {
+    --main-color: #8892B0;
+    --main-text-color: #F8F8F8;
+    --transparent-color: rgb(15 116 143 / 70%);
+    --section-padding: 100px;
+    --para-color: #666;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Arial", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* navBar */
+.nav-item a {
+    color: #fff;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+}
+
+    .nav-item a:hover {
+        color: #333; /* Add a hover effect for links */
+    }
+
+.navbar-expand-lg .navbar-nav {
+    margin-left: 24%; /* Align links to the center dynamically */
+    justify-content: center;
+}
+
+.dropdown-menu-end a {
+    color: #000;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+    .dropdown-menu-end a:hover {
+        background-color: var(--main-color);
+        color: var(--main-text-color);
+    }
+
+.navbar-scroll {
+    background-color: var(--main-color); /* Removed !important */
+    transition: background-color 0.3s ease; /* Smooth scroll effect */
+    color: #000 !important;
+}
+
+.rounded-circle {
+    margin: 0;
+    width: 50px;
+    height: 50px;
+    object-fit: cover; /* Ensure proper image fit */
+}
+
+.navbar-toggler {
+    border: none; /* Remove border for cleaner design */
+}
+
+
+
+/* Slider */
+.slider-container {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 55px);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slider-image {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+    .slider-image.active {
+        opacity: 1;
+    }
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    .overlay .text {
+        color: white;
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    .overlay .text {
+        color: white;
+        font-size: 2rem;
+        text-align: center;
+        padding: 10px;
+        font-weight: bold;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6); /* Added text shadow for better visibility */
+        animation: fadeIn 2s ease-in-out;
+    }
+
+/* Animation for text */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Form container */
+.search-bar {
+    display: flex;
+    justify-content: space-between; /* Distribute space evenly between items */
+    gap: 10px; /* Add space between form elements */
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 50%;
+    margin-left: 45%;
+    transform: translateX(-50%);
+    position: relative;
+    top: -200px;
+    padding: 50px;
+    padding-left: 50px;
+    background-color: transparent;
+}
+
+    .search-bar input,
+    .search-bar select,
+    .search-bar button {
+        padding: 10px;
+        font-size: 16px;
+    }
+
+/* Form groups for consistency */
+.form-group {
+    flex: 1 1 150px; /* Allow the elements to grow/shrink and set a minimum width */
+    min-width: 150px; /* Minimum width to avoid making the form elements too small */
+    max-width: 200px; /* Maximum width to control the size */
+}
+
+/* Input fields for all types (text, date, select) */
+.form-control {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Button styling */
+.btn-search {
+    /* padding: 12px; */
+    background-color: var(--main-color);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 60%;
+    text-align: center;
+    font-weight: 600;
+    margin-left: 10px;
+    padding: 10px;
+}
+
+    .btn-search:hover {
+        background-color: #0A192F;
+    }
+
+
+
+
+/* Start Why choose us */
+
+
+/* VIP */
+
+/* VIP Section Styling */
+.vip-section {
+    text-align: center;
+    padding: 80px 20px;
+    background: linear-gradient(135deg, #111827, #1f2937);
+    color: white;
+}
+
+    .vip-section h2 {
+        font-size: 36px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .vip-section p {
+        font-size: 18px;
+        margin-bottom: 40px;
+        color: #bbb;
+    }
+
+/* VIP Card Container */
+.vip-plans {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* VIP Cards */
+.vip-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 30px;
+    border-radius: 15px;
+    width: 280px;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    transition: 0.3s;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+}
+
+    .vip-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .vip-card h3 {
+        font-size: 22px;
+        margin-bottom: 10px;
+        color: #ffd700;
+    }
+
+    .vip-card .price {
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+        .vip-card .price span {
+            font-size: 14px;
+            color: #bbb;
+        }
+
+    .vip-card ul {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 20px;
+    }
+
+        .vip-card ul li {
+            font-size: 16px;
+            margin: 5px 0;
+        }
+
+/* VIP Buttons */
+.vip-btn {
+    background: linear-gradient(135deg, #ffcc00, #ff9900);
+    color: #111;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+    .vip-btn:hover {
+        background: linear-gradient(135deg, #ff9900, #ffcc00);
+    }
+
+/* Special Styling for Gold and Platinum Cards */
+.gold {
+    border: 1px solid #ffd700;
+}
+
+.platinum {
+    border: 1px solid #c0c0c0;
+}
+
+/* Best Seller Styling */
+.best-seller {
+    transform: scale(1.05);
+    background: rgba(255, 215, 0, 0.1);
+    border: 2px solid #ffd700;
+}
+
+.best-seller-badge {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ffd700;
+    color: #111;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 5px 15px;
+    border-radius: 20px;
+    box-shadow: 0 5px 10px rgba(255, 215, 0, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .vip-plans {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .vip-card {
+        width: 90%;
+        margin-bottom: 20px;
+    }
+
+    .best-seller {
+        transform: scale(1);
+    }
+}
+
+/* End VIP */
+
+
+
+/* Search Jobs */
+.job-listings {
+    padding: 60px 20px;
+    background: #fff;
+}
+
+    .job-listings h2 {
+        text-align: center;
+        margin-bottom: 40px;
+        font-size: 36px;
+        font-weight: bold;
+        color: #333;
+    }
+
+.job-card {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    margin-bottom: 20px;
+}
+
+    .job-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .job-card h3 {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .job-card p {
+        font-size: 16px;
+        color: #555;
+        margin-bottom: 10px;
+    }
+
+.apply-btn {
+    background: var(--main-color) !important;
+    color: #fff;
+    border: none !important;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+    width: 100%;
+}
+
+    .apply-btn:hover {
+        background: var(--main-color);
+    }
+
+/* Modal Styling */
+#applyModal .modal-content {
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+#applyModal .modal-header {
+    background: var(--main-color);
+    color: #fff;
+    border-radius: 12px 12px 0 0;
+}
+
+#applyModal .modal-title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#applyModal .btn-close {
+    filter: invert(1); /* Make close button white */
+}
+
+#applyModal .modal-footer {
+    border-top: 1px solid #e0e0e0;
+}
+
+#applyModal .form-control {
+    border-radius: 8px;
+    padding: 10px;
+}
+
+#applyModal .form-label {
+    font-weight: bold;
+    color: #333;
+}
+/* End Search Jobs */
+
+/* Start cars */
+
+.recomended,
+.new,
+.review,
+.offers {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-left: 20px;
+}
+
+
+.review-box {
+    flex: 0 0 25%; /* Each box takes up 25% of the container width (4 boxes per row) */
+    max-width: calc(25% - 30px); /* Ensures the width is capped */
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 150px;
+    margin-left: 30px;
+    height: 22rem;
+}
+
+    .review-box img {
+        width: 80px;
+        margin-bottom: 20px;
+        /* margin-left: 50%; */
+        /* transform: translateX(-50%); */
+        /* text-align: center; */
+    }
+
+    .review-box h3 {
+        text-align: center;
+    }
+
+    .review-box .stars-review {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .review-box .title h4 {
+        font-size: 22px;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    .review-box .title p {
+        font-size: 10px;
+    }
+
+/* End cards */
+
+/* Start Offers */
+
+.offers-container {
+    width: 100%;
+    margin: auto;
+    overflow: hidden;
+    position: relative;
+}
+
+.container-withArrow {
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden; /* Hides elements that scroll outside the visible area */
+}
+
+.offers {
+    transition: transform 0.5s ease;
+}
+
+/* to prevent scrollX */
+.arrows-Home {
+    overflow: hidden;
+    /* to make flexable */
+    display: flex;
+    flex-wrap: nowrap; /* Prevents wrapping to the next line */
+
+    flex-wrap: nowrap; /* Prevents wrapping to the next line */
+    transition: transform 0.5s ease-in-out; /* Smooth sliding */
+    will-change: transform; /* Optimize performance */
+}
+
+.home-box {
+    flex: 0 0 calc(25% - 20px); /* Adjusted for margin */
+    box-sizing: border-box;
+    margin: 10px;
+    padding: 10px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 150px;
+    position: relative; /* Make sure the box is the reference for the image */
+    overflow: hidden; /* Hide anything that overflows the box */
+}
+
+    .home-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Ensures image covers the box area */
+        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Smooth transition for scaling and opacity */
+    }
+
+    .home-box:hover img {
+        transform: scale(1.1); /* Slight zoom on hover */
+        /* opacity: 0.8; Slightly reduce opacity on hover */
+    }
+
+
+.arrow {
+    background: var(--main-color);
+    color: #fff;
+    border: none;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+}
+
+    .arrow.prev {
+        left: 10px;
+    }
+
+    .arrow.next {
+        right: 10px;
+    }
+
+    .arrow:hover {
+        background: #333;
+    }
+
+/* End Offers */
+
+/* General Section Styling */
+.new-container {
+    text-align: center;
+    padding: 50px 0;
+    background-color: #f8f8f8;
+}
+
+    .new-container h2 {
+        font-size: 32px;
+        color: var(--main-color);
+        margin-bottom: 20px;
+        text-transform: uppercase;
+    }
+
+/* Scrollable Container */
+.container-withArrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Cards Container */
+.new {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    padding: 10px;
+    scroll-behavior: smooth;
+}
+
+    /* Hide Scrollbar */
+    .new::-webkit-scrollbar {
+        display: none;
+    }
+
+/* Card Styling */
+.home-box {
+    flex: 0 0 auto;
+    width: 250px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    padding: 15px;
+}
+
+    .home-box:hover {
+        transform: scale(1.05);
+    }
+
+    /* Image Styling */
+    .home-box img {
+        width: 100%;
+        height: 180px;
+        border-radius: 10px;
+        object-fit: cover;
+    }
+
+    /* Text Styling */
+    .home-box h3 {
+        font-size: 20px;
+        color: #222;
+        margin: 10px 0 5px;
+    }
+
+    .home-box p {
+        font-size: 16px;
+        font-weight: bold;
+        color: #ff9800;
+        margin-right: 5px;
+    }
+
+    .home-box i {
+        color: #ff9800;
+    }
+
+    .home-box span {
+        font-size: 14px;
+        color: #666;
+    }
+
+/* Location Styling */
+.location {
+    font-size: 14px;
+    color: #555;
+    margin-top: 8px;
+    font-weight: 500;
+}
+
+/* Arrows */
+.arrow {
+    background: #222;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 20px;
+    border-radius: 50%;
+    transition: background 0.3s;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.prev {
+    left: -40px;
+}
+
+.next {
+    right: -40px;
+}
+
+.arrow:hover {
+    background: #ff9800;
+}
+
+
+/* Start Why choose us */
+
+/* Full-screen section with background image */
+.join-barber {
+    position: relative;
+    background-image: url('../Images/Men_Images/groupOfBarbers.webp');
+    background-size: cover;
+    background-position: center;
+    min-height: 800px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+
+    /* Overlay for dark background */
+    .join-barber .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.4); /* Darken background for readability */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+        border-radius: 8px;
+    }
+
+    /* Content in the middle of the section */
+    .join-barber .content {
+        max-width: 1000px;
+        padding: 40px;
+    }
+
+    /* Main heading */
+    .join-barber h2 {
+        font-size: 40px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Subheading */
+    .join-barber p {
+        font-size: 18px;
+        margin-bottom: 30px;
+        line-height: 1.6;
+    }
+
+/* Benefits section styling */
+.benefits {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.benefit {
+    background-color: #fff;
+    color: #333;
+    padding: 30px;
+    border-radius: 8px;
+    width: 30%;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transform: translateY(30px);
+    opacity: 0;
+    animation: slide-up 0.6s ease-out forwards;
+}
+
+    .benefit img {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 20px;
+    }
+
+/* Add animations to benefit items */
+@keyframes slide-up {
+    0% {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* CTA Button */
+.cta-btn {
+    background-color: #f39c12;
+    color: #fff;
+    padding: 14px 30px;
+    font-size: 18px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+    .cta-btn:hover {
+        background-color: #e67e22;
+    }
+
+    .cta-btn:focus {
+        outline: none;
+    }
+
+
+/* End Why choose us */
+
+
+/* Start Footer */
+
+footer {
+    background-color: var(--main-color);
+    font-weight: 700;
+    color: #fff !important;
+}
+
+.social-container .facebook:hover {
+    color: #1877f2;
+}
+
+.social-container .twitter:hover {
+    color: #000000;
+}
+
+.social-container .instagram:hover {
+    color: #e1306c;
+}
+
+.social-container .linkedin:hover {
+    color: #0a66c2;
+}
+
+.d-lg-block {
+    color: #fff;
+}
+
+footer p {
+    color: #fff;
+}
+
+
+/* End Footer */
+
+
+.recommended-salons {
+    background-color: #f8f9fa;
+}
+
+.section-title {
+    text-align: center;
+    color: #333;
+    font-weight: 600;
+}
+
+.salon-card {
+    transition: transform 0.3s;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+    .salon-card:hover {
+        transform: translateY(-5px);
+    }
+
+.salon-rating {
+    margin: 10px 0;
+}
+
+    .salon-rating .fa-star, .salon-rating .fa-star-half-alt {
+        color: #ffc107;
+    }
+
+    .salon-rating .far.fa-star {
+        color: #e4e5e9;
+    }
+
+.rating-count {
+    color: #6c757d;
+    margin-left: 5px;
+    font-size: 0.9rem;
+}

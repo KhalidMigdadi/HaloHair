@@ -1,0 +1,281 @@
+﻿@model List<HaloHair.Models.Service> // it will deal with list of services (i use it when i want to recived list )
+
+
+@{
+	ViewData["Title"] = "MyService";
+	Layout = "~/Views/Shared/_Layout_Barber.cshtml";
+
+}
+
+
+
+<div class="wrapper">
+
+
+
+	<!-- Sidebar -->
+	<div class="sidebar" data-background-color="dark">
+		<div class="sidebar-logo">
+			<!-- Logo Header -->
+			<div class="logo-header" data-background-color="dark">
+				<a href="index.html" class="logo">
+					<img src="~/css/BarberDash/img/kaiadmin/logo_light.svg"
+						 alt="navbar brand"
+						 class="navbar-brand"
+						 height="20" />
+				</a>
+				<div class="nav-toggle">
+					<button class="btn btn-toggle toggle-sidebar">
+						<i class="gg-menu-right"></i>
+					</button>
+					<button class="btn btn-toggle sidenav-toggler">
+						<i class="gg-menu-left"></i>
+					</button>
+				</div>
+				<button class="topbar-toggler more">
+					<i class="gg-more-vertical-alt"></i>
+				</button>
+			</div>
+			<!-- End Logo Header -->
+		</div>
+		<div class="sidebar-wrapper scrollbar scrollbar-inner">
+			<div class="sidebar-content">
+				<ul class="nav nav-secondary">
+					<li class="nav-item active">
+						<a data-bs-toggle="collapse"
+						   href="#dashboard"
+						   class="collapsed"
+						   aria-expanded="false">
+							<i class="fas fa-home"></i>
+							<p>Dashboard</p>
+							<span class="caret"></span>
+						</a>
+
+					</li>
+					<li class="nav-section">
+						<span class="sidebar-mini-icon">
+							<i class="fa fa-ellipsis-h"></i>
+						</span>
+						<h4 class="text-section">Components</h4>
+					</li>
+					<li class="nav-item">
+						<a data-bs-toggle="collapse" href="#base">
+							<i class="fas fa-layer-group"></i>
+							<p>Your Scedual For This Week</p>
+							<span class="caret"></span>
+						</a>
+						<div class="collapse" id="base">
+							<ul class="nav nav-collapse">
+								<li>
+									<a href="components/avatars.html">
+										<span class="sub-item">Avatars</span>
+									</a>
+								</li>
+								<li>
+									<a href="components/buttons.html">
+										<span class="sub-item">Buttons</span>
+									</a>
+								</li>
+								<li>
+									<a href="components/gridsystem.html">
+										<span class="sub-item">Grid System</span>
+									</a>
+								</li>
+								<li>
+									<a href="components/panels.html">
+										<span class="sub-item">Panels</span>
+									</a>
+								</li>
+								<li>
+									<a href="components/notifications.html">
+										<span class="sub-item">Notifications</span>
+									</a>
+								</li>
+								<li>
+									<a href="components/sweetalert.html">
+										<span class="sub-item">Sweet Alert</span>
+									</a>
+								</li>
+								<li>
+									<a href="components/font-awesome-icons.html">
+										<span class="sub-item">Font Awesome Icons</span>
+									</a>
+								</li>
+								<li>
+									<a href="components/simple-line-icons.html">
+										<span class="sub-item">Simple Line Icons</span>
+									</a>
+								</li>
+								<li>
+									<a href="components/typography.html">
+										<span class="sub-item">Typography</span>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li class="nav-item">
+						<a href="#sidebarLayouts">
+							<i class="fas fa-th-list"></i>
+							<p>Appointments</p>
+							<span class="caret"></span>
+						</a>
+
+					</li>
+					<li class="nav-item">
+						<a data-bs-toggle="collapse" href="#forms">
+							<i class="fas fa-pen-square"></i>
+							<p>Sales</p>
+							<span class="caret"></span>
+						</a>
+						<div class="collapse" id="forms">
+							<ul class="nav nav-collapse">
+								<li>
+									<a href="forms/forms.html">
+										<span class="sub-item">Basic Form</span>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li class="nav-item">
+						<a href="tables/datatables.html">
+							<i class="fas fa-table"></i>
+
+							<p>Last Bookings</p>
+							<span class="caret"></span>
+						</a>
+
+					</li>
+					<li class="nav-item">
+						<a asp-action="AddService">
+							<i class="fas fa-map-marker-alt"></i>
+							<p>Services</p>
+						</a>
+
+					</li>
+					<li class="nav-item">
+						<a data-bs-toggle="collapse" href="#submenu">
+							<i class="fas fa-bars"></i>
+							<p>Manage My Salon</p>
+							<span class="caret"></span>
+						</a>
+						<div class="collapse" id="submenu">
+							<ul class="nav nav-collapse">
+								<li>
+									<a href="@Url.Action("AddService", "BarberService", new { barberId = ViewBag.BarberId })">
+										<span class="sub-item">Add New Services</span>
+									</a>
+
+								</li>
+								<li>
+									<a asp-action="MyService" asp-controller="BarberService">
+										<span class="sub-item">My Services</span>
+									</a>
+
+								</li>
+								<li>
+									<a href="@Url.Action("CreateBarber", "Barber")">
+										<span class="sub-item">Add New Barbers</span>
+									</a>
+								</li>
+
+
+
+								<!-- إضافة رابط جديد لرفع صور الصالون -->
+								<li>
+									<a href="@Url.Action("UploadSalonImages", "BarberSalon", new { salonId = ViewBag.SalonId })">
+										<span class="sub-item">Upload Salon Images</span>
+									</a>
+
+								</li>
+
+								<!-- إضافة رابط جديد لتعديل الصالون -->
+								<li>
+									<a href="@Url.Action("EditSalon", "BarberSalon", new { salonId = ViewBag.SalonId })">
+										<span class="sub-item">Edit My Salon</span>
+									</a>
+								</li>
+
+
+
+							</ul>
+						</div>
+					</li>
+
+
+
+
+					<li class="nav-item">
+						<a href="@Url.Action("Team", "Barber", new { salonId = Model.FirstOrDefault()?.Id })">
+							<i class="fas fa-desktop"></i>
+							<p>Team</p>
+							<span class="badge badge-success">4</span>
+						</a>
+
+
+
+					</li>
+					<li class="nav-item">
+						<a href="../../documentation/index.html">
+							<i class="fas fa-file"></i>
+							<p>Announce for job</p>
+							<span class="badge badge-secondary">1</span>
+						</a>
+					</li>
+
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- End Sidebar -->
+
+
+
+
+	<div class="main-panel">
+		<div class="main-header">
+
+
+
+			<h2>My Services</h2>
+
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Service Name</th>
+						<th>Description</th>
+						<th>Price</th>
+						<th>Duration (minutes)</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var service in Model) // model is the list of services
+					{
+						<tr>
+							<td>@service.ServiceName</td>
+							<td>@service.Description</td>
+							<td>@service.Price</td>
+							<td>@service.Duration</td>
+							<td>@service.BarberFirstName</td>
+							<td>@service.BarberLastName</td>
+							<td>@service.Salon</td>
+							<td>
+								<a class="btn btn-warning btn-sm" href="@Url.Action("EditService", "BarberService", new { serviceId = service.Id})">Edit</a>
+
+								@* <a asp-action="EditService" asp-route-id="@service.Id" class="btn btn-warning btn-sm">Edit</a> *@
+								<form asp-action="DeleteService" method="post" onsubmit="return confirm('Are you sure you want to delete this service?');">
+									<input type="hidden" name="serviceId" value="@service.Id" />
+									<button type="submit" class="btn btn-danger btn-sm">Delete</button>
+								</form>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+
+
+		</div>
+	</div>
+</div>

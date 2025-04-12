@@ -1,0 +1,227 @@
+﻿@{
+	ViewData["Title"] = "AddSalonLocation";
+	Layout = "~/Views/Shared/_Layout_Barber.cshtml";
+
+}
+
+@section Styles {
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+}
+
+@section Scripts {
+	@* <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script> *@
+
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB8Ea4mjP7mVPjyWH-qxQVWe6e9C7o1xbs&callback=initMap" async defer></script>
+
+    <!-- Add Leaflet map script using solution from previous answer -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize map
+            var initialLat = @(Model.Latitude != null ? Model.Latitude.ToString() : "31.9539");
+            var initialLng = @(Model.Longitude != null ? Model.Longitude.ToString() : "35.9106");
+
+            var map = L.map('map').setView([initialLat, initialLng], 13);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            // Initialize marker if location exists
+            var marker;
+            if (@(Model.Latitude != null && Model.Longitude != null ? "true" : "false")) {
+                marker = L.marker([initialLat, initialLng], {draggable: true}).addTo(map);
+                setMarkerEvents();
+            }
+
+            // Map click event
+            map.on('click', function(e) {
+                if (marker) {
+                    marker.setLatLng(e.latlng);
+                } else {
+                    marker = L.marker(e.latlng, {draggable: true}).addTo(map);
+                    setMarkerEvents();
+                }
+
+                updateCoordinates(e.latlng.lat, e.latlng.lng);
+            });
+
+            function setMarkerEvents() {
+                marker.on('dragend', function() {
+                    var position = marker.getLatLng();
+                    updateCoordinates(position.lat, position.lng);
+                });
+            }
+
+            function updateCoordinates(lat, lng) {
+                document.getElementById('latitude').value = lat.toFixed(6);
+                document.getElementById('longitude').value = lng.toFixed(6);
+            }
+
+            // Address search
+            document.getElementById('search-button').addEventListener('click', searchAddress);
+
+            function searchAddress() {
+                var address = document.getElementById('address-search').value;
+
+                fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data && data.length > 0) {
+                            var latlng = L.latLng(parseFloat(data[0].lat), parseFloat(data[0].lon));
+                            map.setView(latlng, 16);
+
+                            if (marker) {
+                                marker.setLatLng(latlng);
+                            } else {
+                                marker = L.marker(latlng, {draggable: true}).addTo(map);
+                                setMarkerEvents();
+                            }
+
+                            updateCoordinates(latlng.lat, latlng.lng);
+                        } else {
+                            alert('Address not found');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Error searching for address');
+                    });
+            }
+
+            // Handle Enter key in search field
+            document.getElementById('address-search').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    searchAddress();
+                }
+            });
+        });
+    </script>
+
+}
+@model HaloHair.Models.Salon
+
+
+
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">Add Location for @Model.Name</h4>
+    </div>
+    <div class="card-body">
+        <form asp-action="AddSalonLocation" method="post">
+            <input type="hidden" name="salonId" value="@Model.Id" />
+
+            <div class="form-group">
+                <label>Select Location on Map</label>
+                <div id="map" style="height: 400px; width: 100%; margin-bottom: 20px;"></div>
+
+                <div class="input-group mb-3">
+                    <input type="text" id="address-search" class="form-control" placeholder="Search for address...">
+                    <div class="input-group-append">
+                        <button id="search-button" type="button" class="btn btn-outline-secondary">Search</button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="Latitude">Latitude</label>
+                            <input type="text" id="latitude" name="Latitude" class="form-control" value="@Model.Latitude" required />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="Longitude">Longitude</label>
+                            <input type="text" id="longitude" name="Longitude" class="form-control" value="@Model.Longitude" required />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Save Location</button>
+                <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* <div id="map" style="height: 500px; width: 100%;"></div>
+
+<form asp-action="AddSalonLocation" method="post">
+	<input type="hidden" name="salonId" value="@ViewBag.SalonId" />
+
+	<input type="hidden" name="Latitude" id="Latitude" />
+	<input type="hidden" name="Longitude" id="Longitude" />
+
+	<button type="submit" class="btn btn-success">Save Location</button>
+</form>
+
+<!-- إضافة مكتبة Leaflet -->
+<script>
+	window.onload = function() {
+		console.log("Map is loading");
+
+
+	var map = L.map('map').setView([31.963158, 35.930359], 13); // تحديد الموقع الافتراضي (يمكنك تعديله)
+	console.log("Map loaded");
+
+	// استخدام OpenStreetMap كمصدر للخرائط
+	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+	}).addTo(map);
+
+	var marker = L.marker([31.963158, 35.930359], { draggable: true }).addTo(map); // ماركر قابل للسحب
+
+	// عند سحب الماركر، يتم تحديث القيم في الحقول المخفية
+	marker.on('dragend', function(event) {
+		var position = marker.getLatLng();
+		document.getElementById('Latitude').value = position.lat;
+		document.getElementById('Longitude').value = position.lng;
+	});
+	};
+</script>
+
+ *@

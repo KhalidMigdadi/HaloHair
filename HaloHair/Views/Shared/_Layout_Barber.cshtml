@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - HaloHair</title>
+	<link rel="icon"
+		  href="~/css/BarberDash/img/kaiadmin/favicon.ico"
+		  type="image/x-icon" />
+
+	<!-- CSS Files -->
+	<link rel="stylesheet" href="~/css/BarberDash/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/BarberDash/css/plugins.min.css" />
+	<link rel="stylesheet" href="~/css/BarberDash/css/kaiadmin.min.css" />
+
+	<!-- CSS Just for demo purpose, don't include it in your project -->
+	<link rel="stylesheet" href="~/css/BarberDash/css/demo.css" />
+
+
+	<!-- Fonts and icons -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+	@RenderSection("Styles", required: false)
+
+
+	<script src="~/css/BarberDash/js/plugin/webfont/webfont.min.js"></script>
+	<script>
+		WebFont.load({
+		  google: { families: ["Public Sans:300,400,500,600,700"] },
+		  custom: {
+			families: [
+			  "Font Awesome 5 Solid",
+			  "Font Awesome 5 Regular",
+			  "Font Awesome 5 Brands",
+			  "simple-line-icons",
+			],
+			urls: ["assets/css/fonts.min.css"],
+		  },
+		  active: function () {
+			sessionStorage.fonts = true;
+		  },
+		});
+	</script>
+
+
+</head>
+<body>
+
+
+	<main role="main" class="pb-3">
+		@RenderBody()
+	</main>
+
+	<!--   Core JS Files   -->
+	<script src="~/css/BarberDash/js/core/jquery-3.7.1.min.js"></script>
+	<script src="~/css/BarberDash/js/core/popper.min.js"></script>
+	<script src="~/css/BarberDash/js/core/bootstrap.min.js"></script>
+
+	<!-- jQuery Scrollbar -->
+	<script src="~/css/BarberDash/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+
+	<!-- Chart JS -->
+	<script src="~/css/BarberDash/js/plugin/chart.js/chart.min.js"></script>
+
+	<!-- jQuery Sparkline -->
+	<script src="~/css/BarberDash/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+
+	<!-- Chart Circle -->
+	<script src="~/css/BarberDash/js/plugin/chart-circle/circles.min.js"></script>
+
+	<!-- Datatables -->
+	<script src="~/css/BarberDash/js/plugin/datatables/datatables.min.js"></script>
+
+	<!-- Bootstrap Notify -->
+	<script src="~/css/BarberDash/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+
+	<!-- jQuery Vector Maps -->
+	<script src="~/css/BarberDash/js/plugin/jsvectormap/jsvectormap.min.js"></script>
+	<script src="~/css/BarberDash/js/plugin/jsvectormap/world.js"></script>
+
+	<!-- Sweet Alert -->
+	<script src="~/css/BarberDash/js/plugin/sweetalert/sweetalert.min.js"></script>
+
+	<!-- Kaiadmin JS -->
+	<script src="~/css/BarberDash/js/kaiadmin.min.js"></script>
+
+
+
+	@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewData["Title"] = "AddBarberWorkImage";
+    Layout = "~/Views/Shared/_Layout_Barber.cshtml";
+
+}
+
+<h1>AddBarberWorkImage</h1>
+
+@model AddBarberWorkImageViewModel
+
+<h2>Add Work Image</h2>
+
+<form asp-action="AddBarberWorkImage" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="BarberId" value="@Model.BarberId" />
+
+    <div class="form-group">
+        <label for="WorkImage">Work Image</label>
+        <input type="file" id="WorkImage" name="WorkImage" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add Image</button>
+</form>
+
+
+

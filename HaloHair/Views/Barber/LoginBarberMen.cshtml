@@ -1,0 +1,60 @@
+﻿@{
+    ViewData["Title"] = "LoginBarberMen";
+    Layout = "~/Views/Shared/_Layout_Services.cshtml";
+
+}
+@section Style {
+    <link href="~/css/loginBarber.css" rel="stylesheet" />
+}
+
+
+<section class="login-section">
+    <div class="login-container">
+        <!-- Left side: Form -->
+        <div class="login-form">
+            <div class="arrow">
+                <a href="B_or_C.html">
+                    <i class="fa-solid fa-arrow-left fa-2x"></i>
+                </a>
+            </div>
+            <h1>For Business Use</h1>
+            <span class="wlcom">Welcome back!</span>
+            <p class="p1">
+                Sign up or log in to access and manage your business
+            </p>
+            <form asp-action="LoginBarberMen" asp-controller="Barber" method="post">
+                <div class="form-group">
+                    <input type="email"
+                           id="email"
+                           name="email"
+                           placeholder="Enter your email"
+                           required />
+                </div>
+
+                <button type="submit" class="btn-submit">Continue</button>
+
+            </form>
+            <div class="social-login">
+                <button class="google-btn">
+                    <i class="fab fa-google"></i> Login with Google
+                </button>
+                <button class="facebook-btn">
+                    <i class="fab fa-facebook-f"></i> Login with Facebook
+                </button>
+                <button class="apple-btn">
+                    <i class="fab fa-apple"></i> Continue with Apple
+                </button>
+            </div>
+
+            <div class="extra-links">
+                <p>Are you a customer looking to book an appointment?</p>
+                <a href="loginUser.html">Sign in as a personal</a>
+            </div>
+        </div>
+
+        <!-- Right side: Image -->
+        <div class="login-image">
+            <!-- You can place your image here -->
+        </div>
+    </div>
+</section>

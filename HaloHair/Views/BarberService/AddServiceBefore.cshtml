@@ -1,0 +1,44 @@
+﻿@model HaloHair.Models.Service
+
+
+@{
+    ViewData["Title"] = "AddServiceBefore";
+	Layout = "~/Views/Shared/_Layout_Barber.cshtml";
+
+}
+
+
+<h2>AddService</h2>
+
+<form asp-action="AddService" method="post">
+	<!-- تمرير SalonId عبر hidden -->
+	<input type="hidden" asp-for="SalonId" value="@ViewBag.SalonId" />
+
+	<!-- تمرير barberId عبر hidden -->
+	<input type="hidden" name="barberId" value="@ViewBag.BarberId" />
+	<div class="form-group">
+		<label asp-for="ServiceName" class="control-label"></label>
+		<input asp-for="ServiceName" class="form-control" required />
+		<span asp-validation-for="ServiceName" class="text-danger"></span>
+	</div>
+
+	<div class="form-group">
+		<label asp-for="Description" class="control-label"></label>
+		<textarea asp-for="Description" class="form-control"></textarea>
+	</div>
+
+	<div class="form-group">
+		<label asp-for="Price" class="control-label"></label>
+		<input asp-for="Price" class="form-control" type="number" step="0.01" required />
+		<span asp-validation-for="Price" class="text-danger"></span>
+	</div>
+
+	<div class="form-group">
+		<label asp-for="Duration" class="control-label"></label>
+		<input asp-for="Duration" class="form-control" type="number" required />
+		<span asp-validation-for="Duration" class="text-danger"></span>
+	</div>
+
+	<button type="submit" class="btn btn-primary mt-3">AddService</button>
+</form>
+

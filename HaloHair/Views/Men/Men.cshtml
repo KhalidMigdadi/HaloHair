@@ -1,0 +1,601 @@
+﻿
+
+@model List<HaloHair.Models.Salon>
+
+@{
+
+    ViewData["Title"] = "Men";
+    Layout = "~/Views/Shared/_Layout_Men.cshtml";
+
+}
+
+@section Style {
+    <link href="~/css/men.css" rel="stylesheet" />
+}
+
+<!-- Start Slider Section -->
+
+<div class="slider-container">
+    <div class="overlay">
+        <div class="slider-image active"
+             style="background-image: url('../Images/Men_Images/heroSection5.jpg')">
+            <div class="overlay">
+                <p class="text">Where beauty meets sophistication</p>
+            </div>
+        </div>
+        <div class="slider-image"
+             style="background-image: url('../Images/Men_Images/herSection3.webp')">
+            <div class="overlay">
+                <p class="text">
+                    Enhance your natural beauty with our expert touch
+                </p>
+            </div>
+        </div>
+        <div class="slider-image"
+             style="background-image: url('../Images/Men_Images/heroSection4.png')">
+            <div class="overlay">
+                <p class="text">
+                    Experience a rejuvenating escape with our luxurious treatments
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- End Slider Section -->
+
+<form action="">
+    <div class="search-bar">
+        <div class="form-group">
+            <select id="location-home" class="form-control searchable-dropdown">
+                <option value="">Enter location</option>
+                <option value="Irbid">Irbid</option>
+                <option value="Jarash">Jarash</option>
+                <option value="Ajloun">Ajloun</option>
+                <option value="Mafraq">Mafraq</option>
+                <option value="Amman">Amman</option>
+                <option value="Zarqa">Zarqa</option>
+                <option value="Balqa">Balqa</option>
+                <option value="Madaba">Madaba</option>
+                <option value="Karak">Karak</option>
+                <option value="Ma'an">Ma'an</option>
+                <option value="Tafila">Tafila</option>
+                <option value="Al Aqabah">Al Aqabah</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <select id="service-home" class="form-control">
+                <option value="">Select a service</option>
+                <option value="haircut">Haircut</option>
+                <option value="hair-Care">Hair Care</option>
+                <option value="skin-Care">Skin Care</option>
+                <option value="nail-Care">Nail Care</option>
+                <option value="body-Care">Body Care</option>
+                <option value="eyebrows">Eyebrows & Eyelashes</option>
+                <option value="makeup">Makeup</option>
+                <option value="facial">Facial</option>
+                <option value="bride">Bride care</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <input type="date" id="date-home" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <select id="time-slot" class="form-control">
+                <option value="">Select a Time Slot</option>
+                <option value="09:00-10:00">09:00 - 10:00</option>
+                <option value="10:00-11:00">10:00 - 11:00</option>
+                <option value="11:00-12:00">11:00 - 12:00</option>
+                <option value="12:00-01:00">12:00 - 01:00</option>
+                <option value="01:00-02:00">01:00 - 02:00</option>
+                <option value="02:00-03:00">02:00 - 03:00</option>
+                <option value="03:00-04:00">03:00 - 04:00</option>
+                <option value="04:00-05:00">04:00 - 05:00</option>
+            </select>
+        </div>
+
+        <!-- Search button -->
+        <div class="form-group">
+            <button id="searchButton-home" class="btn-search">Search</button>
+        </div>
+    </div>
+</form>
+
+<!-- Start Recomnded -->
+
+<div class="recently-viewed"></div>
+
+<section class="new-container">
+    <h2>Recomended</h2>
+    <div class="container-withArrow">
+        <button class="arrow prev" id="prevBtn">❮</button>
+        <div class="recomended arrows-Home">
+            <div class="home-box rec-box">
+                <a asp-controller="Men" asp-action="SalonMen">
+                    <img src="../Images/Men_Images/Salons/Salon1.webp" alt="" />
+                </a>
+
+                <h3>The Name</h3>
+                <p style="display: inline">4.7</p>
+                <i class="fa-solid fa-star"></i> <span>(3.025)</span>
+                <div class="location">Irbid - Al-Yarmouk University str.</div>
+            </div>
+            <div class="home-box rec-box">
+                <img src="../Images/Men_Images/Salons/Shop2.jpg" alt="" />
+                <h3>The Name</h3>
+                <p style="display: inline">4.7</p>
+                <i class="fa-solid fa-star"></i> <span>(3.025)</span>
+                <div class="location">Irbid - Al-Yarmouk University str.</div>
+            </div>
+            <div class="home-box rec-box">
+                <img src="../Images/Men_Images/Salons/Salon10.jpg" alt="" />
+                <h3>The Name</h3>
+                <p style="display: inline">4.7</p>
+                <i class="fa-solid fa-star"></i> <span>(3.025)</span>
+                <div class="location">Irbid - Al-Yarmouk University str.</div>
+            </div>
+            <div class="home-box rec-box">
+                <img src="../Images/Men_Images/Salons/Salon2.jpeg" alt="" />
+                <h3>The Name</h3>
+                <p style="display: inline">4.7</p>
+                <i class="fa-solid fa-star"></i> <span>(3.025)</span>
+                <div class="location">Irbid - Al-Yarmouk University str.</div>
+            </div>
+            <div class="home-box rec-box">
+                <img src="../Images/Men_Images/Salons/Salon3.jpg" alt="" />
+                <h3>The Name</h3>
+                <p style="display: inline">4.7</p>
+                <i class="fa-solid fa-star"></i> <span>(3.025)</span>
+                <div class="location">Irbid - Al-Yarmouk University str.</div>
+            </div>
+            <div class="home-box rec-box">
+                <img src="../Images/Men_Images/Salons/Salon4.jpg" alt="" />
+                <h3>The Name</h3>
+                <p style="display: inline">4.7</p>
+                <i class="fa-solid fa-star"></i> <span>(3.025)</span>
+                <div class="location">Irbid - Al-Yarmouk University str.</div>
+            </div>
+            <div class="home-box rec-box">
+                <img src="../Images/Men_Images/Salons/Salon5.jpg" alt="" />
+                <h3>The Name</h3>
+                <p style="display: inline">4.7</p>
+                <i class="fa-solid fa-star"></i> <span>(3.025)</span>
+                <div class="location">Irbid - Al-Yarmouk University str.</div>
+            </div>
+            <div class="home-box rec-box">
+                <img src="../Images/Men_Images/Salons/Salon6.jpg" alt="" />
+                <h3>The Name</h3>
+                <p style="display: inline">4.7</p>
+                <i class="fa-solid fa-star"></i> <span>(3.025)</span>
+                <div class="location">Irbid - Al-Yarmouk University str.</div>
+            </div>
+        </div>
+        <button class="arrow next">❯</button>
+    </div>
+</section>
+
+<!-- End Recomnded -->
+<!-- Start offers  -->
+<!-- قسم الصالونات الموصى بها -->
+<!-- قسم الصالونات الموصى بها - بنفس ديزاين الصالونات الجديدة -->
+<section class="new-container">
+    <h2>الصالونات الموصى بها</h2>
+    <div class="container-withArrow">
+        <button class="arrow prev" id="prevRecommendedBtn">❮</button>
+        <div class="recomended arrows-Home">
+            @if (ViewBag.RecommendedSalons != null && ViewBag.RecommendedSalons.Count > 0)
+            {
+                foreach (var salonViewModel in ViewBag.RecommendedSalons)
+                {
+                    <div class="home-box rec-box">
+                        <a asp-controller="MenSalon" asp-action="SalonMen" asp-route-id="@salonViewModel.Salon.Id">
+                            <img src="@(!string.IsNullOrEmpty(salonViewModel.Salon.ImageUrl) ? salonViewModel.Salon.ImageUrl : "/images/default-salon.jpg")" alt="@salonViewModel.Salon.Name" />
+                        </a>
+                        <h3>@salonViewModel.Salon.Name</h3>
+                        <p style="display: inline">
+                            @string.Format("{0:0.0}", salonViewModel.AverageRating)
+                        </p>
+                        <i class="fa-solid fa-star"></i>
+                        <span>(@salonViewModel.ReviewCount)</span>
+                        <div class="location">@salonViewModel.Salon.Address</div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="home-box rec-box">
+                    <p>لا توجد صالونات موصى بها حالياً</p>
+                </div>
+            }
+        </div>
+        <button class="arrow next" id="nextRecommendedBtn">❯</button>
+    </div>
+</section>
+
+<section class="new-container">
+    <h2>Recommended</h2>
+    <div class="container-withArrow">
+        <button class="arrow prev" id="prevBtn">❮</button>
+        <div class="recomended arrows-Home">
+            @foreach (var salon in Model)
+            {
+                <div class="home-box rec-box">
+                    <a asp-controller="MenSalon" asp-action="SalonMen" asp-route-id="@salon.Id">
+                        <img src="@(!string.IsNullOrEmpty(salon.ImageUrl) ? salon.ImageUrl : "/images/default-salon.jpg")" alt="@salon.Name" />
+                    </a>
+
+                    <h3>@salon.Name</h3>
+                    <p style="display: inline">4.7</p>
+                    <i class="fa-solid fa-star"></i> <span>(3,025)</span>
+                    <div class="location">@salon.Address</div>
+                </div>
+            }
+        </div>
+        <button class="arrow next">❯</button>
+    </div>
+</section>
+
+<!-- End offers -->
+<!-- Start New With us  -->
+
+<section class="new-container">
+    <h2>New with Us</h2>
+    <div class="container-withArrow">
+        <button class="arrow prev" id="prevNewBtn">❮</button>
+        <div class="new arrows-Home">
+            @if (ViewBag.NewSalons != null && ViewBag.NewSalons.Count > 0)
+            {
+                foreach (var salon in ViewBag.NewSalons)
+                {
+
+                        <a asp-controller="MenSalon" asp-action="SalonMen" asp-route-id="@salon.Id" class="home-box new-box" style="text-decoration: none; color: inherit;">
+                        <img src="@(!string.IsNullOrEmpty(salon.ImageUrl) ? salon.ImageUrl : "/images/default-salon.jpg")" alt="@salon.Name" />
+                        <h3>@salon.Name</h3>
+                        <p style="display: inline">4.7</p>
+                        <i class="fa-solid fa-star"></i> <span>(0)</span>
+                        <div class="location">@salon.Address</div>
+                    </a>
+                }
+            }
+            else
+            {
+                <div class="home-box new-box">
+                    <p>لا يوجد صالونات جديدة حالياً</p>
+                </div>
+            }
+        </div>
+        <button class="arrow next" id="nextNewBtn">❯</button>
+    </div>
+</section>
+
+
+<!-- End New With us  -->
+<!-- VIP -->
+
+<section class="vip-section">
+    <h2>Unlock Exclusive VIP Membership</h2>
+    <p>
+        Join our premium club and enjoy special perks, discounts, and priority
+        services.
+    </p>
+
+    <div class="vip-plans">
+        <!-- Basic VIP Plan -->
+        <div class="vip-card">
+            <h3>Basic VIP</h3>
+            <p class="price">JOD 9.99<span>/month</span></p>
+            <ul>
+                <li>10% Off Services</li>
+                <li>Priority Booking</li>
+                <li>Exclusive Offers</li>
+            </ul>
+            <button class="vip-btn">Join Now</button>
+        </div>
+
+        <!-- Gold VIP Plan (Best Seller) -->
+        <div class="vip-card gold best-seller">
+            <div class="best-seller-badge">Best Seller</div>
+            <h3>Gold VIP</h3>
+            <p class="price">JOD 19.99<span>/month</span></p>
+            <ul>
+                <li>15% Off Services</li>
+                <li>Free Monthly Beard Trim</li>
+                <li>Double Loyalty Points</li>
+                <li>Exclusive VIP Events</li>
+            </ul>
+            <button class="vip-btn">Join Now</button>
+        </div>
+
+        <!-- Platinum VIP Plan -->
+        <div class="vip-card platinum">
+            <h3>Platinum VIP</h3>
+            <p class="price">JOD 29.99<span>/month</span></p>
+            <ul>
+                <li>20% Off Services</li>
+                <li>1 Free Haircut Per Month</li>
+                <li>VIP Event Access</li>
+                <li>Priority Customer Support</li>
+                <li>Exclusive Hairstyling Tips</li>
+            </ul>
+            <button class="vip-btn">Join Now</button>
+        </div>
+    </div>
+</section>
+
+<!-- End VIP -->
+<!-- Search Jobs -->
+<!-- Job Listings Section -->
+<section class="job-listings">
+    <div class="containerJob">
+        <h2>Job Opportunities for Barbers</h2>
+        <div class="row">
+            <!-- Job Card 1 -->
+            <div class="col-md-4">
+                <div class="job-card">
+                    <h3>Senior Barber</h3>
+                    <p><strong>Location:</strong> Amman</p>
+                    <p><strong>Salary:</strong> 650 JOD/Month</p>
+                    <p>
+                        <strong>Requirements:</strong> 5+ years of experience, licensed
+                        barber
+                    </p>
+                    <button class=" btn-primary apply-btn"
+                            data-bs-toggle="modal"
+                            data-bs-target="#applyModal">
+                        Apply Now
+                    </button>
+                </div>
+            </div>
+
+            <!-- Job Card 2 -->
+            <div class="col-md-4">
+                <div class="job-card">
+                    <h3>Junior Barber</h3>
+                    <p><strong>Location:</strong> Irbid</p>
+                    <p><strong>Salary:</strong> 390 JOD/Month</p>
+                    <p>
+                        <strong>Requirements:</strong> 1+ years of experience, licensed
+                        barber
+                    </p>
+                    <button class=" btn-primary apply-btn"
+                            data-bs-toggle="modal"
+                            data-bs-target="#applyModal">
+                        Apply Now
+                    </button>
+                </div>
+            </div>
+
+            <!-- Job Card 3 -->
+            <div class="col-md-4">
+                <div class="job-card">
+                    <h3>Freelance Barber</h3>
+                    <p><strong>Location:</strong> Aqaba</p>
+                    <p><strong>Salary:</strong> 3 JOD/hour</p>
+                    <p>
+                        <strong>Requirements:</strong> Flexible schedule, licensed
+                        barber
+                    </p>
+                    <button class=" btn-primary apply-btn"
+                            data-bs-toggle="modal"
+                            data-bs-target="#applyModal">
+                        Apply Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Job Application Modal -->
+<div class="modal fade"
+     id="applyModal"
+     tabindex="-1"
+     aria-labelledby="applyModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="applyModalLabel">Apply for Job</h5>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+
+            <!-- Modal Body (Application Form) -->
+            <div class="modal-body">
+                <form id="jobApplicationForm">
+                    <!-- Full Name -->
+                    <div class="mb-3">
+                        <label for="fullName" class="form-label">Full Name</label>
+                        <input type="text"
+                               class="form-control"
+                               id="fullName"
+                               placeholder="Enter your full name"
+                               required />
+                    </div>
+
+                    <!-- Email -->
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email"
+                               class="form-control"
+                               id="email"
+                               placeholder="Enter your email"
+                               required />
+                    </div>
+
+                    <!-- Phone Number -->
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <input type="tel"
+                               class="form-control"
+                               id="phone"
+                               placeholder="Enter your phone number"
+                               required />
+                    </div>
+
+                    <!-- Upload Resume -->
+                    <div class="mb-3">
+                        <label for="resume" class="form-label">Upload Resume</label>
+                        <input type="file" class="form-control" id="resume" required />
+                    </div>
+
+                    <!-- Cover Letter -->
+                    <div class="mb-3">
+                        <label for="coverLetter" class="form-label">Cover Letter</label>
+                        <textarea class="form-control"
+                                  id="coverLetter"
+                                  rows="4"
+                                  placeholder="Write your cover letter"></textarea>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+                    Close
+                </button>
+                <button type="submit"
+                        form="jobApplicationForm"
+                        class="btn btn-primary">
+                    Submit Application
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- End Jobs -->
+<!-- Start Review  -->
+<section class="new-container">
+    <h2>Reviews</h2>
+    <div class="container-withArrow">
+        <button class="arrow prev" id="prevReviewBtn">❮</button>
+        <div class="review arrows-Home">
+            <div class="review-box">
+                <img src="../Images/Men_Images/review1.webp" alt="" />
+                <h3>Mohamad</h3>
+                <div class="stars-review">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                </div>
+                <div class="title">
+                    <h4>The best booking system</h4>
+                    <p>
+                        Great experience, easy to book. Paying for treatments is so
+                        convenient — no cash or cards needed!
+                    </p>
+                </div>
+            </div>
+            <div class="review-box">
+                <img src="../Images/Men_Images/review2.jpg" alt="" />
+                <div class="person-infos">
+                    <h3>Ahmad</h3>
+                    <div class="stars-review">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <div class="title">
+                        <h4>Easy to use & explore</h4>
+                        <p>
+                            The website reminders make life so much easier. I also found a
+                            few good barbershops that I didn’t know existed.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="review-box">
+                <img src="../Images/Men_Images/review3.webp" alt="" />
+                <h3>Ameer</h3>
+                <div class="stars-review">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star-half"></i>
+                </div>
+                <div class="title">
+                    <h4>Great for finding barbers</h4>
+                    <p>
+                        I've been using the website for two years and it's by far the
+                        best booking platform I've used. Highly recommend it!
+                    </p>
+                </div>
+            </div>
+            <div class="review-box">
+                <img src="../Images/Men_Images/review4.webp" alt="" />
+                <h3>Saud</h3>
+                <div class="stars-review">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                </div>
+                <div class="title">
+                    <h4>The best booking system</h4>
+                    <p>
+                        Great experience, easy to book. Paying for treatments is so
+                        convenient — no cash or cards needed!
+                    </p>
+                </div>
+            </div>
+            <div class="review-box">
+                <img src="../Images/Men_Images/review5.jpg" alt="" />
+                <h3>Kareem</h3>
+                <div class="stars-review">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                </div>
+                <div class="title">
+                    <h4>The best booking system</h4>
+                    <p>
+                        Great experience, easy to book. Paying for treatments is so
+                        convenient — no cash or cards needed!
+                    </p>
+                </div>
+            </div>
+            <div class="review-box">
+                <img src="../Images/Men_Images/review6.jpg" alt="" />
+                <h3>Fadi</h3>
+                <div class="stars-review">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                </div>
+                <div class="title">
+                    <h4>The best booking system</h4>
+                    <p>
+                        Great experience, easy to book. Paying for treatments is so
+                        convenient — no cash or cards needed!
+                    </p>
+                </div>
+            </div>
+        </div>
+        <button class="arrow next" id="nextReviewBtn">❯</button>
+    </div>
+</section>
+
+<!-- End Review  -->
+@section Scripts {
+    <script src="~/js/home.js"></script>
+}

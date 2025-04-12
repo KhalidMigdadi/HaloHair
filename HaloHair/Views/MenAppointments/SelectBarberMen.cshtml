@@ -1,0 +1,99 @@
+﻿@model SelectBarberViewModel
+
+@{
+    ViewData["Title"] = "SelectBarberMen";
+    Layout = "~/Views/Shared/_Layout_Services.cshtml";
+}
+
+@section Style {
+    <link href="~/css/selectBarber.css" rel="stylesheet" />
+}
+
+<div class="head">
+    <i class="fa-solid fa-arrow-left fa-2x"></i>
+    <i class="fa-solid fa-xmark fa-2x"></i>
+</div>
+
+<div class="container">
+    <div class="left-side">
+        <h1>Select Your Barber</h1>
+        <div class="barbers">
+            @foreach (var barber in Model.Barbers)
+            {
+                <div class="barber">
+                    <a href="#" onclick="selectBarber('@barber.FirstName @barber.LastName', '@barber.Id', this)">
+                        <p>@barber.FirstName @barber.LastName</p>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="right-side">
+        <div class="book">
+            <p id="selected-barber-name">@Model.SelectedBarber</p>
+            <p>Selected Barber ID: <span id="selected-barber-id">@Model.SelectedBarberId</span></p>
+            <input type="hidden" id="selectedBarberId" value="@Model.SelectedBarberId" />
+
+
+            <!-- 🏷️ عرض الخدمات المختارة -->
+            <div class="selected-services">
+                <h3>Selected Services</h3>
+                @if (Model.SelectedServices.Any())
+                {
+                    <ul>
+                        @foreach (var service in Model.SelectedServices)
+                        {
+                            <li>@service.ServiceName - @service.Duration mins - @service.Price JOD</li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <p>No services selected.</p>
+                }
+            </div>
+
+            <a href="#" onclick="continueToTimeSelection()" class="btn btn-success">Continue</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+                   function selectBarber(barberName, barberId, element) {
+            // إزالة الـ selected class من جميع الحلاقين
+            document.querySelectorAll('.barber').forEach(barber => barber.classList.remove('selected'));
+
+            // إضافة الـ selected class للحلاق الذي تم اختياره
+            element.parentElement.classList.add('selected');
+
+            // تحديث اسم الحلاق المختار في الصفحة
+            document.getElementById('selected-barber-name').textContent = barberName;
+
+            // تحديث ID الحلاق المختار في الـ hidden input
+            document.getElementById('selected-barber-id').textContent = barberId;
+            document.getElementById("selectedBarberId").value = barberId;  // تحديث الـ hidden input
+
+            console.log("Updated Selected Barber ID:", barberId);
+
+            // إرسال البيانات عبر AJAX
+            $.ajax({
+                url: '@Url.Action("SelectBarberMen", "MenAppointments")',
+                type: 'POST',
+                data: { selectedBarber: barberName, selectedBarberId: barberId },
+                success: function () {
+                    console.log("Barber selected:", barberId);
+                }
+            });
+        }
+                function continueToTimeSelection() {
+            var barberId = document.getElementById("selectedBarberId").value;
+            var currentDate = '@DateTime.Now.Date.ToString("yyyy-MM-dd")';
+            window.location.href = '@Url.Action("SelectTime", "MenAppointments")?barberId=' + barberId + '&selectedDate=' + currentDate;
+        }
+
+
+        console.log("Selected Barber ID from hidden input:", document.getElementById("selectedBarberId").value);
+    </script>
+}

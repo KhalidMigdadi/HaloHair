@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewData["Title"] = "MySchedule";
+    Layout = "~/Views/Shared/_Layout_Services.cshtml";
+
+}
+
+@model List<TimeSlot>
+
+<h3>جدول الأوقات الخاصة بك</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>من</th>
+            <th>إلى</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var slot in Model)
+        {
+            <tr>
+                <td>@slot.StartTime.ToString("g")</td>
+                <td>@slot.EndTime.ToString("g")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

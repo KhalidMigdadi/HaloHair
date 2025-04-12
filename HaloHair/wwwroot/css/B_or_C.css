@@ -1,0 +1,108 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --main-text-color: #5e9693;
+  --transparent-color: rgb(15 116 143 / 70%);
+  --section-padding: 100px;
+  --para-color: #666;
+  --font-family: "Helvetica Neue", sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: #5e9693;
+}
+body,
+html {
+  height: 100%;
+  font-family: var(--font-family);
+}
+
+.login-container {
+  display: flex;
+  height: 100vh;
+}
+
+.arrow a i {
+  color: #000;
+  border: 2px solid #000;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.arrow a i:hover {
+  color: #fff;
+  background-color: var(--main-text-color);
+  border-color: #fff;
+}
+
+.login-form {
+  flex: 1;
+  padding: 40px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 50px;
+  margin-right: 50px;
+  width: 50%;
+}
+
+.login-form h1 {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 100px;
+  color: var(--main-text-color);
+  margin-top: -50px;
+}
+
+.user-selection {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-left: 20%;
+}
+
+h3 {
+  width: 70%;
+  padding: 15px;
+  text-align: center;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+h3:hover {
+  background-color: var(--main-text-color);
+  color: #fff;
+  cursor: pointer;
+}
+
+.login-image {
+  flex: 1;
+  background-image: url("../Images/Login&SignUp/MenLogin1.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+@media (max-width: 768px) {
+  .login-container {
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .login-form {
+    width: 100%;
+    margin: 0;
+    padding: 20px;
+  }
+
+  .login-image {
+    height: 300px;
+    width: 100%;
+  }
+}

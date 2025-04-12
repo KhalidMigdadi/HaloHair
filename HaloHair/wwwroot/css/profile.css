@@ -1,0 +1,199 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  padding-top: 100px; /* Add this to give space for the fixed navbar */
+}
+
+:root {
+  --main-color: #ffc0cb;
+  --main-text-color: #e91e63;
+  --transparent-color: rgb(15 116 143 / 70%);
+  --section-padding: 100px;
+  --para-color: #666;
+}
+
+/* navBar */
+
+#navbar {
+  background-color: var(--main-color);
+}
+
+.nav-item .bar {
+  color: #fff !important;
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+.nav-item a:hover {
+  color: #000 !important; /* Add a hover effect for links */
+}
+
+.navbar-expand-lg .navbar-nav {
+  margin-left: 250px; /* Align links to the center dynamically */
+  justify-content: center;
+}
+
+.dropdown-menu-end a {
+  color: #000;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dropdown-menu-end a:hover {
+  background-color: #f8f9fa;
+  color: var(--main-text-color);
+}
+
+.navbar-scroll {
+  background-color: #ffc0cb; /* Removed !important */
+  transition: background-color 0.3s ease; /* Smooth scroll effect */
+  color: #000 !important;
+}
+
+.cart-nav:hover {
+  color: #000 !important;
+}
+
+.dropdown-item:hover {
+  background-color: #ddd !important;
+}
+
+.rounded-circle {
+  margin: 0;
+  width: 50px;
+  height: 50px;
+  object-fit: cover; /* Ensure proper image fit */
+}
+
+.navbar-toggler {
+  border: none; /* Remove border for cleaner design */
+}
+
+/* profile style */
+
+.container {
+  /* margin-left: 50% !important; */
+}
+
+.profile-header {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.tab-content .card {
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.tab-content .card-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-link {
+  color: black !important;
+  font-weight: bold !important;
+}
+
+#profileTabs {
+  margin-left: 100px;
+}
+
+.card,
+#favorites,
+#payment,
+#settings {
+  margin-left: 100px;
+  width: 85%;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.active {
+  color: var(--main-text-color) !important;
+}
+
+.rebook,
+.payment,
+.editProfile,
+#saveChangesBtn {
+  background-color: var(--main-text-color) !important;
+  color: #fff !important;
+  border-color: var(--main-text-color) !important;
+  font-size: 15px !important;
+  padding: 10px 15px;
+  border-radius: 15px;
+  border: 1px solid var(--main-text-color);
+}
+
+.rebook:hover,
+.payment:hover,
+.editProfile:hover,
+#saveChangesBtn:hover {
+  background-color: #fff !important;
+  color: var(--main-text-color) !important;
+}
+
+#closeBtn {
+  padding: 7px 15px;
+  background-color: transparent;
+  border-radius: 15px;
+}
+
+#closeBtn:hover {
+  background-color: #333;
+  color: #fff;
+}
+
+.choose {
+  color: var(--main-text-color);
+}
+
+.modal-content {
+  width: 120% !important;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
+#deleteAccountBtn {
+  background-color: var(--main-text-color);
+  font-weight: 600;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 20px;
+}
+
+#deleteAccountBtn:hover {
+  background-color: #fff;
+  color: var(--main-text-color);
+}
+
+/* Start Footer */
+
+footer {
+  background-color: #ffc0cb;
+  font-weight: 700;
+  margin-top: 15%;
+}
+
+.social-container .facebook:hover {
+  color: #1877f2;
+}
+
+.social-container .twitter:hover {
+  color: #000000;
+}
+
+.social-container .instagram:hover {
+  color: #e1306c;
+}
+
+.social-container .linkedin:hover {
+  color: #0a66c2;
+}
+
+/* End Footer */

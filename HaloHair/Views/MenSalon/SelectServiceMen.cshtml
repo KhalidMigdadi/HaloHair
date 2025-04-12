@@ -1,0 +1,131 @@
+﻿@{
+    ViewData["Title"] = "SelectServiceMen";
+    Layout = "~/Views/Shared/_Layout_Men.cshtml";
+
+}
+
+@section Style {
+    <link href="~/css/selectService.css" rel="stylesheet" />
+}
+
+
+
+<div class="head">
+    <a href="salon.html"><i class="fa-solid fa-arrow-left fa-2x"></i></a>
+    <i class="fa-solid fa-xmark fa-2x"></i>
+</div>
+<div class="container">
+    <div class="left-side">
+        <h1>Select Service</h1>
+        <div class="filter-container">
+            <label for="service-filter">Filter by Service:</label>
+            <select id="service-filter" onchange="filterServices()">
+                <option value="all">All Services</option>
+                <option value="discount">Discounts</option>
+                <option value="consultant">Consultant</option>
+                <option value="haircut">Hair Cut</option>
+                <option value="beard">Beard</option>
+                <option value="packages">Packages</option>
+            </select>
+        </div>
+
+        <div class="service-list">
+            <div class="service" data-category="haircut">
+                <div>
+                    <h3>Men's Haircut</h3>
+                    <p class="time">45mins</p>
+
+                    <p>5 JOD</p>
+                </div>
+                <button class="book-btn">Book Now</button>
+            </div>
+
+            <div class="service" data-category="beard">
+                <div>
+                    <h3>Beard Grooming</h3>
+                    <p class="time">45mins</p>
+
+                    <p>3 JOD</p>
+                </div>
+                <button class="book-btn">Book Now</button>
+            </div>
+
+            <div class="service" data-category="discount">
+                <div>
+                    <h3>Special Discounts</h3>
+                    <p class="time">45mins</p>
+
+                    <del>5 JOD</del>
+                    <p class="discount">3 JOD</p>
+                </div>
+                <button class="book-btn">Book Now</button>
+            </div>
+
+            <div class="service" data-category="consultant">
+                <div>
+                    <h3>Hair Consultation</h3>
+                    <p class="time">1 hour</p>
+                    <!-- Ensure this is correct -->
+                    <p>5 JOD</p>
+                </div>
+                <button class="book-btn">Book Now</button>
+            </div>
+
+            <div class="service" data-category="packages">
+                <div>
+                    <h3>Grooming Packages</h3>
+                    <p class="time">2 hour</p>
+                    <p>5 JOD</p>
+                </div>
+                <button class="book-btn">Book Now</button>
+            </div>
+
+            <div class="service" data-category="packages">
+                <div>
+                    <h3>Hot Towel Shave</h3>
+                    <p class="time">30 mins</p>
+                    <p>12 JOD</p>
+                </div>
+                <button class="book-btn">Book Now</button>
+            </div>
+
+            <div class="service" data-category="packages">
+                <div>
+                    <h3>Facial Treatment</h3>
+                    <p class="time">1 hour</p>
+                    <p>15 JOD</p>
+                </div>
+                <button class="book-btn">Book Now</button>
+            </div>
+        </div>
+    </div>
+    <div class="right-side">
+        <div class="book">
+            <div class="head">
+                <div>
+                    <img src="../Images/Men_Images/YousofAfandi/shop.png" alt="" />
+                    <div class="rating">⭐ (4.9)</div>
+                </div>
+                <div class="info">
+                    <h3>Yousef Afandi</h3>
+                    <i class="fa-solid fa-location-dot"></i> Hatamle Commercial
+                    Centre, شارع الثقافة, Irbid 21110
+                </div>
+            </div>
+            <div class="selected-services"></div>
+            <!-- Services will be added here -->
+            <div>Total Time: <span id="total-time">0 mins</span></div>
+
+            <hr />
+            <h3>Total: <span id="total-price">0</span> JOD</h3>
+            <!-- Total Price Section -->
+
+            <button class="continue"><a href="selectBarber.html">Continue</a></button>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/js/selectService.js"></script>
+}

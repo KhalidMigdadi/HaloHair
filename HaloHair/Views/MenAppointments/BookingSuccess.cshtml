@@ -1,0 +1,72 @@
+﻿@{
+    ViewData["Title"] = "Booking Confirmed";
+    Layout = "~/Views/Shared/_Layout_Services.cshtml";
+}
+
+
+
+@section Style {
+    <link href="~/css/Men/Book/sucessBook.css" rel="stylesheet" />
+}
+
+<div class="booking-success-container">
+    <div class="success-card">
+        <div class="success-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <h1 class="success-title">Booking Confirmed!</h1>
+        <p class="success-message">Your appointment has been successfully booked.</p>
+
+        <div class="booking-details">
+            <h2>Booking Details</h2>
+            <div class="detail-item">
+                <span class="detail-label">Date:</span>
+                <span class="detail-value">@TempData["AppointmentDate"]</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Time:</span>
+                <span class="detail-value">@TempData["AppointmentTime"]</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Barber:</span>
+                <span class="detail-value">@TempData["BarberName"]</span>
+            </div>
+
+            <div class="detail-item">
+                <span class="detail-label">Services:</span>
+                <div class="detail-value">
+                    <ul class="services-list">
+                        @if (ViewBag.AppointmentServices != null && ViewBag.AppointmentServices.Count > 0)
+                        {
+                            foreach (var serviceItem in ViewBag.AppointmentServices)
+                            {
+                                if (serviceItem.Service != null)
+                                {
+                                    <li>
+                                        @serviceItem.Service.ServiceName
+                                        <span class="service-price">@serviceItem.Service.Price JD</span>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li>Service data is missing</li> 
+                                }
+                            }
+                        }
+                        else
+                        {
+                            <li>There Is No Booking Service</li>
+                        }
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Back to Home</a>
+            <a href="@Url.Action("MyAppointments", "Account")" class="btn btn-secondary">View My Appointments</a>
+        </div>
+    </div>
+</div>
+

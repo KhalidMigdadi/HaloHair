@@ -1,0 +1,261 @@
+﻿@model HaloHair.Models.Salon
+
+@{
+	ViewData["Title"] = "SelectServiceMen";
+	Layout = "~/Views/Shared/_Layout_Services.cshtml";
+}
+
+@section Style {
+	<link href="~/css/selectService.css" rel="stylesheet" />
+}
+
+<div class="head">
+	<a href="salon.html"><i class="fa-solid fa-arrow-left fa-2x"></i></a>
+	<i class="fa-solid fa-xmark fa-2x"></i>
+</div>
+<div class="container">
+	<div class="left-side">
+		<h1>Select Service</h1>
+		<div class="filter-container">
+			<label for="service-filter">Filter by Service:</label>
+			<select id="service-filter" onchange="filterServices()">
+				<option value="all">All Services</option>
+				<option value="discount">Discounts</option>
+				<option value="consultant">Consultant</option>
+				<option value="haircut">Hair Cut</option>
+				<option value="beard">Beard</option>
+				<option value="packages">Packages</option>
+			</select>
+		</div>
+
+		<div class="service-list">
+			@if (Model.Services.Any())
+			{
+				foreach (var service in Model.Services)
+				{
+					<div class="service" data-category="@GetServiceCategory(service.ServiceName)">
+						<div>
+							<h3>@service.ServiceName</h3>
+							<p class="time">@service.Duration mins</p>
+							<p>@service.Price JOD</p>
+						</div>
+						<button class="book-btn" onclick="addToSelectedServices('@service.ServiceName', @service.Duration, @service.Price)">Book Now</button>
+					</div>
+				}
+			}
+			else
+			{
+				<p>No services available.</p>
+			}
+		</div>
+	</div>
+
+	<div class="right-side">
+		<div class="book">
+			<div class="head">
+				<div>
+					<img src="../Images/Men_Images/YousofAfandi/shop.png" alt="" />
+					<div class="rating">⭐ (4.9)</div>
+				</div>
+				<div class="info">
+					<h3>Yousef Afandi</h3>
+					<i class="fa-solid fa-location-dot"></i> Hatamle Commercial Centre, شارع الثقافة, Irbid 21110
+				</div>
+			</div>
+			<div class="selected-services"></div>
+			<div>Total Time: <span id="total-time">0 mins</span></div>
+
+			<hr />
+			<h3>Total: <span id="total-price">0</span> JOD</h3>
+
+			<button id="continue-btn" class="continue">Continue</button>
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	<script>
+		// Filter services
+		function filterServices() {
+			var filter = document.getElementById("service-filter").value;
+			var services = document.querySelectorAll(".service");
+
+			services.forEach(function (service) {
+				if (filter === "all" || service.getAttribute("data-category") === filter) {
+					service.style.display = "flex";
+				} else {
+					service.style.display = "none";
+				}
+			});
+		}
+
+		document.addEventListener("DOMContentLoaded", function () {
+			const bookButtons = document.querySelectorAll(".book-btn");
+			const selectedServicesContainer = document.querySelector(".selected-services");
+			const totalPriceElement = document.getElementById("total-price");
+			const totalTimeElement = document.getElementById("total-time");
+
+			let selectedServices = new Set();
+			let totalPrice = 0;
+			let totalTime = 0;
+
+			// Function to format time
+			function formatTime(minutes) {
+				if (minutes >= 60) {
+					const hours = Math.floor(minutes / 60);
+					const mins = minutes % 60;
+					return `${hours} hour : ${mins} min`;
+				} else {
+					return `${minutes} min`;
+				}
+			}
+
+			// Function to add selected services to the right box
+			function addToSelectedServices(serviceName, duration, price) {
+				// Check if service has already been selected
+				if (selectedServices.has(serviceName)) {
+					alert(`You have already selected "${serviceName}".`);
+					return;
+				}
+
+				// Add service to selected set
+				selectedServices.add(serviceName);
+
+				// Create the service entry in the right-side selected services container
+				const selectedService = document.createElement("div");
+				selectedService.classList.add("booked-service");
+				selectedService.innerHTML = `
+					<div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid #ddd; width: 100%;">
+						<div style="flex-grow: 1;">
+							<p class="service-name" style="font-weight: bold; margin: 0;">${serviceName}</p>
+							<p style="font-size: 12px; color: gray; margin: 5px 0;">${duration} mins</p>
+							<p style="margin: 0; font-weight: bold;">${price} JOD</p>
+						</div>
+						<button class="remove-btn" style="background: red; color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer; margin-left: auto; font-size: 14px;">Remove</button>
+					</div>
+				`;
+
+				selectedServicesContainer.appendChild(selectedService);
+
+				// Update total price and total time
+				totalPrice += price;
+				totalTime += duration;
+
+				totalPriceElement.innerText = totalPrice.toFixed(2);
+				totalTimeElement.innerText = formatTime(totalTime);
+
+				// Remove service when clicked
+				selectedService.querySelector(".remove-btn").addEventListener("click", function () {
+					selectedServicesContainer.removeChild(selectedService);
+					selectedServices.delete(serviceName);
+					totalPrice -= price;
+					totalPriceElement.innerText = totalPrice.toFixed(2);
+
+					totalTime -= duration;
+					totalTimeElement.innerText = formatTime(totalTime);
+				});
+			}
+
+			// Attach event listeners to each "Book Now" button
+			bookButtons.forEach((button) => {
+				button.addEventListener("click", function () {
+					const serviceElement = this.closest(".service");
+					const serviceName = serviceElement.querySelector("h3").innerText;
+					const serviceTime = serviceElement.querySelector(".time").innerText;
+					const servicePrice = parseFloat(serviceElement.querySelector("p:last-of-type").innerText.replace(" JOD", ""));
+
+					// Extract time in minutes
+					let timeInMinutes = 0;
+					if (serviceTime.includes("hour")) {
+						timeInMinutes = parseInt(serviceTime) * 60;
+					} else if (serviceTime.includes("min")) {
+						timeInMinutes = parseInt(serviceTime);
+					}
+
+					// Call the function to add service to selected
+					addToSelectedServices(serviceName, timeInMinutes, servicePrice);
+				});
+			});
+
+			// Handle continue button click to save the selected services
+			const continueBtn = document.getElementById("continue-btn");
+
+			continueBtn.addEventListener("click", function () {
+				const services = [];
+
+				document.querySelectorAll(".booked-service").forEach(serviceElement => {
+					const name = serviceElement.querySelector(".service-name").innerText;
+					const timeText = serviceElement.querySelector("p:nth-child(2)").innerText;
+					const price = parseFloat(serviceElement.querySelector("p:nth-child(3)").innerText.replace(" JOD", ""));
+
+					let duration = 0;
+					if (timeText.includes("hour")) {
+						const [h, m] = timeText.split(":");
+						duration = parseInt(h) * 60 + parseInt(m);
+					} else {
+						duration = parseInt(timeText);
+					}
+
+					services.push({
+						serviceName: name,
+						duration: duration,
+						price: price
+					});
+				});
+
+				if (services.length === 0) {
+					alert("Please select at least one service before continuing.");
+					return;
+				}
+
+				const salonId = @Model.Id;
+
+						// داخل دالة continue-btn
+		fetch(`/MenAppointments/SaveSelectedServices?salonId=${salonId}`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				"RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val()
+			},
+			body: JSON.stringify(services)
+		})
+		.then(res => res.json())
+		.then(data => {
+			if (data.success) {
+				window.location.href = `/MenAppointments/SelectBarberMen?salonId=${salonId}`;
+			} else {
+				alert("Something went wrong while saving your services.");
+			}
+		})
+		.catch(err => {
+			console.error(err);
+			alert("An error occurred. Please try again.");
+		});
+
+			});
+		});
+	</script>
+}
+
+@functions {
+	public string GetServiceCategory(string serviceName)
+	{
+		if (string.IsNullOrEmpty(serviceName))
+			return "unknown";
+
+		serviceName = serviceName.ToLower();
+
+		if (serviceName.Contains("cut"))
+			return "haircut";
+		else if (serviceName.Contains("beard"))
+			return "beard";
+		else if (serviceName.Contains("consult"))
+			return "consultant";
+		else if (serviceName.Contains("package"))
+			return "packages";
+		else if (serviceName.Contains("discount"))
+			return "discount";
+		else
+			return "other";
+	}
+}

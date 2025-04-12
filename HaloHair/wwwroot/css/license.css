@@ -1,0 +1,298 @@
+/* General Styles */
+:root {
+    --main-color: #8892b0;
+    --main-text-color: #f8f8f8;
+    --transparent-color: rgb(15 116 143 / 70%);
+    --section-padding: 100px;
+    --para-color: #666;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: "Arial", sans-serif;
+    margin: 0;
+    padding: 0;
+    margin-top: 120px !important;
+  }
+
+/* navBar */
+
+#navbar {
+    background-color: var(--main-color);
+}
+
+.nav-item .bar {
+    color: #fff !important;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+.nav-item a:hover {
+    color: #000 !important; /* Add a hover effect for links */
+}
+
+.navbar-expand-lg .navbar-nav {
+    margin-left: 250px; /* Align links to the center dynamically */
+    justify-content: center;
+}
+
+.dropdown-menu-end a {
+    color: #000;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+    .dropdown-menu-end a:hover {
+        background-color: #f8f9fa;
+        color: var(--main-color);
+    }
+
+
+
+.cart-nav:hover {
+    color: #000 !important;
+}
+
+.dropdown-item:hover {
+    background-color: #ddd !important;
+}
+
+.rounded-circle {
+    margin: 0;
+    width: 50px;
+    height: 50px;
+    object-fit: cover; /* Ensure proper image fit */
+}
+
+.navbar-toggler {
+    border: none; /* Remove border for cleaner design */
+}
+
+
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1, h2, h3 {
+    color: #222;
+  }
+  
+  /* Hero Section */
+ /* Hero Section Styling */
+.hero {
+    position: relative;
+    text-align: center;
+    color: white;
+    padding: 100px 20px;
+    border-radius: 10px;
+}
+
+.video-background video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    z-index: 1; /* Make sure overlay is above the video */
+}
+
+.content {
+    position: relative;
+    z-index: 2; /* Ensure text appears above the overlay */
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    color: white; /* Use a bright color for better visibility */
+    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.7); /* Increase shadow size and make it lighter */
+}
+
+
+.hero .subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
+}
+
+.hero .cta-button {
+    padding: 10px 20px;
+    background-color: var(--main-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+  
+  /* Benefits Section */
+  .benefits {
+    margin: 50px 0;
+  }
+  
+  .benefits-grid {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+  }
+  
+  .benefit-card {
+    text-align: center;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .benefit-card i {
+    font-size: 2rem;
+    color: var(--main-color);
+    margin-bottom: 10px;
+  }
+  
+  /* Course Details Section */
+  .course-details {
+    margin: 50px 0;
+  }
+  
+  .course-grid {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+  }
+  
+  .course-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .course-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .course-card h3 {
+    padding: 15px;
+    margin: 0;
+  }
+  
+  .course-card p {
+    padding: 0 15px 15px;
+    margin: 0;
+  }
+  
+  .course-card .course-button {
+    display: block;
+    padding: 10px;
+    background-color: var(--main-color);
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 0 0 10px 10px;
+  }
+  
+  /* Registration Form Section */
+  .registration-form {
+    margin: 50px 0;
+  }
+  
+  .registration-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .registration-form input, .registration-form select, .registration-form textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .registration-form button {
+    padding: 10px;
+    background-color: var(--main-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Testimonials Section */
+  .testimonials {
+    margin: 50px 0;
+  }
+  
+  .testimonial-grid {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .testimonial-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .testimonial-card .author {
+    font-weight: bold;
+    margin-top: 10px;
+  }
+
+
+
+
+   /* Start Footer */
+  
+   footer {
+    background-color: var(--main-color);
+    font-weight: 700;
+    color: #fff !important;
+    margin-top: 100px;
+  }
+  
+  .social-container .facebook:hover {
+    color: #1877f2;
+  }
+  
+  .social-container .twitter:hover {
+    color: #000000;
+  }
+  
+  .social-container .instagram:hover {
+    color: #e1306c;
+  }
+  
+  .social-container .linkedin:hover {
+    color: #0a66c2;
+  }
+
+  .d-lg-block {
+    color: #fff;
+  }
+
+  footer p {
+    color: #fff;
+}
+
+  
+  /* End Footer */
+  

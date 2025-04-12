@@ -1,0 +1,69 @@
+﻿@{
+    ViewData["Title"] = "Add";
+    Layout = "~/Views/Shared/_Layout_Services.cshtml";
+}
+
+@model TimeSlotViewModel
+
+<h2>Add Available Time Slots</h2>
+
+<form asp-action="Add" method="post">
+    <input type="hidden" asp-for="BarberId" />
+
+    <div class="form-group">
+        <label>From Time</label>
+        <input asp-for="StartTime" type="datetime-local" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label>To Time</label>
+        <input asp-for="EndTime" type="datetime-local" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label>Booking Duration (Minutes)</label>
+        <input asp-for="DurationInMinutes" type="number" class="form-control" value="60" />
+    </div>
+
+    <div class="form-group">
+        <label>Select Available Days:</label>
+        <div class="checkbox">
+            @foreach (var day in Enum.GetValues(typeof(DayOfWeek)).Cast<DayOfWeek>())
+            {
+                <div>
+                    <input type="checkbox" name="AvailableDays" value="@day" /> @day
+                </div>
+            }
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-success mt-3">Add Time Slots</button>
+</form>
+
+<!-- Add script to set the default value of StartTime to today's date and To Time to one week later -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Get today's date
+        var now = new Date();
+        var year = now.getFullYear();
+        var month = (now.getMonth() + 1).toString().padStart(2, '0');
+        var day = now.getDate().toString().padStart(2, '0');
+        var hour = now.getHours().toString().padStart(2, '0');
+        var minute = now.getMinutes().toString().padStart(2, '0');
+
+        // Set default value for StartTime (today)
+        document.querySelector('input[name="StartTime"]').value = `${year}-${month}-${day}T${hour}:${minute}`;
+
+        // Get the date for one week later
+        var nextWeek = new Date();
+        nextWeek.setDate(now.getDate() + 7);
+        var nextWeekYear = nextWeek.getFullYear();
+        var nextWeekMonth = (nextWeek.getMonth() + 1).toString().padStart(2, '0');
+        var nextWeekDay = nextWeek.getDate().toString().padStart(2, '0');
+        var nextWeekHour = nextWeek.getHours().toString().padStart(2, '0');
+        var nextWeekMinute = nextWeek.getMinutes().toString().padStart(2, '0');
+
+        // Set default value for EndTime (one week later)
+        document.querySelector('input[name="EndTime"]').value = `${nextWeekYear}-${nextWeekMonth}-${nextWeekDay}T${nextWeekHour}:${nextWeekMinute}`;
+    });
+</script>
