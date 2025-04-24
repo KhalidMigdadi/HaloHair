@@ -23,6 +23,7 @@
 	@RenderSection("Styles", required: false)
 
 
+
 	<script src="~/css/BarberDash/js/plugin/webfont/webfont.min.js"></script>
 	<script>
 		WebFont.load({
@@ -46,10 +47,336 @@
 </head>
 <body>
 
+	@inject MyDbContext _context
 
-	<main role="main" class="pb-3">
-		@RenderBody()
-	</main>
+
+	@{
+		var barberId = Context.Session.GetInt32("BarberId");
+		bool isOwner = false;
+
+		if (barberId != null)
+		{
+			var barber = _context.Barbers.FirstOrDefault(b => b.Id == barberId);
+			if (barber != null && barber.IsOwner)
+			{
+				isOwner = true;
+			}
+		}
+
+		// جلب معرف الحلاق من الجلسة
+		ViewBag.BarberId = Context.Session.GetInt32("BarberId");
+
+		// إذا كان لديك SalonId أيضاً في الجلسة
+		ViewBag.SalonId = Context.Session.GetInt32("SalonId");
+	}
+
+	
+		<div class="wrapper">
+			<!-- Start Sidebar -->
+		
+			<!-- Sidebar -->
+			<div class="sidebar" data-background-color="dark">
+				<div class="sidebar-logo">
+					<!-- Logo Header -->
+					<div class="logo-header" data-background-color="dark">
+						<a href="index.html" class="logo">
+							<img src="~/css/BarberDash/img/kaiadmin/logo_light.svg"
+								 alt="navbar brand"
+								 class="navbar-brand"
+								 height="20" />
+						</a>
+						<div class="nav-toggle">
+							<button class="btn btn-toggle toggle-sidebar">
+								<i class="gg-menu-right"></i>
+							</button>
+							<button class="btn btn-toggle sidenav-toggler">
+								<i class="gg-menu-left"></i>
+							</button>
+						</div>
+						<button class="topbar-toggler more">
+							<i class="gg-more-vertical-alt"></i>
+						</button>
+					</div>
+					<!-- End Logo Header -->
+				</div>
+				<div class="sidebar-wrapper scrollbar scrollbar-inner">
+					<div class="sidebar-content">
+						<ul class="nav nav-secondary">
+							<li >
+								<a 
+							   href="@Url.Action("Index", "Barber")"
+								   class="collapsed"
+								   aria-expanded="false">
+									<i class="fas fa-home"></i>
+									<p>Dashboard</p>
+									<span class="caret"></span>
+								</a>
+
+						
+
+
+							</li>
+							<li class="nav-section">
+								<span class="sidebar-mini-icon">
+									<i class="fa fa-ellipsis-h"></i>
+								</span>
+								<h4 class="text-section">Components</h4>
+							</li>
+							<li class="nav-item">
+								<a data-bs-toggle="collapse" href="#base">
+									<i class="fas fa-layer-group"></i>
+									<p>Your Scedual For This Week</p>
+									<span class="caret"></span>
+								</a>
+								<div class="collapse" id="base">
+									<ul class="nav nav-collapse">
+									<li>
+										<a href="@Url.Action("BarberSchedule", "BarberAppointments", new { barberId = ViewBag.BarberId })">
+											<span class="sub-item">My Schedule</span>
+										</a>
+									</li>
+										
+									</ul>
+								</div>
+							</li>
+							<li class="nav-item">
+								<a href="#sidebarLayouts">
+									<i class="fas fa-th-list"></i>
+									<p>Appointments</p>
+									<span class="caret"></span>
+								</a>
+
+							</li>
+							<li class="nav-item">
+								<a data-bs-toggle="collapse" href="#forms">
+									<i class="fas fa-pen-square"></i>
+									<p>Sales</p>
+									<span class="caret"></span>
+								</a>
+								<div class="collapse" id="forms">
+									<ul class="nav nav-collapse">
+										<li>
+											<a href="forms/forms.html">
+												<span class="sub-item">Basic Form</span>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</li>
+							<li class="nav-item">
+								<a href="tables/datatables.html">
+									<i class="fas fa-table"></i>
+
+									<p>Last Bookings</p>
+									<span class="caret"></span>
+								</a>
+
+							</li>
+							<li class="nav-item">
+								<a asp-action="AddService">
+									<i class="fas fa-map-marker-alt"></i>
+									<p>Services</p>
+								</a>
+
+							</li>
+
+
+						<!-- إضافة قائمة Salon Owner المطلوبة -->
+						@if (isOwner)
+						{
+							<li class="nav-item">
+								<a data-bs-toggle="collapse" href="#salonOwner">
+									<i class="fas fa-crown"></i>
+									<p>Salon Owner</p>
+									<span class="caret"></span>
+								</a>
+								<div class="collapse" id="salonOwner">
+									<ul class="nav nav-collapse">
+										<li>
+											<a href="@Url.Action("CreateBarber", "Barber")">
+												<span class="sub-item">Add New Barber</span>
+											</a>
+										</li>
+										<li>
+											<a href="@Url.Action("UploadSalonImages", "BarberSalon", new { salonId = ViewBag.SalonId })">
+												<span class="sub-item">Upload New Image</span>
+											</a>
+										</li>
+										<li>
+											<a href="@Url.Action("EditSalon", "BarberSalon", new { salonId = ViewBag.SalonId })">
+												<span class="sub-item">Edit My Salon</span>
+											</a>
+										</li>
+
+
+										<li>
+											<a href="@Url.Action("AddSalonLocation", "BarberSalon", new { salonId = ViewBag.SalonId })">
+												<span class="sub-item">Add Salon Location</span>
+											</a>
+										</li>
+										<li>
+											@if (!ViewBag.IsPromoted)
+											{
+												<form asp-action="PromoteSalon" asp-controller="BarberSalon" method="post">
+													<input type="hidden" name="salonId" value="@ViewBag.SalonId" />
+													<button type="submit" class="btn btn-warning">Promote My Salon Now</button>
+												</form>
+											}
+											else
+											{
+												<span class="badge bg-success">Your salon is already promoted</span>
+											}
+
+										</li>
+
+										<li>
+											<a href="@Url.Action("Applications", "BarberVacancy")">
+												<span class="sub-item">Jobs Applications</span>
+											</a>
+										</li>
+										<li>
+											<a href="@Url.Action("MyVacancies", "BarberVacancy")">
+												<span class="sub-item">My Salon Jobs</span>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</li>
+						}
+
+
+
+
+
+
+
+
+							<li class="nav-item">
+								<a data-bs-toggle="collapse" href="#submenu">
+									<i class="fas fa-bars"></i>
+									<p>Manage My Salon</p>
+									<span class="caret"></span>
+								</a>
+								<div class="collapse" id="submenu">
+									<ul class="nav nav-collapse">
+
+										<li class="nav-item">
+											<a asp-controller="BarberPayments" asp-action="MonthlyPayments">
+												<i class="fas fa-money-bill-wave"></i>
+												<p>Monthly Payemtn</p>
+											</a>
+										</li>
+
+										<li>
+										@* <a href="@Url.Action("AddService", "BarberService", new { barberId = ViewBag.BarberId })"> *@
+										<a href="@(ViewBag.BarberId != null ? Url.Action("AddService", "BarberService", new { barberId = ViewBag.BarberId }) : "#")">
+												<span class="sub-item">Add New Services</span>
+											</a>
+
+										</li>
+										<li>
+											<a asp-action="MyService" asp-controller="BarberService">
+												<span class="sub-item">Edit My Services</span>
+											</a>
+
+										</li>
+									
+
+									
+
+								
+									
+
+										<li>
+										<a href="@Url.Action("EditSalonAbout", "BarberSalon", new { salonId = ViewBag.SalonId })">
+												<span class="sub-item">Edit About</span>
+											</a>
+										</li>
+
+										<li>
+											@if (ViewBag.SalonId != null && ViewBag.SalonId != 0)
+											{
+											<li>
+												<a href="@Url.Action("EditWorkingHours", "BarberSalon", new { salonId = ViewBag.SalonId })">
+													<span class="sub-item">Edit Working Hours</span>
+
+												</a>
+											</li>
+											}
+											else
+											{
+											<li>Salon ID not available</li>
+											}
+
+
+										<li>
+
+
+											<a asp-action="Add" asp-controller="BarberAppointments"><span class="sub-item">Add Time</span></a>
+
+										</li>
+
+										<li>
+											<a href="@Url.Action("MySchedule", "BarberAppointments", new { barberId = ViewBag.BarberId })">
+												<span class="sub-item">My Schedule</span>
+											</a>
+										</li>
+
+									
+
+
+										<li>
+											<a href="@Url.Action("AddBarberWorkImage", "BarberSalon", new { barberId = ViewBag.BarberId })">
+												<span class="sub-item">Add Work Image</span>
+											</a>
+										</li>
+
+
+
+
+									</ul>
+								</div>
+							</li>
+
+
+
+							<li class="nav-item">
+								@* <a href="@Url.Action("Team", "Barber", new { salonId = Model.SalonId })"> *@
+							<a href="@Url.Action("Team", "Barber", new { salonId = ViewBag.SalonId })">
+
+									<i class="fas fa-desktop"></i>
+									<p>Team</p>
+									<span class="badge badge-success">4</span>
+								</a>
+
+
+
+							</li>
+							<li class="nav-item">
+								<a href="../../documentation/index.html">
+									<i class="fas fa-file"></i>
+									<p>Announce for job</p>
+									<span class="badge badge-secondary">1</span>
+								</a>
+							</li>
+
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!-- End Sidebar -->
+
+		
+
+			<div class="main-panel">
+				
+			<main role="main" class="pb-3">
+				@RenderBody()
+			</main>
+
+		</div>
+		</div>
+	
 
 	<!--   Core JS Files   -->
 	<script src="~/css/BarberDash/js/core/jquery-3.7.1.min.js"></script>

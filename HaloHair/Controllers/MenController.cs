@@ -61,7 +61,7 @@ namespace HaloHair.Controllers
             // Sort by rating (highest first) and take top 5
             var topSalons = recommendedSalons
                 .OrderByDescending(s => s.AverageRating)
-                .Take(5)
+                .Take(10)
                 .ToList();
 
             ViewBag.RecommendedSalons = topSalons;
@@ -74,6 +74,16 @@ namespace HaloHair.Controllers
 
             ViewBag.NewSalons = newSalons;
 
+
+
+            // ✅ جديد: جلب آخر الوظائف المنشورة
+            var latestVacancies = _context.Vacancies
+                .Include(v => v.Salon)
+                .OrderByDescending(v => v.CreatedAt)
+                .Take(6)
+                .ToList();
+
+            ViewBag.LatestVacancies = latestVacancies;
 
 
             return View(salons);
@@ -295,6 +305,23 @@ namespace HaloHair.Controllers
             return RedirectToAction("LoginUserMen", "Men");
         }
 
+
+
+
+        public IActionResult AllJobs()
+        {
+            var allVacancies = _context.Vacancies
+                .Include(v => v.Salon)
+                .OrderByDescending(v => v.CreatedAt)
+                .ToList();
+
+            return View(allVacancies);
+        }
+
+
+
+
+  
 
 
     }

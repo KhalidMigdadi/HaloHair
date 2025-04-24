@@ -1,4 +1,5 @@
 ﻿using HaloHair.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -117,24 +118,33 @@ namespace HaloHair.Controllers
 
 
 
+
+
+
         //public async Task<IActionResult> BarberSchedule(int barberId, DateTime? date)
         //{
         //    var selectedDate = date ?? DateTime.Today;
-
         //    var appointments = await _context.Appointments
-        //       .Where(a => a.BarberId == barberId &&
-        //                   a.StartTime.HasValue &&
-        //                   a.StartTime.Value.Date == selectedDate.Date)
-        //       .OrderBy(a => a.StartTime)
-        //       .ToListAsync();
+        //        .Where(a => a.BarberId == barberId &&
+        //                   a.AppointmentDate.HasValue &&
+        //                   a.AppointmentDate.Value.Date == selectedDate.Date)
+        //        .OrderBy(a => a.StartTime)
+        //        .Include(a => a.User)
+        //        .Include(a => a.AppointmentServices)
+        //            .ThenInclude(asv => asv.Service)
+        //        .ToListAsync();
 
-
-        //    // Also get information about the barber
         //    var barber = await _context.Barbers
         //        .FirstOrDefaultAsync(b => b.Id == barberId);
 
         //    if (barber == null)
         //        return NotFound();
+
+        //    // إضافة القيم المطلوبة للـ ViewBag
+        //    ViewBag.BarberId = barberId;
+
+        //    // إضافة SalonId إذا كان متوفراً في الجدول
+        //    ViewBag.SalonId = barber.SalonId; // افتراض أن الحلاق مرتبط بصالون
 
         //    var viewModel = new BarberScheduleViewModel
         //    {
@@ -147,27 +157,48 @@ namespace HaloHair.Controllers
         //}
 
 
+
+
         public async Task<IActionResult> BarberSchedule(int barberId, DateTime? date)
         {
-            var selectedDate = date ?? DateTime.Today;
+            // إذا كان barberId يساوي صفر، نحاول الحصول عليه من الجلسة
+            if (barberId == 0)
+            {
+                barberId = HttpContext.Session.GetInt32("BarberId") ?? 0;
+                // إذا كان لا يزال صفراً، قد نحتاج لتحويل المستخدم إلى صفحة تسجيل الدخول
+                if (barberId == 0)
+                {
+                    // يمكنك توجيهه لصفحة تسجيل الدخول
+                    return RedirectToAction("Login", "Account");
+                    // أو إعادة رسالة خطأ
+                    // return NotFound("Barber ID not found. Please login again.");
+                }
+            }
 
+            var selectedDate = date ?? DateTime.Today;
             var appointments = await _context.Appointments
-               .Where(a => a.BarberId == barberId &&
+                .Where(a => a.BarberId == barberId &&
                            a.AppointmentDate.HasValue &&
                            a.AppointmentDate.Value.Date == selectedDate.Date)
-               .OrderBy(a => a.StartTime)
-               .Include(a => a.User) // معلومات العميل
-               .Include(a => a.AppointmentServices) // علاقة مع الخدمات
-                   .ThenInclude(asv => asv.Service) // تفاصيل كل خدمة
-               .ToListAsync();
-
-
+                .OrderBy(a => a.StartTime)
+                .Include(a => a.User)
+                .Include(a => a.AppointmentServices)
+                    .ThenInclude(asv => asv.Service)
+                .ToListAsync();
 
             var barber = await _context.Barbers
                 .FirstOrDefaultAsync(b => b.Id == barberId);
 
             if (barber == null)
                 return NotFound();
+
+            // حفظ القيم في الجلسة لاستخدامها في الصفحات الأخرى
+            HttpContext.Session.SetInt32("BarberId", barberId);
+            HttpContext.Session.SetInt32("SalonId", barber.SalonId.Value);
+
+            // إضافة القيم المطلوبة للـ ViewBag
+            ViewBag.BarberId = barberId;
+            ViewBag.SalonId = barber.SalonId;
 
             var viewModel = new BarberScheduleViewModel
             {
@@ -178,7 +209,6 @@ namespace HaloHair.Controllers
 
             return View(viewModel);
         }
-
 
 
         [HttpPost]
@@ -203,7 +233,7 @@ namespace HaloHair.Controllers
                 var bookingHistory = await _context.BookingsHistories
                     .Where(bh => bh.UserId == appointment.UserId &&
                           bh.BarberId == appointment.BarberId &&
-                          bh.BookingDate == DateOnly.FromDateTime(appointment.AppointmentDate.Value) &&
+                          bh.BookingDate.Date == appointment.AppointmentDate.Value.Date &&
                           bh.Status != "Completed")
                     .FirstOrDefaultAsync();
 

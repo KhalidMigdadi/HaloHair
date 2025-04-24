@@ -203,7 +203,7 @@ namespace HaloHair.Controllers
 
 
 
-     
+
 
 
 
@@ -473,7 +473,145 @@ namespace HaloHair.Controllers
 
 
 
-  
+
+
+
+        //[HttpPost]
+        //public async Task<IActionResult> BookAppointment(int startingSlotId, int barberId)
+        //{
+        //    var userId = HttpContext.Session.GetInt32("UserId");
+        //    if (!userId.HasValue)
+        //        return RedirectToAction("Login", "Account");
+
+        //    // Get selected services
+        //    var selectedServices = await _context.SelectedServices
+        //        .Where(s => s.UserId == userId.Value)
+        //        .ToListAsync();
+
+        //    if (!selectedServices.Any())
+        //        return RedirectToAction("SelectService", "Service");
+
+        //    var totalDuration = selectedServices.Sum(s => s.Duration);
+        //    var totalPrice = selectedServices.Sum(s => s.Price);
+        //    var salonId = selectedServices.First().SalonId;
+
+        //    // Get starting time slot and calculate end time
+        //    var startingSlot = await _context.TimeSlots
+        //        .FirstOrDefaultAsync(ts => ts.Id == startingSlotId);
+
+        //    if (startingSlot == null)
+        //        return NotFound();
+
+        //    DateTime appointmentEndTime = startingSlot.StartTime.AddMinutes(totalDuration);
+
+        //    // Create the appointment
+        //    var appointment = new Appointment
+        //    {
+        //        UserId = userId,
+        //        BarberId = barberId,
+        //        SalonId = salonId,
+        //        StartTime = startingSlot.StartTime,
+        //        EndTime = appointmentEndTime,
+        //        TotalDuration = totalDuration,
+        //        AppointmentDate = startingSlot.StartTime.Date,
+        //        Status = "Confirmed",
+        //        CreatedAt = DateTime.Now,
+        //        UpdatedAt = DateTime.Now
+        //    };
+
+        //    _context.Appointments.Add(appointment);
+        //    await _context.SaveChangesAsync(); // حفظ الموعد أولاً للحصول على رقم الموعد (ID)
+
+        //    // إضافة جميع الخدمات المختارة إلى جدول AppointmentServices
+        //    foreach (var selectedService in selectedServices)
+        //    {
+        //        // تأكد من وجود ServiceId قبل إنشاء AppointmentService
+        //        if (selectedService.ServiceId.HasValue)
+        //        {
+        //            var service = await _context.Services
+        //                .FirstOrDefaultAsync(s => s.Id == selectedService.ServiceId.Value);
+
+        //            if (service != null)
+        //            {
+        //                var appointmentService = new AppointmentService
+        //                {
+        //                    AppointmentId = appointment.Id,
+        //                    ServiceId = service.Id,
+        //                    ServiceName = service.ServiceName ?? "Unknown Service",
+        //                    Duration = service.Duration ?? 0,
+        //                    Price = service.Price ?? 0
+        //                };
+
+        //                _context.AppointmentServices.Add(appointmentService);
+        //            }
+        //        }
+        //        else
+        //        {
+        //            // إذا كان ServiceId فارغًا، ابحث عن الخدمة باستخدام ServiceName
+        //            var service = await _context.Services
+        //                .FirstOrDefaultAsync(s => s.ServiceName == selectedService.ServiceName);
+
+        //            if (service != null)
+        //            {
+        //                var appointmentService = new AppointmentService
+        //                {
+        //                    AppointmentId = appointment.Id,
+        //                    ServiceId = service.Id, // استخدم معرف الخدمة التي تم العثور عليها
+        //                    ServiceName = selectedService.ServiceName,
+        //                    Duration = selectedService.Duration,
+        //                    Price = selectedService.Price
+        //                };
+
+        //                _context.AppointmentServices.Add(appointmentService);
+        //            }
+        //            // إذا لم يتم العثور على الخدمة، يمكنك تخطي هذه الخدمة أو التعامل معها بطريقة أخرى
+        //        }
+        //    }
+
+        //    // Book the time slots
+        //    foreach (var slot in await _context.TimeSlots
+        //        .Where(ts => ts.BarberId == barberId &&
+        //                ts.StartTime >= startingSlot.StartTime &&
+        //                ts.StartTime < appointmentEndTime)
+        //        .ToListAsync())
+        //    {
+        //        var booking = new Booking
+        //        {
+        //            UserId = userId.Value,
+        //            TimeSlotId = slot.Id,
+        //            BookingDate = DateOnly.FromDateTime(DateTime.Now),
+        //            BarberId = barberId
+        //        };
+        //        _context.Bookings.Add(booking);
+        //    }
+
+        //    // إضافة السجل في جدول BookingsHistory
+        //    var bookingHistory = new BookingsHistory
+        //    {
+        //        UserId = userId.Value,
+        //        BarberId = barberId,
+        //        BookingDate = DateOnly.FromDateTime(startingSlot.StartTime.Date),
+        //        StartTime = TimeOnly.FromTimeSpan(startingSlot.StartTime.TimeOfDay),
+        //        EndTime = TimeOnly.FromTimeSpan(appointmentEndTime.TimeOfDay),
+        //        TotalDuration = totalDuration,
+        //        TotalPrice = totalPrice,
+        //        Status = "Confirmed",
+        //        Notes = $"Appointment made for {selectedServices.Count} services",
+        //        CreatedAt = DateTime.Now,
+        //        UpdatedAt = DateTime.Now
+        //    };
+
+        //    _context.BookingsHistories.Add(bookingHistory);
+
+        //    // Clear selected services
+        //    _context.SelectedServices.RemoveRange(selectedServices);
+
+        //    await _context.SaveChangesAsync();
+
+        //    return RedirectToAction("BookingSuccess", new { appointmentId = appointment.Id });
+        //}
+
+
 
 
         [HttpPost]
@@ -514,18 +652,17 @@ namespace HaloHair.Controllers
                 EndTime = appointmentEndTime,
                 TotalDuration = totalDuration,
                 AppointmentDate = startingSlot.StartTime.Date,
-                Status = "Confirmed",
+                Status = "Pending", // Set as pending until payment
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now
             };
 
             _context.Appointments.Add(appointment);
-            await _context.SaveChangesAsync(); // حفظ الموعد أولاً للحصول على رقم الموعد (ID)
+            await _context.SaveChangesAsync(); // Save to get the appointment ID
 
-            // إضافة جميع الخدمات المختارة إلى جدول AppointmentServices
+            // Add all selected services to AppointmentServices table
             foreach (var selectedService in selectedServices)
             {
-                // تأكد من وجود ServiceId قبل إنشاء AppointmentService
                 if (selectedService.ServiceId.HasValue)
                 {
                     var service = await _context.Services
@@ -547,7 +684,6 @@ namespace HaloHair.Controllers
                 }
                 else
                 {
-                    // إذا كان ServiceId فارغًا، ابحث عن الخدمة باستخدام ServiceName
                     var service = await _context.Services
                         .FirstOrDefaultAsync(s => s.ServiceName == selectedService.ServiceName);
 
@@ -556,7 +692,7 @@ namespace HaloHair.Controllers
                         var appointmentService = new AppointmentService
                         {
                             AppointmentId = appointment.Id,
-                            ServiceId = service.Id, // استخدم معرف الخدمة التي تم العثور عليها
+                            ServiceId = service.Id,
                             ServiceName = selectedService.ServiceName,
                             Duration = selectedService.Duration,
                             Price = selectedService.Price
@@ -564,7 +700,6 @@ namespace HaloHair.Controllers
 
                         _context.AppointmentServices.Add(appointmentService);
                     }
-                    // إذا لم يتم العثور على الخدمة، يمكنك تخطي هذه الخدمة أو التعامل معها بطريقة أخرى
                 }
             }
 
@@ -585,17 +720,17 @@ namespace HaloHair.Controllers
                 _context.Bookings.Add(booking);
             }
 
-            // إضافة السجل في جدول BookingsHistory
+            // Add record to BookingsHistory
             var bookingHistory = new BookingsHistory
             {
                 UserId = userId.Value,
                 BarberId = barberId,
-                BookingDate = DateOnly.FromDateTime(startingSlot.StartTime.Date),
+                BookingDate = startingSlot.StartTime.Date,
                 StartTime = TimeOnly.FromTimeSpan(startingSlot.StartTime.TimeOfDay),
                 EndTime = TimeOnly.FromTimeSpan(appointmentEndTime.TimeOfDay),
                 TotalDuration = totalDuration,
                 TotalPrice = totalPrice,
-                Status = "Confirmed",
+                Status = "Pending",
                 Notes = $"Appointment made for {selectedServices.Count} services",
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now
@@ -608,48 +743,89 @@ namespace HaloHair.Controllers
 
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("BookingSuccess", new { appointmentId = appointment.Id });
+            // Store appointment data in TempData for the payment page
+            TempData["AppointmentId"] = appointment.Id;
+            TempData["Amount"] = totalPrice.ToString();
+
+
+
+            // Redirect to simple payment page
+            return RedirectToAction("PaymentPage");
         }
 
 
-        public async Task<IActionResult> BookingSuccess(int appointmentId)
-        {
-            var appointment = await _context.Appointments
-                .Include(a => a.Barber)
-                .Include(a => a.User)
-                .FirstOrDefaultAsync(a => a.Id == appointmentId);
 
+
+        // 4. Simple payment page action
+        public IActionResult PaymentPage()
+        {
+            // Get data from TempData
+            var appointmentId = TempData["AppointmentId"];
+            var amount = TempData["Amount"];
+
+            // Keep the data in TempData for the post action
+            TempData.Keep("AppointmentId");
+            TempData.Keep("Amount");
+
+            ViewBag.AppointmentId = appointmentId;
+            ViewBag.Amount = amount;
+
+            return View();
+        }
+
+
+
+        // 5. Process payment action
+        // تعديل دالة ProcessPayment
+        [HttpPost]
+        public async Task<IActionResult> ProcessPayment(string paymentMethod, string paymentDetails)
+        {
+            var appointmentId = Convert.ToInt32(TempData["AppointmentId"]);
+            var amountString = TempData["Amount"]?.ToString();
+            decimal amount = decimal.Parse(amountString);
+
+            // Get the appointment
+            var appointment = await _context.Appointments.FindAsync(appointmentId);
             if (appointment == null)
             {
                 return RedirectToAction("Index", "Home");
             }
 
-            // Store appointment details in TempData
-            TempData["AppointmentDate"] = appointment.AppointmentDate.HasValue
-                ? appointment.AppointmentDate.Value.ToString("dddd, MMMM d, yyyy")
-                : "N/A";
-            TempData["AppointmentTime"] = $"{appointment.StartTime?.ToShortTimeString()} - {appointment.EndTime?.ToShortTimeString()}";
-            TempData["BarberName"] = $"{appointment.Barber.FirstName} {appointment.Barber.LastName}";
-
-            // Fetch all services related to this appointment
-            var appointmentServices = await _context.AppointmentServices
-                .Where(a => a.AppointmentId == appointmentId)
-                .Include(a => a.Service)
-                .ToListAsync();
-
-            // تسجيل عدد الخدمات المسترجعة للتصحيح
-            System.Diagnostics.Debug.WriteLine($"Found {appointmentServices.Count} services for appointment {appointmentId}");
-
-            ViewBag.AppointmentServices = appointmentServices;
-            foreach (var a in appointmentServices)
+            // Create payment record
+            var payment = new PaymentInfo
             {
-                Console.WriteLine($"ServiceId: {a.ServiceId}, ServiceName: {a.Service?.ServiceName ?? "NULL"}");
+                AppointmentId = appointmentId,
+                BarberId = appointment.BarberId.Value, // أضف معرف الحلاق من الموعد
+                PaymentMethod = paymentMethod,
+                PaymentDetails = paymentDetails,
+                Amount = amount,
+                PaymentDate = DateTime.Now // من المهم تضمين تاريخ الدفع أيضًا
+            };
+
+            _context.PaymentInfos.Add(payment);
+
+            // Update appointment status
+            appointment.Status = "Confirmed";
+            appointment.UpdatedAt = DateTime.Now;
+
+            // Update booking history status
+            var bookingHistory = await _context.BookingsHistories
+                .FirstOrDefaultAsync(bh => bh.UserId == appointment.UserId &&
+                                           bh.BarberId == appointment.BarberId &&
+                                           bh.BookingDate.Date == (appointment.AppointmentDate ?? DateTime.Now).Date);
+            if (bookingHistory != null)
+            {
+                bookingHistory.Status = "Confirmed";
+                bookingHistory.UpdatedAt = DateTime.Now;
             }
 
+            await _context.SaveChangesAsync();
 
-
-            return View();
+            // التوجيه إلى BookingSuccess
+            return RedirectToAction("BookingSuccess", new { appointmentId = appointmentId });
         }
+
+
 
 
 
@@ -687,69 +863,157 @@ namespace HaloHair.Controllers
             return View(viewModel);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> ConfirmBooking(int userId, int barberId, int timeSlotId)
+
+
+        public async Task<IActionResult> BookingSuccess(int appointmentId)
         {
-            var booking = new Booking
+            var appointment = await _context.Appointments
+                .Include(a => a.Barber)
+                .Include(a => a.User)
+                .FirstOrDefaultAsync(a => a.Id == appointmentId);
+
+            if (appointment == null)
             {
-                UserId = userId,
-                BarberId = barberId,
-                TimeSlotId = timeSlotId,
-                BookingDate = DateOnly.FromDateTime(DateTime.Now)
-            };
+                return RedirectToAction("Index", "Home");
+            }
 
-            _context.Bookings.Add(booking);
-            await _context.SaveChangesAsync();
+            // Store appointment details in TempData
+            TempData["AppointmentDate"] = appointment.AppointmentDate.HasValue
+                ? appointment.AppointmentDate.Value.ToString("dddd, MMMM d, yyyy")
+                : "N/A";
+            TempData["AppointmentTime"] = $"{appointment.StartTime?.ToShortTimeString()} - {appointment.EndTime?.ToShortTimeString()}";
+            TempData["BarberName"] = $"{appointment.Barber.FirstName} {appointment.Barber.LastName}";
 
+            // Fetch payment information for this appointment
+            var paymentInfo = await _context.PaymentInfos
+                .FirstOrDefaultAsync(p => p.AppointmentId == appointmentId);
+
+            if (paymentInfo != null)
+            {
+                TempData["PaymentMethod"] = paymentInfo.PaymentMethod;
+                TempData["PaymentAmount"] = paymentInfo.Amount.ToString("N2");
+                TempData["PaymentDate"] = DateTime.Now.ToString("dddd, MMMM d, yyyy");
+                // Only include last 4 digits if payment details contain credit card info
+                TempData["PaymentDetails"] = paymentInfo.PaymentDetails;
+            }
+
+            // Fetch all services related to this appointment
+            var appointmentServices = await _context.AppointmentServices
+                .Where(a => a.AppointmentId == appointmentId)
+                .Include(a => a.Service)
+                .ToListAsync();
+
+            // تسجيل عدد الخدمات المسترجعة للتصحيح
+            System.Diagnostics.Debug.WriteLine($"Found {appointmentServices.Count} services for appointment {appointmentId}");
+
+            ViewBag.AppointmentServices = appointmentServices;
+            foreach (var a in appointmentServices)
+            {
+                Console.WriteLine($"ServiceId: {a.ServiceId}, ServiceName: {a.Service?.ServiceName ?? "NULL"}");
+            }
+
+            return View();
+        }
+
+
+
+        public IActionResult CancelAppointment(int id)
+        {
+            var appointment = _context.Appointments.FirstOrDefault(a => a.Id == id);
+
+            if (appointment == null)
+                return NotFound();
+
+            // تحقق إذا كان موعد الحجز بعد أكثر من 12 ساعة
+            var hoursUntilAppointment = (appointment.AppointmentDate - DateTime.Now)?.TotalHours ?? 0;
+
+            if (hoursUntilAppointment < 12)
+            {
+                TempData["ErrorMessage"] = "لا يمكنك إلغاء الحجز قبل أقل من 12 ساعة من موعده.";
+                return RedirectToAction("MyAppointments"); // أو أي صفحة تروح لها بعد المحاولة
+            }
+
+            // نفذ الإلغاء
+            _context.Appointments.Remove(appointment);
+            _context.SaveChanges();
+
+            TempData["SuccessMessage"] = "تم إلغاء الحجز بنجاح.";
             return RedirectToAction("MyAppointments");
         }
 
 
 
 
-        public async Task<IActionResult> BookingHistory()
-        {
-            // الحصول على معرف المستخدم الحالي من الجلسة
-            var userId = HttpContext.Session.GetInt32("UserId");
-            if (!userId.HasValue)
-                return RedirectToAction("Login", "Account");
 
-            // الحصول على جميع حجوزات المستخدم
-            var bookings = await _context.Bookings
-                .Where(b => b.UserId == userId.Value)
-                .OrderByDescending(b => b.BookingDate)
-                .ToListAsync();
 
-            // إنشاء قائمة لتخزين نماذج العرض
-            var bookingViewModels = new List<BookingHistoryViewModel>();
 
-            foreach (var booking in bookings)
-            {
-                // جلب معلومات الفترة الزمنية المحجوزة
-                var timeSlot = await _context.TimeSlots
-                    .FirstOrDefaultAsync(ts => ts.Id == booking.TimeSlotId);
 
-                // جلب معلومات الحلاق
-                var barber = await _context.Barbers
-                    .FirstOrDefaultAsync(b => b.Id == booking.BarberId);
 
-                // جلب الخدمات المرتبطة بالحجز
-                var bookingServices = await _context.BookingServices
-                    .Where(bs => bs.BookingId == booking.Id)
-                    .ToListAsync();
 
-                // إضافة نموذج العرض إلى القائمة
-                bookingViewModels.Add(new BookingHistoryViewModel
-                {
-                    Booking = booking,
-                    TimeSlot = timeSlot,
-                    Barber = barber,
-                    Services = bookingServices
-                });
-            }
 
-            return View(bookingViewModels);
-        }
+        //[HttpPost]
+        //public async Task<IActionResult> ConfirmBooking(int userId, int barberId, int timeSlotId)
+        //{
+        //    var booking = new Booking
+        //    {
+        //        UserId = userId,
+        //        BarberId = barberId,
+        //        TimeSlotId = timeSlotId,
+        //        BookingDate = DateOnly.FromDateTime(DateTime.Now)
+        //    };
+
+        //    _context.Bookings.Add(booking);
+        //    await _context.SaveChangesAsync();
+
+        //    return RedirectToAction("MyAppointments");
+        //}
+
+
+
+
+        //public async Task<IActionResult> BookingHistory()
+        //{
+        //    // الحصول على معرف المستخدم الحالي من الجلسة
+        //    var userId = HttpContext.Session.GetInt32("UserId");
+        //    if (!userId.HasValue)
+        //        return RedirectToAction("Login", "Account");
+
+        //    // الحصول على جميع حجوزات المستخدم
+        //    var bookings = await _context.Bookings
+        //        .Where(b => b.UserId == userId.Value)
+        //        .OrderByDescending(b => b.BookingDate)
+        //        .ToListAsync();
+
+        //    // إنشاء قائمة لتخزين نماذج العرض
+        //    var bookingViewModels = new List<BookingHistoryViewModel>();
+
+        //    foreach (var booking in bookings)
+        //    {
+        //        // جلب معلومات الفترة الزمنية المحجوزة
+        //        var timeSlot = await _context.TimeSlots
+        //            .FirstOrDefaultAsync(ts => ts.Id == booking.TimeSlotId);
+
+        //        // جلب معلومات الحلاق
+        //        var barber = await _context.Barbers
+        //            .FirstOrDefaultAsync(b => b.Id == booking.BarberId);
+
+        //        // جلب الخدمات المرتبطة بالحجز
+        //        var bookingServices = await _context.BookingServices
+        //            .Where(bs => bs.BookingId == booking.Id)
+        //            .ToListAsync();
+
+        //        // إضافة نموذج العرض إلى القائمة
+        //        bookingViewModels.Add(new BookingHistoryViewModel
+        //        {
+        //            Booking = booking,
+        //            TimeSlot = timeSlot,
+        //            Barber = barber,
+        //            Services = bookingServices
+        //        });
+        //    }
+
+        //    return View(bookingViewModels);
+        //}
 
 
 

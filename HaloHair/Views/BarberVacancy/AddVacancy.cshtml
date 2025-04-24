@@ -1,0 +1,40 @@
+﻿@model HaloHair.Models.Vacancy
+
+@{
+    ViewBag.Title = "Add Vacancy";
+    Layout = "~/Views/Shared/_Layout_Barber.cshtml";
+
+}
+
+<h2 class="text-center mb-4">Add New Job Vacancy</h2>
+
+<form asp-action="AddVacancy" method="post" class="row g-3">
+    <div class="col-md-6">
+        <label asp-for="Position" class="form-label">Job Title</label>
+        <input asp-for="Position" class="form-control" placeholder="e.g., Hair Stylist" required />
+    </div>
+
+    <div class="col-md-6">
+        <label asp-for="Location" class="form-label">Location</label>
+        <input asp-for="Location" class="form-control" placeholder="e.g., Amman, Jordan" required />
+    </div>
+
+    <div class="col-md-6">
+        <label asp-for="Salary" class="form-label">Salary</label>
+        <input asp-for="Salary" class="form-control" placeholder="e.g., $4000/month" required />
+    </div>
+
+    <div class="col-md-6">
+        <label asp-for="Requirements" class="form-label">Requirements</label>
+        <input asp-for="Requirements" class="form-control" placeholder="e.g., 2+ years of experience" required />
+    </div>
+
+    <div class="col-12">
+        <label asp-for="Description" class="form-label">Job Description</label>
+        <textarea asp-for="Description" class="form-control" rows="4" placeholder="Provide detailed job description" required></textarea>
+    </div>
+
+    <div class="col-12 text-center mt-3">
+        <button type="submit" class="btn btn-success px-4">Post Vacancy</button>
+    </div>
+</form>

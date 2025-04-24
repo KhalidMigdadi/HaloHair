@@ -1,0 +1,127 @@
+﻿@{
+    ViewData["Title"] = "Payment";
+    Layout = "~/Views/Shared/_Layout_Services.cshtml";
+
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="text-center mb-0">Complete Payment</h3>
+                </div>
+                <div class="card-body">
+                    <div class="text-center mb-4">
+                        <h5>Total Amount</h5>
+                        <h2 class="text-primary">@ViewBag.Amount JD</h2>
+                    </div>
+
+                    <form asp-action="ProcessPayment" method="post">
+                        <input type="hidden" name="appointmentId" value="@ViewBag.AppointmentId" />
+
+                        <div class="form-group mb-4">
+                            <label class="form-label">Select Payment Method</label>
+                            <select name="paymentMethod" class="form-select" id="paymentMethod">
+                                <option value="">-- Select Payment Method --</option>
+                                <option value="Visa">Credit Card (Visa/MasterCard)</option>
+                                <option value="OrangeMoney">Orange Money</option>
+                            </select>
+                        </div>
+
+                        <!-- Credit Card Form -->
+                        <div id="creditCardForm" class="payment-form" style="display: none;">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <label class="form-label">Card Number</label>
+                                        <input type="text" class="form-control" placeholder="1234 5678 9012 3456" id="cardNumber">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Expiry Date</label>
+                                            <input type="text" class="form-control" placeholder="MM/YY" id="expiryDate">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">CVV</label>
+                                            <input type="text" class="form-control" placeholder="123" id="cvv">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Cardholder Name</label>
+                                        <input type="text" class="form-control" placeholder="Name on Card" id="cardholderName">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Orange Money Form -->
+                        <div id="orangeMoneyForm" class="payment-form" style="display: none;">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <label class="form-label">Phone Number</label>
+                                        <input type="text" class="form-control" placeholder="07XXXXXXXX" id="phoneNumber">
+                                    </div>
+                                    <div class="alert alert-info">
+                                        <i class="fas fa-info-circle"></i> You will receive a confirmation message on this number.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- This hidden field will store all payment details as JSON -->
+                        <input type="hidden" name="paymentDetails" id="paymentDetails" />
+
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg" id="payButton">Complete Payment</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Show/hide payment forms based on selection
+            $('#paymentMethod').change(function() {
+                $('.payment-form').hide();
+
+                if ($(this).val() === 'Visa') {
+                    $('#creditCardForm').show();
+                } else if ($(this).val() === 'OrangeMoney') {
+                    $('#orangeMoneyForm').show();
+                }
+            });
+
+            // Handle form submission
+            $('form').submit(function(e) {
+                // Collect payment details based on selected method
+                let paymentDetails = {};
+                const paymentMethod = $('#paymentMethod').val();
+
+                if (paymentMethod === 'Visa') {
+                    paymentDetails = {
+                        cardNumber: $('#cardNumber').val(),
+                        expiryDate: $('#expiryDate').val(),
+                        cvv: $('#cvv').val(),
+                        cardholderName: $('#cardholderName').val()
+                    };
+                } else if (paymentMethod === 'OrangeMoney') {
+                    paymentDetails = {
+                        phoneNumber: $('#phoneNumber').val()
+                    };
+                }
+
+                // Convert to JSON and store in hidden field
+                $('#paymentDetails').val(JSON.stringify(paymentDetails));
+
+                // Allow form submission
+                return true;
+            });
+        });
+    </script>
+}

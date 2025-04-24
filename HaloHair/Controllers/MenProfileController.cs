@@ -14,19 +14,7 @@ namespace HaloHair.Controllers
         {
             _context = context;
         }
-        //public async Task<IActionResult> Profile()
-        //{
-        //    var userId = HttpContext.Session.GetInt32("UserId");
-        //    if (!userId.HasValue)
-        //        return RedirectToAction("Login", "Account");
 
-        //    var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
-        //    if (user == null)
-        //        return NotFound();
-
-        //    return View(user);
-
-        //}
 
 
         public async Task<IActionResult> Profile()
@@ -43,7 +31,7 @@ namespace HaloHair.Controllers
             var history = _context.BookingsHistories
                 .Include(b => b.Barber)
                 .ThenInclude(barber => barber.Salon)
-                .Where(b => b.UserId == userId && b.BookingDate < DateOnly.FromDateTime(DateTime.Today))
+                .Where(b => b.UserId == userId && b.BookingDate.Date <= DateTime.Today.AddDays(1))
                 .ToList();
 
             var model = new ProfileViewModel
@@ -52,21 +40,17 @@ namespace HaloHair.Controllers
                 BookingHistory = history
             };
 
-
-            // الحصول على الصالونات المفضلة للمستخدم
+            // الصالونات المفضلة
             var favoriteSalons = _context.Favorites
                 .Where(f => f.UserId == userId.Value)
-                .Include(f => f.Salon) // تضمين بيانات الصالون
+                .Include(f => f.Salon)
                 .Select(f => f.Salon)
                 .ToList();
 
             ViewBag.FavoriteSalons = favoriteSalons;
 
-
-
             return View(model);
         }
-
 
 
 
@@ -187,80 +171,6 @@ namespace HaloHair.Controllers
 
 
 
-
-
-
-        //[HttpGet]
-        //public async Task<IActionResult> BookingHistory()
-        //{
-        //    // الحصول على معرف المستخدم الحالي من الجلسة (بنفس طريقة حفظ الحجوزات)
-        //    var userId = HttpContext.Session.GetInt32("UserId");
-        //    if (!userId.HasValue)
-        //        return RedirectToAction("Login", "Account");
-
-        //    // استرجاع سجلات الحجوزات مع الخدمات المرتبطة بها
-        //    var bookingHistories = await _context.BookingsHistories
-        //        .Where(b => b.UserId == userId.Value)
-        //        .OrderByDescending(b => b.BookingDate)
-        //        .ThenByDescending(b => b.StartTime)
-        //        .ToListAsync();
-
-        //    var viewModels = new List<BookingHistoryViewModel>();
-
-        //    foreach (var history in bookingHistories)
-        //    {
-        //        // البحث عن الحلاق وصالونه
-        //        var barber = await _context.Barbers
-        //            .Include(b => b.Salon)
-        //            .FirstOrDefaultAsync(b => b.Id == history.BarberId);
-
-        //        // البحث عن الموعد المرتبط بهذا السجل
-        //        // سنفترض أن هناك موعد مرتبط بنفس التاريخ والوقت للمستخدم والحلاق
-        //        var appointment = await _context.Appointments
-        //            .FirstOrDefaultAsync(a =>
-        //                a.UserId == userId.Value &&
-        //                a.BarberId == history.BarberId &&
-        //                a.AppointmentDate.Equals(history.BookingDate.ToDateTime(TimeOnly.MinValue)) &&
-        //                a.StartTime.TimeOfDay.Equals(history.StartTime.ToTimeSpan()));
-
-        //        List<BookingServiceViewModel> services = new List<BookingServiceViewModel>();
-
-        //        // إذا وجدنا الموعد، نستعرض الخدمات المرتبطة به
-        //        if (appointment != null)
-        //        {
-        //            var appointmentServices = await _context.AppointmentServices
-        //                .Where(s => s.AppointmentId == appointment.Id)
-        //                .ToListAsync();
-
-        //            services = appointmentServices.Select(s => new BookingServiceViewModel
-        //            {
-        //                ServiceId = s.ServiceId,
-        //                ServiceName = s.ServiceName,
-        //                Duration = s.Duration,
-        //                Price = s.Price
-        //            }).ToList();
-        //        }
-
-        //        viewModels.Add(new BookingHistoryViewModel
-        //        {
-        //            BookingHistoryId = history.Id,
-        //            UserId = history.UserId,
-        //            BarberId = history.BarberId,
-        //            BarberName = barber?.FirstName ?? "Unknown Barber",
-        //            SalonName = barber?.Salon?.Name ?? "Unknown Salon",
-        //            BookingDate = history.BookingDate,
-        //            StartTime = history.StartTime,
-        //            EndTime = history.EndTime,
-        //            TotalDuration = history.TotalDuration,
-        //            TotalPrice = history.TotalPrice,
-        //            Status = history.Status,
-        //            CreatedAt = history.CreatedAt,
-        //            Services = services
-        //        });
-        //    }
-
-        //    return View(viewModels);
-        //}
 
 
 

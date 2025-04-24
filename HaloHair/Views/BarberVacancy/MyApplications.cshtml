@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewData["Title"] = "MyApplications";
+    Layout = "~/Views/Shared/_Layout_Barber.cshtml";
+
+}
+
+<h1>MyApplications</h1>
+
+@foreach (var app in Model)
+{
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5>@app.Vacancy.Position</h5>
+            <p><strong>Status:</strong> @app.Status</p>
+            <p><strong>Applied At:</strong> @app.AppliedAt</p>
+        </div>
+    </div>
+}

@@ -11,7 +11,7 @@ public partial class BookingsHistory
 
     public int BarberId { get; set; }
 
-    public DateOnly BookingDate { get; set; }
+    public DateTime BookingDate { get; set; }
 
     public TimeOnly StartTime { get; set; }
 

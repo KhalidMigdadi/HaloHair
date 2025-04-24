@@ -21,7 +21,7 @@ namespace HaloHair.Controllers
                 return RedirectToAction("LoginBarberMen", "Barber");
             }
 
-            int totalUsers = _context.Users.Count(); 
+            int totalUsers = _context.Users.Count();
             ViewBag.TotalUsers = totalUsers;
 
 
@@ -74,7 +74,7 @@ namespace HaloHair.Controllers
         }
 
 
-        
+
         public IActionResult BlockUserB(int barberId)
         {
             var barber = _context.Barbers.FirstOrDefault(u => u.Id == barberId);

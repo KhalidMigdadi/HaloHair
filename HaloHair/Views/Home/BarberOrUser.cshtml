@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewData["Title"] = "BarberOrUser";
+    Layout = "~/Views/Shared/_Layout_Services.cshtml";
+
+}
+
+
+
+@section Style {
+    <link href="~/css/B_or_C.css" rel="stylesheet" />
+}
+
+<section class="login-section">
+    <div class="login-container">
+        <!-- Left side: Form -->
+        <div class="login-form">
+            <div class="arrow">
+                <a href="@Url.Action("Index", "Home")">
+                    <i class="fa-solid fa-arrow-left fa-2x"></i>
+                </a>
+            </div>
+            <h1>Sign up / Log in</h1>
+
+            <div class="user-selection">
+                <div class="business">
+                    <a href="@Url.Action("LoginUserMen","Men")"><h3>For Personal Use</h3></a>
+                </div>
+                <div class="user">
+                    <a href="@Url.Action("LoginBarberMen","Barber")"><h3>For Business Use</h3></a>
+                </div>
+            </div>
+
+
+        </div>
+
+        <!-- Right side: Image -->
+        <div class="login-image">
+            <!-- You can place your image here -->
+        </div>
+    </div>
+</section>
+
+

@@ -1,8 +1,353 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/Shared/_Layout_Men.cshtml";
+
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@section Style {
+	<link href="~/css/main.css" rel="stylesheet" />
+	<link href="~/css/men.css" rel="stylesheet" />
+
+}
+
+
+
+<!-- Start Slider Section -->
+
+<div class="slider-container">
+	<div class="overlay">
+		<div class="slider-image active"
+			 style="
+            background-image: url('../Images/Home/24pt-gould-london-bridge-125-1400x800.jpg');
+		  ">
+			<div class="overlay">
+				<p class="text">Where beauty meets sophistication</p>
+			</div>
+		</div>
+		<div class="slider-image"
+			 style="
+            background-image: url('../Images/Men_Images/heroSection11.jpg');
+		  ">
+			<div class="overlay">
+				<p class="text">
+					"Your Style, Your Time – Schedule Your Cut Now!"
+				</p>
+			</div>
+		</div>
+		<div class="slider-image"
+			 style="
+            background-image: url('../Images/Home/f41e18_9a86e8323c924a84ab3bdecc8ab336b4~mv2.jpeg');
+		  ">
+			<div class="overlay">
+				<p class="text">
+					Pick Your Barber, Choose Your Time, Stay Fresh!
+				</p>
+			</div>
+		</div>
+	</div>
 </div>
+
+<!-- End Slider Section -->
+
+
+<div class="head-component">
+	<h2>Popular Services</h2>
+	<p>
+		At HaloHair, we provide top-notch grooming and beauty services tailored
+		to your needs. From haircuts and skincare to makeup and relaxation, our
+		experts ensure you look and feel your best every time you visit.
+	</p>
+</div>
+
+<div class="filter-buttons">
+	<button onclick="filterSalons('all')" class="active">All</button>
+	<button onclick="filterSalons('male')">Men's Salons</button>
+	<button onclick="filterSalons('female')">Women's Salons</button>
+</div>
+
+<div class="salon-grid">
+	<div class="salon-card male">
+		<img src="../Images/Home/haircut.jpg" alt="Men's Haircut" />
+		<h3>Men's Haircut</h3>
+		<p>Professional haircuts and beard grooming.</p>
+		<button class="book-now">Browse Salons</button>
+	</div>
+
+	<div class="salon-card female">
+		<img src="../Images/Home/makeup-artist.jpg" alt="Women's Makeup" />
+		<h3>Women's Makeup</h3>
+		<p>Bridal and party makeup services.</p>
+		<button class="book-now">Browse Salons</button>
+	</div>
+
+	<div class="salon-card male">
+		<img src="../Images/Home/beard.webp" alt="Beard Trim" />
+		<h3>Beard Grooming</h3>
+		<p>Perfect beard shaping and styling.</p>
+		<button class="book-now">Browse Salons</button>
+	</div>
+
+	<div class="salon-card female">
+		<img src="../Images/Home/hairColoing.jpg" alt="Hair Coloring" />
+		<h3>Hair Coloring</h3>
+		<p>Trendy hair coloring and styling.</p>
+		<button class="book-now">Browse Salons</button>
+	</div>
+
+	<div class="salon-card female">
+		<img src="../Women Images/images (1).jpg" alt="Men's Haircut" />
+		<h3>Women’s Haircut & Styling</h3>
+		<p>Professional haircuts and beard grooming.</p>
+		<button class="book-now">Browse Salons</button>
+	</div>
+
+	<div class="salon-card male">
+		<img src="../Men Images/Screenshot-2024-06-25-130921-600x600.png" alt="Women's Makeup" />
+		<h3>Men’s Facial & Skin Care</h3>
+		<p>Bridal and party makeup services.</p>
+		<button class="book-now">Browse Salons</button>
+	</div>
+
+	<div class="salon-card male">
+		<img src="../Men Images/images (2).jpg" alt="Beard Trim" />
+		<h3>Hot Towel Shave</h3>
+		<p>Perfect beard shaping and styling.</p>
+		<button class="book-now">Browse Salons</button>
+	</div>
+
+	<div class="salon-card female">
+		<img src="../Women Images/nails.jpg" alt="Hair Coloring" />
+		<h3>Nail Art</h3>
+		<p>Trendy hair coloring and styling.</p>
+		<button class="book-now">Browse Salons</button>
+	</div>
+</div>
+
+
+
+<section class="new-container">
+	<h2 id="offer">Advertisements</h2>
+	<div class="container-withArrow">
+		<button class="arrow prev" id="prevBtn">❮</button>
+		<div class="offers arrows-Home">
+			@foreach (var salonViewModel in ViewBag.PromotedSalons)
+			{
+				<div class="home-box offer-box">
+					<img src="@salonViewModel.Salon.ImageUrl" alt="@salonViewModel.Salon.Name" />
+					<h3>@salonViewModel.Salon.Name</h3>
+					<p style="display: inline">
+						@string.Format("{0:0.0}", salonViewModel.AverageRating)
+					</p>
+					<i class="fa-solid fa-star"></i>
+					<span>(@salonViewModel.ReviewCount)</span>
+					<div class="location">@salonViewModel.Salon.Address</div>
+				</div>
+			}
+
+		</div>
+		<button class="arrow next">❯</button>
+	</div>
+</section>
+
+
+
+
+<section class="new-container">
+	<h2>Recommended salons</h2>
+	<div class="container-withArrow">
+		<button class="arrow prev" id="prevRecommendedBtn">❮</button>
+		<div class="recomended arrows-Home">
+			@if (ViewBag.RecommendedSalons != null && ViewBag.RecommendedSalons.Count > 0)
+			{
+				foreach (var salonViewModel in ViewBag.RecommendedSalons)
+				{
+					<div class="home-box rec-box">
+						<a asp-controller="MenSalon" asp-action="SalonMen" asp-route-id="@salonViewModel.Salon.Id">
+							<img src="@(!string.IsNullOrEmpty(salonViewModel.Salon.ImageUrl) ? salonViewModel.Salon.ImageUrl : "/images/default-salon.jpg")" alt="@salonViewModel.Salon.Name" />
+						</a>
+						<h3>@salonViewModel.Salon.Name</h3>
+						<p style="display: inline">
+							@string.Format("{0:0.0}", salonViewModel.AverageRating)
+						</p>
+						<i class="fa-solid fa-star"></i>
+						<span>(@salonViewModel.ReviewCount)</span>
+						<div class="location">@salonViewModel.Salon.Address</div>
+					</div>
+				}
+			}
+			else
+			{
+				<div class="home-box rec-box">
+					<p>There are no recommended salons currently.</p>
+				</div>
+			}
+		</div>
+		<button class="arrow next" id="nextRecommendedBtn">❯</button>
+	</div>
+</section>
+
+
+
+
+
+
+
+
+<section class="join-barber">
+	<div class="overlay1">
+		<div class="content">
+			<h2>Become Part of Our Elite Barber Community!</h2>
+			<p>
+				Expand your client base, enjoy flexibility, and take your career to
+				the next level with our platform.
+			</p>
+
+			<div class="benefits">
+				<div class="benefit">
+					<img src="../Images/Men_Images/reachClient.png" alt="Reach More Clients" />
+					<h3>Reach More Clients</h3>
+					<p>
+						Gain more visibility and attract a steady stream of clients who
+						want your services.
+					</p>
+				</div>
+				<div class="benefit">
+					<img src="../Images/Men_Images/flexHour.png" alt="Flexible Hours" />
+					<h3>Flexible Hours</h3>
+					<p>
+						Set your own schedule and enjoy the freedom to work when it's
+						convenient for you.
+					</p>
+				</div>
+				<div class="benefit">
+					<img src="../Images/Men_Images/Booking.png" alt="Easy Booking" />
+					<h3>Easy Online Booking</h3>
+					<p>
+						Our platform makes managing appointments seamless and easy,
+						letting you focus on what you do best.
+					</p>
+				</div>
+			</div>
+
+			<a href="@Url.Action("LoginBarberMen","Barber")" class="cta-btn">Join Now</a>
+		</div>
+	</div>
+</section>
+
+
+
+<!-- Start New With us  -->
+<section class="new-container">
+	<h2>New with Us</h2>
+	<div class="container-withArrow">
+		<button class="arrow prev" id="prevNewBtn">❮</button>
+		<div class="new arrows-Home">
+			@if (ViewBag.NewSalons != null && ViewBag.NewSalons.Count > 0)
+			{
+				foreach (var salonViewModel in ViewBag.NewSalons)
+				{
+					<a asp-controller="MenSalon" asp-action="SalonMen" asp-route-id="@salonViewModel.Salon.Id" class="home-box new-box" style="text-decoration: none; color: inherit;">
+						<img src="@(!string.IsNullOrEmpty(salonViewModel.Salon.ImageUrl) ? salonViewModel.Salon.ImageUrl : "/images/default-salon.jpg")" alt="@salonViewModel.Salon.Name" />
+						<h3>@salonViewModel.Salon.Name</h3>
+						<p style="display: inline">@string.Format("{0:0.0}", salonViewModel.AverageRating)</p>
+						<i class="fa-solid fa-star"></i> <span>(@salonViewModel.ReviewCount)</span>
+						<div class="location">@salonViewModel.Salon.Address</div>
+					</a>
+				}
+			}
+			else
+			{
+				<div class="home-box new-box">
+					<p>There are no new salons currently.</p>
+				</div>
+			}
+		</div>
+		<button class="arrow next" id="nextNewBtn">❯</button>
+	</div>
+</section>
+
+<!-- End New With us  -->
+
+
+<section class="booking-benefits1">
+	<h2>Why Book Through Us?</h2>
+
+	<!-- Benefits List -->
+	<div class="benefits1-list">
+		<div class="benefit1"><i class="fa-solid fa-tag"></i> Exclusive Discounts & Deals</div>
+		<div class="benefit1"><i class="fa-solid fa-clock"></i> Instant Booking, No Waiting</div>
+		<div class="benefit1"><i class="fa-solid fa-star"></i> Verified & Trusted Barbers</div>
+		<div class="benefit1"><i class="fa-solid fa-gift"></i> Earn Loyalty Points</div>
+		<div class="benefit1"><i class="fa-solid fa-bell"></i> Appointment Reminders</div>
+		<div class="benefit1"><i class="fa-solid fa-user-check"></i> Priority Access to Top Barbers</div>
+	</div>
+
+	<!-- CTA Button -->
+	<a href="#" class="cta-button">Book Now & Get Rewards!</a>
+</section>
+
+<!-- VIP -->
+
+<section class="vip-section">
+	<h2>Unlock Exclusive VIP Membership</h2>
+	<p>
+		Join our premium club and enjoy special perks, discounts, and priority
+		services.
+	</p>
+
+	<div class="vip-plans">
+		<!-- Basic VIP Plan -->
+		<div class="vip-card">
+			<h3>Basic VIP</h3>
+			<p class="price">JOD 9.99<span>/month</span></p>
+			<ul>
+				<li>10% Off Services</li>
+				<li>Priority Booking</li>
+				<li>Exclusive Offers</li>
+			</ul>
+			<button class="vip-btn">Join Now</button>
+		</div>
+
+		<!-- Gold VIP Plan (Best Seller) -->
+		<div class="vip-card gold best-seller">
+			<div class="best-seller-badge">Best Seller</div>
+			<h3>Gold VIP</h3>
+			<p class="price">JOD 19.99<span>/month</span></p>
+			<ul>
+				<li>15% Off Services</li>
+				<li>Free Monthly Beard Trim</li>
+				<li>Double Loyalty Points</li>
+				<li>Exclusive VIP Events</li>
+			</ul>
+			<button class="vip-btn">Join Now</button>
+		</div>
+
+		<!-- Platinum VIP Plan -->
+		<div class="vip-card platinum">
+			<h3>Platinum VIP</h3>
+			<p class="price">JOD 29.99<span>/month</span></p>
+			<ul>
+				<li>20% Off Services</li>
+				<li>1 Free Haircut Per Month</li>
+				<li>VIP Event Access</li>
+				<li>Priority Customer Support</li>
+				<li>Exclusive Hairstyling Tips</li>
+			</ul>
+			<button class="vip-btn">Join Now</button>
+		</div>
+	</div>
+</section>
+
+<!-- End VIP -->
+<!-- CTA Section -->
+<section class="cta">
+	<h2>Ready to Book Your Appointment?</h2>
+	<a href="@Url.Action("LoginUserMen","Men")" class="btn">Sign Up Now</a>
+</section>
+
+
+@section Scripts {
+	<script src="~/js/index.js"></script>
+
+
+}

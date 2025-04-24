@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HaloHair.Controllers
 {
-   
+
     public class MenSalonController : Controller
     {
         private readonly MyDbContext _context;

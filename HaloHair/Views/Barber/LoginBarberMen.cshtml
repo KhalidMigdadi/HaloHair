@@ -13,14 +13,14 @@
         <!-- Left side: Form -->
         <div class="login-form">
             <div class="arrow">
-                <a href="B_or_C.html">
+                <a href="@Url.Action("BarberOrUser", "Home")">
                     <i class="fa-solid fa-arrow-left fa-2x"></i>
                 </a>
             </div>
             <h1>For Business Use</h1>
             <span class="wlcom">Welcome back!</span>
             <p class="p1">
-                Sign up or log in to access and manage your business
+                <a style="font-weight:bold; color: #5e9693; " href="@Url.Action("RegisterBarber","Barber")">Sign up</a> or log in to access and manage your business
             </p>
             <form asp-action="LoginBarberMen" asp-controller="Barber" method="post">
                 <div class="form-group">
@@ -48,7 +48,7 @@
 
             <div class="extra-links">
                 <p>Are you a customer looking to book an appointment?</p>
-                <a href="loginUser.html">Sign in as a personal</a>
+                <a href="@Url.Action("LoginUserMen","Men")">Sign in as a personal</a>
             </div>
         </div>
 

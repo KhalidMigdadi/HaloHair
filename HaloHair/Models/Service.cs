@@ -41,5 +41,7 @@ public partial class Service
 
     public virtual Salon? Salon { get; set; }
 
+    public virtual ICollection<SelectedServiceTemp> SelectedServiceTemps { get; set; } = new List<SelectedServiceTemp>();
+
     public virtual ICollection<SelectedService> SelectedServices { get; set; } = new List<SelectedService>();
 }

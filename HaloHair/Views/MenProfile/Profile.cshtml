@@ -12,7 +12,6 @@
 		<img src="~/@Model.User.ProfileImagePath"
 			 alt="User Avatar"
 			 class="rounded-circle me-3"
-
 			 style="width: 100px; height: 100px" />
 
 		<div class="info">
@@ -193,9 +192,9 @@
 	<!-- Booking History -->
 
 	<div class="tab-pane fade" id="history" role="tabpanel">
-		@if (Model.User.BookingsHistories != null && Model.User.BookingsHistories.Any())
+		@if (Model.BookingHistory != null && Model.BookingHistory.Any())
 		{
-			foreach (var booking in Model.User.BookingsHistories)
+			foreach (var booking in Model.BookingHistory)
 			{
 				<div class="card mb-3">
 					<div class="card-body">
@@ -216,216 +215,217 @@
 		{
 			<p>You have no booking history yet.</p>
 		}
+
 	</div>
 
 
 
-<!-- Review Tab -->
-<div class="tab-pane fade" id="statistics" role="tabpanel">
-	@if (Model.User.BookingsHistories != null && Model.User.BookingsHistories.Any())
-	{
-		foreach (var booking in Model.User.BookingsHistories)
+	<!-- Review Tab -->
+	<div class="tab-pane fade" id="statistics" role="tabpanel">
+		@if (Model.User.BookingsHistories != null && Model.User.BookingsHistories.Any())
 		{
-			if (booking.Status == "Completed")
+			foreach (var booking in Model.User.BookingsHistories)
+			{
+				if (booking.Status == "Completed")
+				{
+					<div class="card mb-3">
+						<div class="card-body">
+							<h5>Salon Name: <span class="choose">@booking.Barber?.Salon?.Name</span></h5>
+							<p>Date: @booking.BookingDate.ToShortDateString()</p>
+							<p>Time: @booking.StartTime.ToString("hh\\:mm")</p>
+							<p>Duration: @booking.TotalDuration minutes</p>
+							<p>Price: JOD @booking.TotalPrice</p>
+							<p>Status: @booking.Status</p>
+
+							<!-- Review Button -->
+							<button class="btn btn-outline-primary btn-sm" onclick="openReviewModal(@booking.Id)">
+								Leave your review
+							</button>
+
+						</div>
+					</div>
+				}
+			}
+		}
+		else
+		{
+			<p>No completed bookings yet.</p>
+		}
+	</div>
+
+
+
+
+
+	<!-- Modal -->
+	<div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="reviewModalLabel">Leave Your Review</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form id="reviewForm">
+						@Html.AntiForgeryToken()
+
+						<input type="hidden" id="bookingId" name="bookingId" />
+						<div class="mb-3">
+							<label for="rating" class="form-label">Rating (1 to 5):</label>
+							<select class="form-select" id="rating" name="rating" required>
+								<option value="">Choose a rating</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+							</select>
+						</div>
+						<div class="mb-3">
+							<label for="comment" class="form-label">Comment (optional):</label>
+							<textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
+						</div>
+						<button type="button" class="btn btn-primary" onclick="submitReview()">Submit</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<!-- Favorites Tab -->
+	<div class="tab-pane fade" id="favorites" role="tabpanel">
+		@if (ViewBag.FavoriteSalons != null && ViewBag.FavoriteSalons.Count > 0)
+		{
+			foreach (var salon in ViewBag.FavoriteSalons)
 			{
 				<div class="card mb-3">
 					<div class="card-body">
-						<h5>Salon Name: <span class="choose">@booking.Barber?.Salon?.Name</span></h5>
-						<p>Date: @booking.BookingDate.ToShortDateString()</p>
-						<p>Time: @booking.StartTime.ToString("hh\\:mm")</p>
-						<p>Duration: @booking.TotalDuration minutes</p>
-						<p>Price: JOD @booking.TotalPrice</p>
-						<p>Status: @booking.Status</p>
+						<h5>Salon Name: <span class="choose">@salon.Name</span></h5>
+						<p>Address: @salon.Address</p>
 
-						<!-- Review Button -->
-						<button class="btn btn-outline-primary btn-sm" onclick="openReviewModal(@booking.Id)">
-							Leave your review
-						</button>
+						<!-- عرض صورة الصالون -->
+						@if (salon.SalonImages != null && salon.SalonImages.Count > 0)
+						{
+							<img src="@salon.SalonImages.First().ImageUrl" class="card-img-top" alt="@salon.Name">
+						}
+						else
+						{
+							<img src="~/images/default-salon.jpg" class="card-img-top" alt="Default Salon Image">
+						}
 
+
+
+						<div class="mt-3">
+							<!-- زر عرض الصالون -->
+							<a href="@Url.Action("SalonMen", "MenSalon", new { id = salon.Id })" class="btn btn-primary btn-sm">
+								View Salon
+							</a>
+
+							<!-- زر إزالة من المفضلة -->
+							<button class="btn btn-outline-danger btn-sm remove-favorite" data-salon-id="@salon.Id">
+								<i class="fa-solid fa-trash"></i> Remove
+							</button>
+						</div>
 					</div>
 				</div>
 			}
 		}
-	}
-	else
-	{
-		<p>No completed bookings yet.</p>
-	}
-</div>
-
-
-
-
-
-<!-- Modal -->
-<div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="reviewModalLabel">Leave Your Review</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body">
-				<form id="reviewForm">
-					@Html.AntiForgeryToken()
-
-					<input type="hidden" id="bookingId" name="bookingId" />
-					<div class="mb-3">
-						<label for="rating" class="form-label">Rating (1 to 5):</label>
-						<select class="form-select" id="rating" name="rating" required>
-							<option value="">Choose a rating</option>
-							<option value="1">1</option>
-							<option value="2">2</option>
-							<option value="3">3</option>
-							<option value="4">4</option>
-							<option value="5">5</option>
-						</select>
-					</div>
-					<div class="mb-3">
-						<label for="comment" class="form-label">Comment (optional):</label>
-						<textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
-					</div>
-					<button type="button" class="btn btn-primary" onclick="submitReview()">Submit</button>
-				</form>
-			</div>
-		</div>
-	</div>
-</div>
-
-
-
-<!-- Favorites Tab -->
-<div class="tab-pane fade" id="favorites" role="tabpanel">
-	@if (ViewBag.FavoriteSalons != null && ViewBag.FavoriteSalons.Count > 0)
-	{
-		foreach (var salon in ViewBag.FavoriteSalons)
+		else
 		{
-			<div class="card mb-3">
-				<div class="card-body">
-					<h5>Salon Name: <span class="choose">@salon.Name</span></h5>
-					<p>Address: @salon.Address</p>
+			<p>No favorite salons or services yet. Start exploring!</p>
+		}
+	</div>
 
-					<!-- عرض صورة الصالون -->
-					@if (salon.SalonImages != null && salon.SalonImages.Count > 0)
-					{
-						<img src="@salon.SalonImages.First().ImageUrl" class="card-img-top" alt="@salon.Name">
-					}
-					else
-					{
-						<img src="~/images/default-salon.jpg" class="card-img-top" alt="Default Salon Image">
-					}
+	<!-- Points & Rewards -->
+	<div class="tab-pane fade" id="points" role="tabpanel">
+		<!-- Points Balance -->
+		<div class="points-balance mb-4">
+			<h3>Your Points Balance</h3>
+			<p class="points">1,250 <span>Points</span></p>
+			<div class="progress-bar">
+				<div class="progress" style="width: 50%"></div>
+			</div>
+			<p class="progress-text">500 points to next reward</p>
+		</div>
 
-
-
-					<div class="mt-3">
-						<!-- زر عرض الصالون -->
-						<a href="@Url.Action("SalonMen", "MenSalon", new { id = salon.Id })" class="btn btn-primary btn-sm">
-							View Salon
-						</a>
-
-						<!-- زر إزالة من المفضلة -->
-						<button class="btn btn-outline-danger btn-sm remove-favorite" data-salon-id="@salon.Id">
-							<i class="fa-solid fa-trash"></i> Remove
-						</button>
-					</div>
+		<div class="row-container">
+			<div class="card1">
+				<h5 class="card-title">$10 Off Any Service</h5>
+				<p class="points-required">100 Points</p>
+				<div class="d-grid">
+					<button class="btn btn-primary redeem-btn">Redeem Now</button>
 				</div>
 			</div>
-		}
-	}
-	else
-	{
-		<p>No favorite salons or services yet. Start exploring!</p>
-	}
-</div>
-
-<!-- Points & Rewards -->
-<div class="tab-pane fade" id="points" role="tabpanel">
-	<!-- Points Balance -->
-	<div class="points-balance mb-4">
-		<h3>Your Points Balance</h3>
-		<p class="points">1,250 <span>Points</span></p>
-		<div class="progress-bar">
-			<div class="progress" style="width: 50%"></div>
-		</div>
-		<p class="progress-text">500 points to next reward</p>
-	</div>
-
-	<div class="row-container">
-		<div class="card1">
-			<h5 class="card-title">$10 Off Any Service</h5>
-			<p class="points-required">100 Points</p>
-			<div class="d-grid">
-				<button class="btn btn-primary redeem-btn">Redeem Now</button>
+			<div class="card2">
+				<h5 class="card-title">Free Beard Trim</h5>
+				<p class="points-required">200 Points</p>
+				<div class="d-grid">
+					<button class="btn btn-primary redeem-btn">Redeem Now</button>
+				</div>
+			</div>
+			<div class="card3">
+				<h5 class="card-title">Free Haircut + Styling</h5>
+				<p class="points-required">500 Points</p>
+				<div class="d-grid">
+					<button class="btn btn-primary redeem-btn">Redeem Now</button>
+				</div>
 			</div>
 		</div>
-		<div class="card2">
-			<h5 class="card-title">Free Beard Trim</h5>
-			<p class="points-required">200 Points</p>
-			<div class="d-grid">
-				<button class="btn btn-primary redeem-btn">Redeem Now</button>
-			</div>
+
+		<!-- Transaction History -->
+		<div class="transaction-history mt-4">
+			<h3>Transaction History</h3>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Date</th>
+						<th>Description</th>
+						<th>Points</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>10/01/2023</td>
+						<td>Earned for Booking</td>
+						<td>+50</td>
+					</tr>
+					<tr>
+						<td>09/25/2023</td>
+						<td>Redeemed $10 Off</td>
+						<td>-100</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
-		<div class="card3">
-			<h5 class="card-title">Free Haircut + Styling</h5>
-			<p class="points-required">500 Points</p>
-			<div class="d-grid">
-				<button class="btn btn-primary redeem-btn">Redeem Now</button>
-			</div>
+	</div>
+
+	<!-- Payment Methods -->
+	<div class="tab-pane fade" id="payment" role="tabpanel">
+		<a href="../HTML Pages/payment.html">
+			<button class="btn btn-primary btn-sm payment">
+				Add Payment Method
+			</button>
+		</a>
+	</div>
+
+	<!-- Settings -->
+	<div class="tab-pane fade" id="settings" role="tabpanel">
+		<h5>Profile Settings</h5>
+		<p>Update your preferences and account details.</p>
+
+		<!-- Delete Account Option -->
+		<div class="alert alert-danger">
+			<h6>Delete Your Account</h6>
+			<p>
+				If you wish to permanently delete your account, this action cannot
+				be undone.
+			</p>
+
+			<button id="deleteAccountBtn">Delete Account</button>
 		</div>
 	</div>
-
-	<!-- Transaction History -->
-	<div class="transaction-history mt-4">
-		<h3>Transaction History</h3>
-		<table class="table">
-			<thead>
-				<tr>
-					<th>Date</th>
-					<th>Description</th>
-					<th>Points</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>10/01/2023</td>
-					<td>Earned for Booking</td>
-					<td>+50</td>
-				</tr>
-				<tr>
-					<td>09/25/2023</td>
-					<td>Redeemed $10 Off</td>
-					<td>-100</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-</div>
-
-<!-- Payment Methods -->
-<div class="tab-pane fade" id="payment" role="tabpanel">
-	<a href="../HTML Pages/payment.html">
-		<button class="btn btn-primary btn-sm payment">
-			Add Payment Method
-		</button>
-	</a>
-</div>
-
-<!-- Settings -->
-<div class="tab-pane fade" id="settings" role="tabpanel">
-	<h5>Profile Settings</h5>
-	<p>Update your preferences and account details.</p>
-
-	<!-- Delete Account Option -->
-	<div class="alert alert-danger">
-		<h6>Delete Your Account</h6>
-		<p>
-			If you wish to permanently delete your account, this action cannot
-			be undone.
-		</p>
-
-		<button id="deleteAccountBtn">Delete Account</button>
-	</div>
-</div>
 </div>
 
 

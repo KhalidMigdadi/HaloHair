@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\BarberSales\**" />
+    <Content Remove="Views\BarberSales\**" />
+    <EmbeddedResource Remove="Views\BarberSales\**" />
+    <None Remove="Views\BarberSales\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.3">
       <PrivateAssets>all</PrivateAssets>
@@ -21,8 +28,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\BarberSales\" />
     <Folder Include="wwwroot\Images\barber_work\" />
+    <Folder Include="wwwroot\resumes\" />
   </ItemGroup>
 
 </Project>

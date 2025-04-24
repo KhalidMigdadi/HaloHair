@@ -35,13 +35,11 @@ public partial class MyDbContext : DbContext
 
     public virtual DbSet<Favorite> Favorites { get; set; }
 
-    public virtual DbSet<LoyaltyPoint> LoyaltyPoints { get; set; }
+    public virtual DbSet<JobApplication> JobApplications { get; set; }
 
-    public virtual DbSet<Promotion> Promotions { get; set; }
+    public virtual DbSet<PaymentInfo> PaymentInfos { get; set; }
 
     public virtual DbSet<Review> Reviews { get; set; }
-
-    public virtual DbSet<Sale> Sales { get; set; }
 
     public virtual DbSet<Salon> Salons { get; set; }
 
@@ -51,9 +49,9 @@ public partial class MyDbContext : DbContext
 
     public virtual DbSet<SelectedService> SelectedServices { get; set; }
 
-    public virtual DbSet<Service> Services { get; set; }
+    public virtual DbSet<SelectedServiceTemp> SelectedServiceTemps { get; set; }
 
-    public virtual DbSet<Subscription> Subscriptions { get; set; }
+    public virtual DbSet<Service> Services { get; set; }
 
     public virtual DbSet<TimeSlot> TimeSlots { get; set; }
 
@@ -73,7 +71,7 @@ public partial class MyDbContext : DbContext
     {
         modelBuilder.Entity<Appointment>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Appointm__3214EC07488C0395");
+            entity.HasKey(e => e.Id).HasName("PK__Appointm__3214EC07C63AC003");
 
             entity.Property(e => e.AppointmentDate).HasColumnType("datetime");
             entity.Property(e => e.CreatedAt)
@@ -90,20 +88,20 @@ public partial class MyDbContext : DbContext
 
             entity.HasOne(d => d.Salon).WithMany(p => p.Appointments)
                 .HasForeignKey(d => d.SalonId)
-                .HasConstraintName("FK__Appointme__Salon__52593CB8");
+                .HasConstraintName("FK__Appointme__Salon__7C4F7684");
 
             entity.HasOne(d => d.Service).WithMany(p => p.Appointments)
                 .HasForeignKey(d => d.ServiceId)
-                .HasConstraintName("FK__Appointme__Servi__534D60F1");
+                .HasConstraintName("FK__Appointme__Servi__7D439ABD");
 
             entity.HasOne(d => d.User).WithMany(p => p.Appointments)
                 .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__Appointme__UserI__5165187F");
+                .HasConstraintName("FK__Appointme__UserI__7B5B524B");
         });
 
         modelBuilder.Entity<AppointmentService>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Appointm__3214EC07BDA16126");
+            entity.HasKey(e => e.Id).HasName("PK__Appointm__3214EC07242BE0FF");
 
             entity.Property(e => e.Price).HasColumnType("decimal(10, 2)");
             entity.Property(e => e.ServiceName).HasMaxLength(255);
@@ -111,18 +109,18 @@ public partial class MyDbContext : DbContext
             entity.HasOne(d => d.Appointment).WithMany(p => p.AppointmentServices)
                 .HasForeignKey(d => d.AppointmentId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Appointme__Appoi__46B27FE2");
+                .HasConstraintName("FK__Appointme__Appoi__02FC7413");
 
             entity.HasOne(d => d.Service).WithMany(p => p.AppointmentServices)
                 .HasForeignKey(d => d.ServiceId)
-                .HasConstraintName("FK__Appointme__Servi__47A6A41B");
+                .HasConstraintName("FK__Appointme__Servi__03F0984C");
         });
 
         modelBuilder.Entity<Barber>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Barbers__3214EC07035E9CAD");
+            entity.HasKey(e => e.Id).HasName("PK__Barbers__3214EC07779C86AF");
 
-            entity.HasIndex(e => e.Email, "UQ__Barbers__A9D10534F09A8F82").IsUnique();
+            entity.HasIndex(e => e.Email, "UQ__Barbers__A9D1053425C3F8EC").IsUnique();
 
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
@@ -145,13 +143,12 @@ public partial class MyDbContext : DbContext
 
             entity.HasOne(d => d.Salon).WithMany(p => p.Barbers)
                 .HasForeignKey(d => d.SalonId)
-                .OnDelete(DeleteBehavior.SetNull)
-                .HasConstraintName("FK_Barbers_Salons");
+                .HasConstraintName("FK__Barbers__SalonId__628FA481");
         });
 
         modelBuilder.Entity<BarberService>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__BarberSe__3214EC0780796B90");
+            entity.HasKey(e => e.Id).HasName("PK__BarberSe__3214EC07448A0518");
 
             entity.Property(e => e.BarberFirstName).HasMaxLength(100);
             entity.Property(e => e.BarberLastName).HasMaxLength(100);
@@ -161,17 +158,17 @@ public partial class MyDbContext : DbContext
             entity.HasOne(d => d.Barber).WithMany(p => p.BarberServices)
                 .HasForeignKey(d => d.BarberId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__BarberSer__Barbe__4D94879B");
+                .HasConstraintName("FK__BarberSer__Barbe__71D1E811");
 
             entity.HasOne(d => d.Service).WithMany(p => p.BarberServices)
                 .HasForeignKey(d => d.ServiceId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__BarberSer__Servi__4E88ABD4");
+                .HasConstraintName("FK__BarberSer__Servi__72C60C4A");
         });
 
         modelBuilder.Entity<BarberWorkImage>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__BarberWo__3214EC07C4005F4B");
+            entity.HasKey(e => e.Id).HasName("PK__BarberWo__3214EC07331D8C35");
 
             entity.Property(e => e.ImageUrl).HasMaxLength(255);
 
@@ -183,12 +180,17 @@ public partial class MyDbContext : DbContext
 
         modelBuilder.Entity<Booking>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Bookings__3214EC0735E7F556");
+            entity.HasKey(e => e.Id).HasName("PK__Bookings__3214EC077A2B09B4");
 
             entity.HasOne(d => d.Barber).WithMany(p => p.Bookings)
                 .HasForeignKey(d => d.BarberId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Bookings_Barbers");
+
+            entity.HasOne(d => d.TimeSlot).WithMany(p => p.Bookings)
+                .HasForeignKey(d => d.TimeSlotId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Bookings_TimeSlots");
 
             entity.HasOne(d => d.User).WithMany(p => p.Bookings)
                 .HasForeignKey(d => d.UserId)
@@ -198,7 +200,7 @@ public partial class MyDbContext : DbContext
 
         modelBuilder.Entity<BookingService>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__BookingS__3214EC07A4ACB580");
+            entity.HasKey(e => e.Id).HasName("PK__BookingS__3214EC07FDC56952");
 
             entity.Property(e => e.Price).HasColumnType("decimal(10, 2)");
             entity.Property(e => e.ServiceName).HasMaxLength(100);
@@ -216,7 +218,7 @@ public partial class MyDbContext : DbContext
 
         modelBuilder.Entity<BookingTemp>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__BookingT__3214EC07291D01D7");
+            entity.HasKey(e => e.Id).HasName("PK__BookingT__3214EC072705F38B");
 
             entity.ToTable("BookingTemp");
 
@@ -229,10 +231,11 @@ public partial class MyDbContext : DbContext
 
         modelBuilder.Entity<BookingsHistory>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Bookings__3214EC0752554634");
+            entity.HasKey(e => e.Id).HasName("PK__Bookings__3214EC07EC2C4911");
 
             entity.ToTable("BookingsHistory");
 
+            entity.Property(e => e.BookingDate).HasColumnType("datetime");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
@@ -256,7 +259,7 @@ public partial class MyDbContext : DbContext
 
         modelBuilder.Entity<Favorite>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Favorite__3214EC070A890E84");
+            entity.HasKey(e => e.Id).HasName("PK__Favorite__3214EC078DDE2E81");
 
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
@@ -273,43 +276,54 @@ public partial class MyDbContext : DbContext
                 .HasConstraintName("FK_Favorites_Users");
         });
 
-        modelBuilder.Entity<LoyaltyPoint>(entity =>
+        modelBuilder.Entity<JobApplication>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__LoyaltyP__3214EC07A56C1F5B");
+            entity.HasKey(e => e.Id).HasName("PK__JobAppli__3214EC078A89CEC4");
 
-            entity.Property(e => e.LastUpdated)
+            entity.ToTable("JobApplication");
+
+            entity.Property(e => e.AppliedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
-            entity.Property(e => e.Points).HasDefaultValue(0);
+            entity.Property(e => e.Email).HasMaxLength(100);
+            entity.Property(e => e.FullName).HasMaxLength(100);
+            entity.Property(e => e.Phone).HasMaxLength(20);
+            entity.Property(e => e.ResumeFilePath).HasMaxLength(255);
+            entity.Property(e => e.Status)
+                .HasMaxLength(50)
+                .HasDefaultValue("Pending");
 
-            entity.HasOne(d => d.User).WithMany(p => p.LoyaltyPoints)
-                .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__LoyaltyPo__UserI__5DCAEF64");
+            entity.HasOne(d => d.Vacancy).WithMany(p => p.JobApplications)
+                .HasForeignKey(d => d.VacancyId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_JobApplication_Vacancy");
         });
 
-        modelBuilder.Entity<Promotion>(entity =>
+        modelBuilder.Entity<PaymentInfo>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Promotio__3214EC07F618AE89");
+            entity.HasKey(e => e.Id).HasName("PK__PaymentI__3214EC073C3855E6");
 
-            entity.Property(e => e.CreatedAt)
+            entity.Property(e => e.Amount).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.PaymentDate)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
-            entity.Property(e => e.Description).HasMaxLength(255);
-            entity.Property(e => e.Discount).HasColumnType("decimal(5, 2)");
-            entity.Property(e => e.PromotionTitle).HasMaxLength(100);
-            entity.Property(e => e.UpdatedAt)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
-            entity.Property(e => e.ValidUntil).HasColumnType("datetime");
+            entity.Property(e => e.PaymentDetails).HasMaxLength(255);
+            entity.Property(e => e.PaymentMethod).HasMaxLength(50);
 
-            entity.HasOne(d => d.Salon).WithMany(p => p.Promotions)
-                .HasForeignKey(d => d.SalonId)
-                .HasConstraintName("FK__Promotion__Salon__70DDC3D8");
+            entity.HasOne(d => d.Appointment).WithMany(p => p.PaymentInfos)
+                .HasForeignKey(d => d.AppointmentId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_PaymentInfos_Appointments");
+
+            entity.HasOne(d => d.Barber).WithMany(p => p.PaymentInfos)
+                .HasForeignKey(d => d.BarberId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_PaymentInfo_Barber");
         });
 
         modelBuilder.Entity<Review>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Reviews__3214EC0786B0ABA6");
+            entity.HasKey(e => e.Id).HasName("PK__Reviews__3214EC07D3E7515B");
 
             entity.Property(e => e.Comment).HasMaxLength(500);
             entity.Property(e => e.CreatedAt)
@@ -322,7 +336,7 @@ public partial class MyDbContext : DbContext
             entity.HasOne(d => d.BookingHistory).WithMany(p => p.Reviews)
                 .HasForeignKey(d => d.BookingHistoryId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Reviews__Booking__681373AD");
+                .HasConstraintName("FK__Reviews__Booking__245D67DE");
 
             entity.HasOne(d => d.Salon).WithMany(p => p.Reviews)
                 .HasForeignKey(d => d.SalonId)
@@ -331,27 +345,12 @@ public partial class MyDbContext : DbContext
             entity.HasOne(d => d.User).WithMany(p => p.Reviews)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Reviews__UserId__671F4F74");
-        });
-
-        modelBuilder.Entity<Sale>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__Sales__3214EC077065D1DD");
-
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
-            entity.Property(e => e.SaleDate).HasColumnType("datetime");
-            entity.Property(e => e.TotalAmount).HasColumnType("decimal(10, 2)");
-
-            entity.HasOne(d => d.Salon).WithMany(p => p.Sales)
-                .HasForeignKey(d => d.SalonId)
-                .HasConstraintName("FK__Sales__SalonId__7A672E12");
+                .HasConstraintName("FK__Reviews__UserId__236943A5");
         });
 
         modelBuilder.Entity<Salon>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Salons__3214EC072FC7AB3C");
+            entity.HasKey(e => e.Id).HasName("PK__Salons__3214EC07F442A0F6");
 
             entity.Property(e => e.AboutSalon).HasMaxLength(1000);
             entity.Property(e => e.Address).HasMaxLength(255);
@@ -360,8 +359,10 @@ public partial class MyDbContext : DbContext
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
             entity.Property(e => e.ImageUrl).HasMaxLength(255);
+            entity.Property(e => e.IsVisible).HasDefaultValue(true);
             entity.Property(e => e.Name).HasMaxLength(100);
             entity.Property(e => e.OpeningTime).HasMaxLength(10);
+            entity.Property(e => e.OwnerId).HasDefaultValue(true);
             entity.Property(e => e.PhoneNumber).HasMaxLength(20);
             entity.Property(e => e.UpdatedAt)
                 .HasDefaultValueSql("(getdate())")
@@ -374,9 +375,9 @@ public partial class MyDbContext : DbContext
 
         modelBuilder.Entity<SalonBarber>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__SalonBar__3214EC07F39DF998");
+            entity.HasKey(e => e.Id).HasName("PK__SalonBar__3214EC0797EBFB7C");
 
-            entity.HasIndex(e => e.Email, "UQ__SalonBar__A9D105343D8095A6").IsUnique();
+            entity.HasIndex(e => e.Email, "UQ__SalonBar__A9D10534E50AC774").IsUnique();
 
             entity.Property(e => e.Email).HasMaxLength(255);
             entity.Property(e => e.IsActive).HasDefaultValue(true);
@@ -385,17 +386,17 @@ public partial class MyDbContext : DbContext
             entity.HasOne(d => d.Barber).WithMany(p => p.SalonBarbers)
                 .HasForeignKey(d => d.BarberId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__SalonBarb__Barbe__03F0984C");
+                .HasConstraintName("FK__SalonBarb__Barbe__787EE5A0");
 
             entity.HasOne(d => d.Salon).WithMany(p => p.SalonBarbers)
                 .HasForeignKey(d => d.SalonId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__SalonBarb__Salon__02FC7413");
+                .HasConstraintName("FK__SalonBarb__Salon__778AC167");
         });
 
         modelBuilder.Entity<SalonImage>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__SalonIma__3214EC072846D742");
+            entity.HasKey(e => e.Id).HasName("PK__SalonIma__3214EC075BCED9ED");
 
             entity.Property(e => e.ImageUrl).HasMaxLength(255);
             entity.Property(e => e.UploadedAt)
@@ -404,12 +405,12 @@ public partial class MyDbContext : DbContext
 
             entity.HasOne(d => d.Salon).WithMany(p => p.SalonImages)
                 .HasForeignKey(d => d.SalonId)
-                .HasConstraintName("FK__SalonImag__Salon__0E6E26BF");
+                .HasConstraintName("FK__SalonImag__Salon__59FA5E80");
         });
 
         modelBuilder.Entity<SelectedService>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Selected__3214EC07D8BA9248");
+            entity.HasKey(e => e.Id).HasName("PK__Selected__3214EC077CC93173");
 
             entity.Property(e => e.BarberName).HasMaxLength(255);
             entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
@@ -422,12 +423,31 @@ public partial class MyDbContext : DbContext
             entity.HasOne(d => d.User).WithMany(p => p.SelectedServices)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__SelectedS__UserI__236943A5");
+                .HasConstraintName("FK__SelectedS__UserI__14270015");
+        });
+
+        modelBuilder.Entity<SelectedServiceTemp>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Selected__3214EC07935557FD");
+
+            entity.ToTable("SelectedServiceTemp");
+
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.Price).HasColumnType("decimal(10, 2)");
+            entity.Property(e => e.ServiceName).HasMaxLength(100);
+            entity.Property(e => e.UserId).HasMaxLength(100);
+
+            entity.HasOne(d => d.Service).WithMany(p => p.SelectedServiceTemps)
+                .HasForeignKey(d => d.ServiceId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_SelectedServiceTemp_Services");
         });
 
         modelBuilder.Entity<Service>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Services__3214EC07F3625981");
+            entity.HasKey(e => e.Id).HasName("PK__Services__3214EC072417FDC5");
 
             entity.Property(e => e.BarberFirstName).HasMaxLength(100);
             entity.Property(e => e.BarberLastName).HasMaxLength(100);
@@ -452,32 +472,12 @@ public partial class MyDbContext : DbContext
 
             entity.HasOne(d => d.Salon).WithMany(p => p.Services)
                 .HasForeignKey(d => d.SalonId)
-                .HasConstraintName("FK__Services__SalonI__48CFD27E");
-        });
-
-        modelBuilder.Entity<Subscription>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__Subscrip__3214EC07B3934CDB");
-
-            entity.Property(e => e.Amount).HasColumnType("decimal(10, 2)");
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
-            entity.Property(e => e.EndDate).HasColumnType("datetime");
-            entity.Property(e => e.StartDate).HasColumnType("datetime");
-            entity.Property(e => e.SubscriptionType).HasMaxLength(50);
-            entity.Property(e => e.UpdatedAt)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
-
-            entity.HasOne(d => d.User).WithMany(p => p.Subscriptions)
-                .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__Subscript__UserI__628FA481");
+                .HasConstraintName("FK__Services__SalonI__6B24EA82");
         });
 
         modelBuilder.Entity<TimeSlot>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__TimeSlot__3214EC076F622FCB");
+            entity.HasKey(e => e.Id).HasName("PK__TimeSlot__3214EC071D829A30");
 
             entity.Property(e => e.EndTime).HasColumnType("datetime");
             entity.Property(e => e.StartTime).HasColumnType("datetime");
@@ -489,7 +489,7 @@ public partial class MyDbContext : DbContext
 
         modelBuilder.Entity<TrainingCourse>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Training__3214EC07E478EC15");
+            entity.HasKey(e => e.Id).HasName("PK__Training__3214EC072FF581E7");
 
             entity.Property(e => e.CourseName).HasMaxLength(100);
             entity.Property(e => e.CreatedAt)
@@ -503,14 +503,14 @@ public partial class MyDbContext : DbContext
 
             entity.HasOne(d => d.Salon).WithMany(p => p.TrainingCourses)
                 .HasForeignKey(d => d.SalonId)
-                .HasConstraintName("FK__TrainingC__Salon__6C190EBB");
+                .HasConstraintName("FK__TrainingC__Salon__2DE6D218");
         });
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Users__3214EC07AA937CEB");
+            entity.HasKey(e => e.Id).HasName("PK__Users__3214EC070D6DE38D");
 
-            entity.HasIndex(e => e.Email, "UQ__Users__A9D105340181565F").IsUnique();
+            entity.HasIndex(e => e.Email, "UQ__Users__A9D10534A2F4F46E").IsUnique();
 
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
@@ -530,32 +530,42 @@ public partial class MyDbContext : DbContext
 
         modelBuilder.Entity<Vacancy>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Vacancie__3214EC07094CB76A");
+            entity.HasKey(e => e.Id).HasName("PK__Vacancie__3214EC07C338BF2C");
 
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
-            entity.Property(e => e.Description).HasMaxLength(255);
+            entity.Property(e => e.Description).HasMaxLength(1000);
+            entity.Property(e => e.IsActive).HasDefaultValue(true);
+            entity.Property(e => e.Location)
+                .HasMaxLength(255)
+                .HasDefaultValue("");
             entity.Property(e => e.Position).HasMaxLength(100);
+            entity.Property(e => e.Requirements)
+                .HasMaxLength(1000)
+                .HasDefaultValue("");
+            entity.Property(e => e.Salary)
+                .HasMaxLength(255)
+                .HasDefaultValue("");
             entity.Property(e => e.UpdatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
 
             entity.HasOne(d => d.Salon).WithMany(p => p.Vacancies)
                 .HasForeignKey(d => d.SalonId)
-                .HasConstraintName("FK__Vacancies__Salon__6754599E");
+                .HasConstraintName("FK__Vacancies__Salon__29221CFB");
         });
 
         modelBuilder.Entity<WorkingHour>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__WorkingH__3214EC07D3DEF159");
+            entity.HasKey(e => e.Id).HasName("PK__WorkingH__3214EC071472D23A");
 
             entity.Property(e => e.DayOfWeek).HasMaxLength(20);
 
             entity.HasOne(d => d.Salon).WithMany(p => p.WorkingHours)
                 .HasForeignKey(d => d.SalonId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__WorkingHo__Salon__123EB7A3");
+                .HasConstraintName("FK__WorkingHo__Salon__5629CD9C");
         });
 
         OnModelCreatingPartial(modelBuilder);

@@ -33,6 +33,8 @@ public partial class Appointment
 
     public virtual Barber? Barber { get; set; }
 
+    public virtual ICollection<PaymentInfo> PaymentInfos { get; set; } = new List<PaymentInfo>();
+
     public virtual Salon? Salon { get; set; }
 
     public virtual Service? Service { get; set; }

@@ -20,8 +20,32 @@ namespace HaloHair.Controllers
 
 
 
+        //public IActionResult UploadSalonImages(int salonId)
+        //{
+        //    var model = new SalonImagesViewModel
+        //    {
+        //        SalonId = salonId
+        //    };
+
+        //    return View(model);
+        //}
+
+
         public IActionResult UploadSalonImages(int salonId)
         {
+            // الحصول على معرف الحلاق من الجلسة إذا كان متاحاً
+            int? barberId = HttpContext.Session.GetInt32("BarberId");
+
+            // تعيين القيم في ViewBag
+            ViewBag.BarberId = barberId;
+            ViewBag.SalonId = salonId;
+
+            // حفظ SalonId في الجلسة إذا لم يكن محفوظاً بالفعل
+            if (HttpContext.Session.GetInt32("SalonId") != salonId)
+            {
+                HttpContext.Session.SetInt32("SalonId", salonId);
+            }
+
             var model = new SalonImagesViewModel
             {
                 SalonId = salonId
@@ -43,6 +67,9 @@ namespace HaloHair.Controllers
                 TempData["Error"] = "Please select at least one image.";
                 return RedirectToAction("EditSalon", new { salonId = model.SalonId });
             }
+
+            Console.WriteLine("Salon ID: " + model.SalonId); // فقط للتأكد
+
 
             foreach (var image in model.Images)
             {
@@ -190,46 +217,6 @@ namespace HaloHair.Controllers
             return RedirectToAction("Index", new { id = salonId });
         }
 
-
-
-
-
-        // GET: Add Location
-        //public IActionResult AddSalonLocation(int salonId)
-        //{
-        //    var salon = _context.Salons.FirstOrDefault(s => s.Id == salonId);
-        //    if (salon == null)
-        //    {
-        //        TempData["Error"] = "Salon not found!";
-        //        return RedirectToAction("Dashboard"); // أو أي صفحة أخرى
-        //    }
-
-        //    ViewBag.SalonId = salonId; // تمرير salonId إلى الـ View
-
-
-        //    return View();
-        //}
-
-        //// POST: Add Location
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult AddSalonLocation(int salonId, double latitude, double longitude)
-        //{
-        //    var salon = _context.Salons.FirstOrDefault(s => s.Id == salonId);
-        //    if (salon == null)
-        //    {
-        //        TempData["Error"] = "Salon not found!";
-        //        return RedirectToAction("Dashboard");
-        //    }
-
-        //    // تحديث الموقع في قاعدة البيانات
-        //    salon.Latitude = latitude;
-        //    salon.Longitude = longitude;
-        //    _context.SaveChanges();
-
-        //    TempData["Success"] = "Salon location updated successfully!";
-        //    return RedirectToAction("Index", "Babrber"); 
-        //}
 
 
 
@@ -439,6 +426,29 @@ namespace HaloHair.Controllers
 
             return RedirectToAction("Index", "Barber", new { barberId = model.BarberId });
         }
+
+
+
+
+        [HttpPost]
+        public IActionResult PromoteSalon(int salonId)
+        {
+            // البحث عن الصالون بناءً على الـ salonId
+            var salon = _context.Salons.FirstOrDefault(s => s.Id == salonId);
+            if (salon == null)
+            {
+                TempData["Error"] = "Salon not found!";
+                return RedirectToAction("Index"); // يمكن تعديل هذه الوجهة حسب الحاجة
+            }
+
+            // تحديث حالة الترويج للصالون
+            salon.IsPromoted = true;
+            _context.SaveChanges();
+
+            TempData["Success"] = "Salon promoted successfully!";
+            return RedirectToAction("Index", "Barber"); // أو أي وجهة أخرى
+        }
+
 
 
     }

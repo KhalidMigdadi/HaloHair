@@ -19,5 +19,7 @@ public partial class Booking
 
     public virtual ICollection<BookingService> BookingServices { get; set; } = new List<BookingService>();
 
+    public virtual TimeSlot TimeSlot { get; set; } = null!;
+
     public virtual User User { get; set; } = null!;
 }

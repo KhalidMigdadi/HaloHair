@@ -200,6 +200,7 @@ body {
 /* Start head Component */
 
 .head-component {
+   padding-top: 5%;
   text-align: center;
 }
 
@@ -577,6 +578,8 @@ body {
 }
 
 /* CTA Button */
+
+
 .cta-button {
   display: inline-block;
   padding: 12px 20px;
@@ -870,12 +873,13 @@ body {
 
 /* CTA Section */
 .cta {
-  text-align: center;
-  background: #5e9693;
-  color: white;
-  padding: 60px 20px;
-  margin-bottom: 50px;
-  font-family: "Poppins", sans-serif;
+    margin-top: 5%;
+    text-align: center;
+    background: #5e9693;
+    color: white;
+    padding: 60px 20px;
+    margin-bottom: 50px;
+    font-family: "Poppins", sans-serif;
 }
 
 .cta a {

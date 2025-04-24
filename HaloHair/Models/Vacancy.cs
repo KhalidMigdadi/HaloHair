@@ -17,5 +17,15 @@ public partial class Vacancy
 
     public DateTime? UpdatedAt { get; set; }
 
+    public string Location { get; set; } = null!;
+
+    public string Salary { get; set; } = null!;
+
+    public string Requirements { get; set; } = null!;
+
+    public bool IsActive { get; set; }
+
+    public virtual ICollection<JobApplication> JobApplications { get; set; } = new List<JobApplication>();
+
     public virtual Salon? Salon { get; set; }
 }

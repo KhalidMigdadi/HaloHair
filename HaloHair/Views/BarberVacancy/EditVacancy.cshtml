@@ -1,0 +1,48 @@
+﻿@model HaloHair.Models.Vacancy
+
+@{
+    ViewData["Title"] = "Edit Vacancy";
+    Layout = "~/Views/Shared/_Layout_Barber.cshtml";
+}
+
+
+<div class="container mt-4">
+    <h2>Edit Vacancy</h2>
+
+    <form asp-action="EditVacancy" method="post">
+        <input type="hidden" asp-for="Id" />
+
+        <div class="mb-3">
+            <label asp-for="Position" class="form-label">Position</label>
+            <input asp-for="Position" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label">Description</label>
+            <textarea asp-for="Description" class="form-control"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Location" class="form-label">Location</label>
+            <input asp-for="Location" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Salary" class="form-label">Salary</label>
+            <input asp-for="Salary" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Requirements" class="form-label">Requirements</label>
+            <textarea asp-for="Requirements" class="form-control"></textarea>
+        </div>
+
+        <div class="form-check mb-3">
+            <input asp-for="IsActive" class="form-check-input" />
+            <label asp-for="IsActive" class="form-check-label">Active</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update Vacancy</button>
+        <a asp-action="MyVacancies" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

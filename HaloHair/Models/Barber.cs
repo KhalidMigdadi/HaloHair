@@ -43,6 +43,8 @@ public partial class Barber
 
     public virtual ICollection<BookingsHistory> BookingsHistories { get; set; } = new List<BookingsHistory>();
 
+    public virtual ICollection<PaymentInfo> PaymentInfos { get; set; } = new List<PaymentInfo>();
+
     public virtual Salon? Salon { get; set; }
 
     public virtual ICollection<SalonBarber> SalonBarbers { get; set; } = new List<SalonBarber>();

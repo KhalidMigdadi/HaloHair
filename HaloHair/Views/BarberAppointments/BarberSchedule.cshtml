@@ -1,11 +1,11 @@
-﻿@model BarberScheduleViewModel
+﻿@* @model BarberScheduleViewModel
 @{
 	ViewData["Title"] = "Barber Schedule";
-	Layout = "~/Views/Shared/_Layout_Services.cshtml";
+	Layout = "~/Views/Shared/_Layout_Barber.cshtml";
 }
 
 
-@section Style {
+@section Styles {
 	<style>
 		.status-select {
 			width: auto;
@@ -117,6 +117,129 @@ else
 
 }
 
+
+@section Scripts {
+	<script>
+		function submitStatusForm(appointmentId) {
+			document.getElementById('statusForm_' + appointmentId).submit();
+		}
+	</script>
+}
+ *@
+
+
+									@model BarberScheduleViewModel
+@{
+	ViewData["Title"] = "Barber Schedule";
+	Layout = "~/Views/Shared/_Layout_Barber.cshtml";
+}
+
+@section Styles {
+	<style>
+		.status-select {
+			width: auto;
+			display: inline-block;
+		}
+
+			.status-select option[value="Completed"] {
+				background-color: #d1e7dd;
+			}
+
+			.status-select option[value="Cancelled"] {
+				background-color: #f8d7da;
+			}
+	</style>
+}
+
+<h2>Schedule for @Model.Barber.FirstName @Model.Barber.LastName</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+	<div class="alert alert-success alert-dismissible fade show">
+		@TempData["SuccessMessage"]
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+}
+
+<form method="get" asp-action="BarberSchedule">
+	<input type="hidden" name="barberId" value="@Model.Barber.Id" />
+	<label>Select Date:</label>
+	<input type="date" name="date" value="@Model.SelectedDate.ToString("yyyy-MM-dd")" onchange="this.form.submit()" />
+</form>
+
+@if (!Model.Appointments.Any())
+{
+	<div class="alert alert-info">
+		No appointments scheduled for this date.
+	</div>
+}
+else
+{
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Services</th>
+				<th>Time</th>
+				<th>Duration</th>
+				<th>Client</th>
+				<th>Status</th>
+			</tr>
+		</thead>
+		<tbody>
+			@if (Model.Appointments != null)
+			{
+				@foreach (var appointment in Model.Appointments)
+				{
+					<tr>
+						<td>
+							@if (appointment.AppointmentServices != null && appointment.AppointmentServices.Any())
+							{
+								<ul>
+									@foreach (var apService in appointment.AppointmentServices)
+									{
+										<li>@apService.Service?.ServiceName</li>
+									}
+								</ul>
+							}
+							else
+							{
+								<span>No services</span>
+							}
+						</td>
+						<td>
+							@(appointment.StartTime.HasValue ? appointment.StartTime.Value.ToShortTimeString() : "N/A") -
+							@(appointment.EndTime.HasValue ? appointment.EndTime.Value.ToShortTimeString() : "N/A")
+						</td>
+						<td>@(appointment.TotalDuration.HasValue ? $"{appointment.TotalDuration.Value} minutes" : "N/A")</td>
+						<td>
+							@(appointment.User != null
+											? $"{appointment.User.FirstName} {appointment.User.LastName}"
+											: "Unknown Client")
+						</td>
+						<td>
+							<form asp-action="UpdateAppointmentStatus" asp-controller="BarberAppointments" method="post" id="statusForm_@appointment.Id">
+								<input type="hidden" name="appointmentId" value="@appointment.Id" />
+								<input type="hidden" name="barberId" value="@Model.Barber.Id" />
+								<input type="hidden" name="date" value="@Model.SelectedDate.ToString("yyyy-MM-dd")" />
+								<select name="status" class="form-select status-select" onchange="submitStatusForm(@appointment.Id)">
+									<option value="Confirmed" selected="@(appointment.Status == "Confirmed")">Confirmed</option>
+									<option value="Completed" selected="@(appointment.Status == "Completed")">Completed</option>
+									<option value="Cancelled" selected="@(appointment.Status == "Cancelled")">Cancelled</option>
+								</select>
+							</form>
+						</td>
+					</tr>
+				}
+			}
+			else
+			{
+				<tr>
+					<td colspan="5" class="text-center">No appointments data available</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
 
 @section Scripts {
 	<script>

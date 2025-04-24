@@ -23,8 +23,6 @@ public partial class Salon
 
     public DateTime? UpdatedAt { get; set; }
 
-    public int? BarberOwnerId { get; set; }
-
     public double? Latitude { get; set; }
 
     public double? Longitude { get; set; }
@@ -32,6 +30,12 @@ public partial class Salon
     public string? AboutSalon { get; set; }
 
     public bool IsVisible { get; set; }
+
+    public int? BarberOwnerId { get; set; }
+
+    public bool OwnerId { get; set; }
+
+    public bool IsPromoted { get; set; }
 
     public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 
@@ -41,11 +45,7 @@ public partial class Salon
 
     public virtual ICollection<Favorite> Favorites { get; set; } = new List<Favorite>();
 
-    public virtual ICollection<Promotion> Promotions { get; set; } = new List<Promotion>();
-
     public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
-
-    public virtual ICollection<Sale> Sales { get; set; } = new List<Sale>();
 
     public virtual ICollection<SalonBarber> SalonBarbers { get; set; } = new List<SalonBarber>();
 

@@ -43,11 +43,15 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Men}/{action=LoginUserMen}/{id?}");
-//pattern: "{controller=Men}/{action=RegisterUserMen}/{id?}");
+    //pattern: "{controller=Men}/{action=LoginUserMen}/{id?}");
+    //pattern: "{controller=Men}/{action=RegisterUserMen}/{id?}");
 
-//pattern: "{controller=Barber}/{action=RegisterBarber}/{id?}");
-//pattern: "{controller=Barber}/{action=LoginBarberMen}/{id?}");
+    //pattern: "{controller=Barber}/{action=RegisterBarber}/{id?}");
+    //pattern: "{controller=Barber}/{action=LoginBarberMen}/{id?}");
+
+
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
 
 
 

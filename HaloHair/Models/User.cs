@@ -37,11 +37,7 @@ public partial class User
 
     public virtual ICollection<Favorite> Favorites { get; set; } = new List<Favorite>();
 
-    public virtual ICollection<LoyaltyPoint> LoyaltyPoints { get; set; } = new List<LoyaltyPoint>();
-
     public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
 
     public virtual ICollection<SelectedService> SelectedServices { get; set; } = new List<SelectedService>();
-
-    public virtual ICollection<Subscription> Subscriptions { get; set; } = new List<Subscription>();
 }

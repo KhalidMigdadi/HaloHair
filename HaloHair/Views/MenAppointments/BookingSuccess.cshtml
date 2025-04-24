@@ -2,13 +2,9 @@
     ViewData["Title"] = "Booking Confirmed";
     Layout = "~/Views/Shared/_Layout_Services.cshtml";
 }
-
-
-
 @section Style {
     <link href="~/css/Men/Book/sucessBook.css" rel="stylesheet" />
 }
-
 <div class="booking-success-container">
     <div class="success-card">
         <div class="success-icon">
@@ -16,7 +12,6 @@
         </div>
         <h1 class="success-title">Booking Confirmed!</h1>
         <p class="success-message">Your appointment has been successfully booked.</p>
-
         <div class="booking-details">
             <h2>Booking Details</h2>
             <div class="detail-item">
@@ -31,7 +26,6 @@
                 <span class="detail-label">Barber:</span>
                 <span class="detail-value">@TempData["BarberName"]</span>
             </div>
-
             <div class="detail-item">
                 <span class="detail-label">Services:</span>
                 <div class="detail-value">
@@ -49,7 +43,7 @@
                                 }
                                 else
                                 {
-                                    <li>Service data is missing</li> 
+                                    <li>Service data is missing</li>
                                 }
                             }
                         }
@@ -58,15 +52,42 @@
                             <li>There Is No Booking Service</li>
                         }
                     </ul>
-
                 </div>
             </div>
-        </div>
 
+            <!-- Payment Details Section -->
+            <div class="payment-details">
+                <h2>Payment Details</h2>
+                @if (TempData["PaymentMethod"] != null)
+                {
+                    <div class="detail-item">
+                        <span class="detail-label">Payment Method:</span>
+                        <span class="detail-value">@TempData["PaymentMethod"]</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Amount Paid:</span>
+                        <span class="detail-value">@TempData["PaymentAmount"] JD</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Payment Date:</span>
+                        <span class="detail-value">@TempData["PaymentDate"]</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Payment Details:</span>
+                        <span class="detail-value">@TempData["PaymentDetails"]</span>
+                    </div>
+                }
+                else
+                {
+                    <div class="detail-item">
+                        <span class="detail-value">No payment information available</span>
+                    </div>
+                }
+            </div>
+        </div>
         <div class="action-buttons">
-            <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Back to Home</a>
-            <a href="@Url.Action("MyAppointments", "Account")" class="btn btn-secondary">View My Appointments</a>
+            <a href="@Url.Action("Men", "Men")" class="btn btn-primary">Back to Home</a>
+            <a href="@Url.Action("Profile", "MenProfile")" class="btn btn-secondary">View My Appointments</a>
         </div>
     </div>
 </div>
-
