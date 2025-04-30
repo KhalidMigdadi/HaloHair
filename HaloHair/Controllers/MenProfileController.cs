@@ -31,8 +31,9 @@ namespace HaloHair.Controllers
             var history = _context.BookingsHistories
                 .Include(b => b.Barber)
                 .ThenInclude(barber => barber.Salon)
-                .Where(b => b.UserId == userId && b.BookingDate.Date <= DateTime.Today.AddDays(1))
+                .Where(b => b.UserId == userId)
                 .ToList();
+
 
             var model = new ProfileViewModel
             {
@@ -164,7 +165,6 @@ namespace HaloHair.Controllers
                 return Json(new { success = false, message = $"حدث خطأ: {ex.Message}" });
             }
         }
-
 
 
 

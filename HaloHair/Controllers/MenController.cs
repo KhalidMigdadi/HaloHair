@@ -186,6 +186,8 @@ namespace HaloHair.Controllers
                 HttpContext.Session.SetString("LastName", loggedUser.LastName);
                 HttpContext.Session.SetString("Phone", loggedUser.PhoneNumber);
                 HttpContext.Session.SetInt32("UserId", loggedUser.Id);  // حفظ UserId في الجلسة
+                HttpContext.Session.SetString("ProfileImagePath", loggedUser.ProfileImagePath ?? "Images/default_profile.png");
+
 
                 // إعادة التوجيه إلى الصفحة لتأكيد كلمة المرور (إذا كنت بحاجة لذلك)
                 return RedirectToAction("EnterPassword", "Men");
@@ -198,21 +200,6 @@ namespace HaloHair.Controllers
             }
         }
 
-
-
-        //public IActionResult EnterPassword()
-        //{
-        //    var email = HttpContext.Session.GetString("Email");  // Retrieve the email from Session
-
-        //    if (string.IsNullOrEmpty(email))
-        //    {
-        //        return RedirectToAction("LoginUserMen", "Men");
-        //    }
-
-        //    ViewBag.Email = email;  // Pass the email to the view using ViewBag
-
-        //    return View();
-        //}
 
 
         public IActionResult EnterPassword()
@@ -233,41 +220,7 @@ namespace HaloHair.Controllers
 
 
 
-        //[HttpPost]
-        //public IActionResult EnterPassword(string password)
-        //{
-        //    var email = HttpContext.Session.GetString("Email");
-
-        //    if (string.IsNullOrEmpty(email))
-        //    {
-        //        return RedirectToAction("LoginUserMen", "Men");
-        //    }
-
-        //    // Fetch the user from the database using the email stored in the session
-        //    var loggedUser = _context.Users.FirstOrDefault(u => u.Email == email);
-
-        //    if (loggedUser != null)
-        //    {
-        //        // Verify the plain-text password against the hashed password
-        //        var passwordHasher = new PasswordHasher<User>();
-        //        var passwordVerificationResult = passwordHasher.VerifyHashedPassword(loggedUser, loggedUser.PasswordHash, password);
-
-        //        if (passwordVerificationResult == PasswordVerificationResult.Success)
-        //        {
-        //            // Password is correct, redirect to the desired page
-        //            return RedirectToAction("Men", "Men");  // Redirect to a user dashboard page or appropriate location
-        //        }
-        //        else
-        //        {
-        //            TempData["PasswordError"] = "Invalid password. Please try again.";
-        //            return RedirectToAction("EnterPassword", "Men");
-        //        }
-        //    }
-
-        //    // If user is not found or any error, redirect to the login page
-        //    return RedirectToAction("LoginUserMen", "Men");
-        //}
-
+ 
 
         [HttpPost]
         public IActionResult EnterPassword(string password)
@@ -291,8 +244,9 @@ namespace HaloHair.Controllers
 
                 if (passwordVerificationResult == PasswordVerificationResult.Success)
                 {
+
                     // Password is correct, redirect to the desired page
-                    return RedirectToAction("Men", "Men");  // Redirect to a user dashboard page or appropriate location
+                    return RedirectToAction("Index", "Home");  // Redirect to a user dashboard page or appropriate location
                 }
                 else
                 {
@@ -306,22 +260,35 @@ namespace HaloHair.Controllers
         }
 
 
-
-
-        public IActionResult AllJobs()
+        public IActionResult AboutUs()
         {
-            var allVacancies = _context.Vacancies
-                .Include(v => v.Salon)
-                .OrderByDescending(v => v.CreatedAt)
-                .ToList();
-
-            return View(allVacancies);
+            return View();
         }
 
 
 
 
-  
+        public IActionResult ContaciUs()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+
+        public IActionResult ContaciUs(Contact contact)
+        {
+
+            _context.Contacts.Add(contact);
+            _context.SaveChanges();
+            ViewBag.Message = "Your message has been sent successfully!";
+
+
+            return View();
+        }
+
+
+
 
 
     }

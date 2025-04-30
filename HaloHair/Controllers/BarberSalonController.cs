@@ -20,17 +20,6 @@ namespace HaloHair.Controllers
 
 
 
-        //public IActionResult UploadSalonImages(int salonId)
-        //{
-        //    var model = new SalonImagesViewModel
-        //    {
-        //        SalonId = salonId
-        //    };
-
-        //    return View(model);
-        //}
-
-
         public IActionResult UploadSalonImages(int salonId)
         {
             // الحصول على معرف الحلاق من الجلسة إذا كان متاحاً
@@ -214,7 +203,7 @@ namespace HaloHair.Controllers
             await _context.SaveChangesAsync();
 
             // إعادة التوجيه إلى صفحة تفاصيل الصالون أو القائمة
-            return RedirectToAction("Index", new { id = salonId });
+            return RedirectToAction("Index", "Barber", new { id = salonId });
         }
 
 
@@ -430,25 +419,30 @@ namespace HaloHair.Controllers
 
 
 
+
+
+
+
+
+
         [HttpPost]
         public IActionResult PromoteSalon(int salonId)
         {
-            // البحث عن الصالون بناءً على الـ salonId
+            // 1. البحث عن الصالون
             var salon = _context.Salons.FirstOrDefault(s => s.Id == salonId);
             if (salon == null)
             {
                 TempData["Error"] = "Salon not found!";
-                return RedirectToAction("Index"); // يمكن تعديل هذه الوجهة حسب الحاجة
+                return RedirectToAction("Index");
             }
 
-            // تحديث حالة الترويج للصالون
+            // 2. تحديث حالة الترويج
             salon.IsPromoted = true;
             _context.SaveChanges();
 
             TempData["Success"] = "Salon promoted successfully!";
-            return RedirectToAction("Index", "Barber"); // أو أي وجهة أخرى
+            return RedirectToAction("Index", "Barber"); 
         }
-
 
 
     }

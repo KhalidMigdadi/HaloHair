@@ -1,0 +1,47 @@
+﻿
+
+
+
+@model IEnumerable<HaloHair.Models.Contact> 
+
+@{
+    ViewData["Title"] = "Contact Messages";
+    Layout = "~/Views/Shared/_Layout_SuperAdmin.cshtml";
+
+}
+
+<section class="contact-messages">
+    <div class="container">
+        <h2>All Messages</h2>
+
+        @if (Model.Any()) 
+        {
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Message</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var message in Model)
+                    {
+                        <tr>
+                            <td>@message.Name</td>
+                            <td>@message.Email</td>
+                            <td>@message.Message</td>
+                            <td>@message.CreatedAt.ToString("yyyy-MM-dd HH:mm")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>No messages found.</p>
+        }
+    </div>
+</section>
+

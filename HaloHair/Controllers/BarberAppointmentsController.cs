@@ -30,13 +30,13 @@ namespace HaloHair.Controllers
             {
                 BarberId = barberId,
                 StartTime = startTime,
-                EndTime = startTime.AddMinutes(60) // مدة الساعة
+                EndTime = startTime.AddMinutes(60) 
             };
 
             _context.TimeSlots.Add(slot);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("MySchedule"); // ترجع الحلاق على جدوله
+            return RedirectToAction("MySchedule"); 
         }
 
 
@@ -68,7 +68,7 @@ namespace HaloHair.Controllers
             // إذا كان هناك أيام مختارة
             if (model.AvailableDays == null || !model.AvailableDays.Any())
             {
-                ModelState.AddModelError("AvailableDays", "يجب تحديد الأيام المتاحة");
+                ModelState.AddModelError("AvailableDays", "Available days must be specified.");
                 return View(model);
             }
 
@@ -116,45 +116,6 @@ namespace HaloHair.Controllers
         }
 
 
-
-
-
-
-
-        //public async Task<IActionResult> BarberSchedule(int barberId, DateTime? date)
-        //{
-        //    var selectedDate = date ?? DateTime.Today;
-        //    var appointments = await _context.Appointments
-        //        .Where(a => a.BarberId == barberId &&
-        //                   a.AppointmentDate.HasValue &&
-        //                   a.AppointmentDate.Value.Date == selectedDate.Date)
-        //        .OrderBy(a => a.StartTime)
-        //        .Include(a => a.User)
-        //        .Include(a => a.AppointmentServices)
-        //            .ThenInclude(asv => asv.Service)
-        //        .ToListAsync();
-
-        //    var barber = await _context.Barbers
-        //        .FirstOrDefaultAsync(b => b.Id == barberId);
-
-        //    if (barber == null)
-        //        return NotFound();
-
-        //    // إضافة القيم المطلوبة للـ ViewBag
-        //    ViewBag.BarberId = barberId;
-
-        //    // إضافة SalonId إذا كان متوفراً في الجدول
-        //    ViewBag.SalonId = barber.SalonId; // افتراض أن الحلاق مرتبط بصالون
-
-        //    var viewModel = new BarberScheduleViewModel
-        //    {
-        //        Barber = barber,
-        //        Appointments = appointments,
-        //        SelectedDate = selectedDate
-        //    };
-
-        //    return View(viewModel);
-        //}
 
 
 
@@ -209,6 +170,11 @@ namespace HaloHair.Controllers
 
             return View(viewModel);
         }
+
+
+
+
+
 
 
         [HttpPost]

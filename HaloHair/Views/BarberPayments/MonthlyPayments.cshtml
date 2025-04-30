@@ -73,7 +73,7 @@
 								<tr>
 									<td>@(i + 1)</td>
 									<td>@payment.AppointmentId</td>
-									<td>@(payment.PaymentDate?.ToString("dd/MM/yyyy") ?? "Not specified")</td>
+									<td>@(payment.PaymentDate.ToString("dd/MM/yyyy") ?? "Not specified")</td>
 									<td>@payment.PaymentMethod</td>
 									<td>
 										@if (!string.IsNullOrEmpty(payment.PaymentDetails))

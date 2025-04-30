@@ -11,13 +11,17 @@ public partial class PaymentInfo
 
     public string PaymentMethod { get; set; } = null!;
 
-    public string? PaymentDetails { get; set; }
+    public string PaymentDetails { get; set; } = null!;
 
     public decimal Amount { get; set; }
 
-    public DateTime? PaymentDate { get; set; }
+    public DateTime PaymentDate { get; set; }
 
     public int BarberId { get; set; }
+
+    public string Status { get; set; } = null!;
+
+    public string? Notes { get; set; }
 
     public virtual Appointment Appointment { get; set; } = null!;
 

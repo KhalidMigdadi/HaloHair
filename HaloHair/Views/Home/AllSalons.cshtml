@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "AllSalons";
+    Layout = "~/Views/Shared/_Layout_Men.cshtml";
+}
+
+@model List<HaloHair.Models.Salon>
+
+
+    @section Style {
+    <link href="~/css/AllSalons.css" rel="stylesheet" />
+}
+
+
+
+<section class="new-container">
+    <h2>All Salons</h2>
+    <div class="salons-grid">
+        @if (Model != null && Model.Count > 0)
+        {
+            foreach (var salon in Model)
+            {
+                <div class="home-box rec-box">
+                    <a asp-controller="MenSalon" asp-action="SalonMen" asp-route-id="@salon.Id">
+                        <img src="@(!string.IsNullOrEmpty(salon.ImageUrl) ? salon.ImageUrl : "/images/default-salon.jpg")" alt="@salon.Name" />
+                    </a>
+                    <h3>@salon.Name</h3>
+                    <div class="location">@salon.Address</div>
+                    <div class="phone">Phone: @salon.PhoneNumber</div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="home-box rec-box">
+                <p>No salons available.</p>
+            </div>
+        }
+    </div>
+</section>

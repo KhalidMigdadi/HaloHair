@@ -1,8 +1,28 @@
 ﻿@{
 	ViewData["Title"] = "Profile";
+	Layout = "~/Views/Shared/_Layout_Men.cshtml";
+
 
 }
 @model HaloHair.Models.ProfileViewModel
+
+
+@if (TempData["SuccessMessage"] != null)
+{
+	<div class="alert alert-success alert-dismissible fade show" role="alert">
+		@TempData["SuccessMessage"]
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+	<div class="alert alert-danger alert-dismissible fade show" role="alert">
+		@TempData["ErrorMessage"]
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+}
+
 
 
 
@@ -99,9 +119,12 @@
 	</div>
 </div>
 
+
+@TempData["SuccessMessageTime"]
+
 <!-- Tabs for Sections -->
 <ul class="nav nav-tabs mb-4" id="profileTabs" role="tablist">
-	<li class="nav-item">
+@* 	<li class="nav-item">
 		<button class="nav-link active"
 				id="upcoming-tab"
 				data-bs-toggle="tab"
@@ -110,7 +133,7 @@
 				role="tab">
 			Upcoming Appointments
 		</button>
-	</li>
+	</li> *@
 	<li class="nav-item">
 		<button class="nav-link"
 				id="history-tab"
@@ -141,7 +164,7 @@
 			Favorites
 		</button>
 	</li>
-	<li class="nav-item">
+@* 	<li class="nav-item">
 		<button class="nav-link"
 				id="points-tab"
 				data-bs-toggle="tab"
@@ -150,7 +173,7 @@
 				role="tab">
 			Points & Rewards
 		</button>
-	</li>
+	</li> *@
 	<li class="nav-item">
 		<button class="nav-link"
 				id="payment-tab"
@@ -175,22 +198,9 @@
 
 <!-- Tab Content -->
 <div class="tab-content" id="profileTabsContent">
-	<!-- Upcoming Appointments -->
-	<div class="tab-pane fade show active" id="upcoming" role="tabpanel">
-		<div class="card mb-3">
-			<div class="card-body">
-				<h5>Salon Name: <span class="choose">Elegant Touch</span></h5>
-				<p>Date: 2025-02-01</p>
-				<p>Time: 3:00 PM</p>
-				<p>Service: Haircut</p>
-				<button class="btn btn-danger btn-sm">Cancel</button>
-				<button class="btn btn-outline-secondary btn-sm">Reschedule</button>
-			</div>
-		</div>
-	</div>
+
 
 	<!-- Booking History -->
-
 	<div class="tab-pane fade" id="history" role="tabpanel">
 		@if (Model.BookingHistory != null && Model.BookingHistory.Any())
 		{
@@ -200,25 +210,45 @@
 					<div class="card-body">
 						<h5>Salon Name: <span class="choose">@booking.Barber?.Salon?.Name</span></h5>
 						<p>Date: @booking.BookingDate.ToShortDateString()</p>
-						<p>Time: @booking.StartTime.ToString("hh\\:mm")</p>
+						<p>Time: @booking.StartTime.ToString("HH:mm")</p>
 						<p>Duration: @booking.TotalDuration minutes</p>
 						<p>Price: JOD @booking.TotalPrice</p>
 						<p>Status: @booking.Status</p>
-						<button class="btn btn-outline-primary btn-sm rebook">
-							Rebook
-						</button>
+						@if (booking.Status == "Confirmed")
+						{
+							// Calculate time until appointment
+							var appointmentDateTime = new DateTime(
+							booking.BookingDate.Year,
+							booking.BookingDate.Month,
+							booking.BookingDate.Day,
+							booking.StartTime.Hour,
+							booking.StartTime.Minute,
+							0);
+
+							var hoursUntilAppointment = (appointmentDateTime - DateTime.Now).TotalHours;
+
+							@if (hoursUntilAppointment > 8)
+							{
+								<a asp-controller="MenAppointments" asp-action="CancelBooking" asp-route-bookingId="@booking.Id"
+								   class="btn btn-outline-danger btn-sm"
+								   onclick="return confirm('Are you sure you want to cancel this appointment?');">
+									Cancel Appointment
+								</a>
+							}
+							else
+							{
+								<span class="text-muted small">Appointments cannot be cancelled less than 8 hours before the scheduled time</span>
+							}
+						}
 					</div>
 				</div>
 			}
 		}
 		else
 		{
-			<p>You have no booking history yet.</p>
+			<p>لا يوجد سجل حجوزات بعد.</p>
 		}
-
 	</div>
-
-
 
 	<!-- Review Tab -->
 	<div class="tab-pane fade" id="statistics" role="tabpanel">
@@ -238,7 +268,7 @@
 							<p>Status: @booking.Status</p>
 
 							<!-- Review Button -->
-							<button class="btn btn-outline-primary btn-sm" onclick="openReviewModal(@booking.Id)">
+							<button class="btn-outline-primary btn-sm" onclick="openReviewModal(@booking.Id)">
 								Leave your review
 							</button>
 
@@ -285,7 +315,7 @@
 							<label for="comment" class="form-label">Comment (optional):</label>
 							<textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
 						</div>
-						<button type="button" class="btn btn-primary" onclick="submitReview()">Submit</button>
+						<button type="button" class="btn-primary" onclick="submitReview()">Submit</button>
 					</form>
 				</div>
 			</div>

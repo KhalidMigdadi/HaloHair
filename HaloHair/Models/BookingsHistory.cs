@@ -29,9 +29,13 @@ public partial class BookingsHistory
 
     public DateTime? UpdatedAt { get; set; }
 
+    public int? TimeSlotId { get; set; }
+
     public virtual Barber Barber { get; set; } = null!;
 
     public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
+
+    public virtual TimeSlot? TimeSlot { get; set; }
 
     public virtual User User { get; set; } = null!;
 }

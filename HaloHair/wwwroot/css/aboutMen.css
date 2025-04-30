@@ -442,39 +442,89 @@
   
   
   /* CTA Section */
-  .cta {
-      padding: 50px 20px;
-      background-color: var(--main-color);
-      color: white;
-      text-align: center;
+.cta {
+    background: linear-gradient(135deg, #E6E8F2 0%, #D0D4E5 100%);
+    padding: 60px 0;
+    text-align: center;
+    border-radius: 15px;
+    margin: 40px auto;
+    max-width: 1200px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.container1 {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.cta h2 {
+    color: #8892b0;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.cta p {
+    color: #8892b0;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn {
+    display: inline-block;
+    background-color: #8892b0;
+    color: white;
+    padding: 15px 40px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(156, 77, 129, 0.3);
+}
+
+    .btn:hover {
+        background-color: #8892b0;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(156, 77, 129, 0.4);
     }
-    
-    .cta .btn {
-      padding: 15px 30px;
-      background-color: #ffffff;
-      color: var(--main-color);
-      text-decoration: none;
-      border-radius: 5px;
-      font-size: 1.2rem;
-      border-radius: 10px;
-  
+
+/* ??????? ???????? */
+.cta::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 10px;
+    background: linear-gradient(90deg, #e2b4d8, #f5d6e6, #e2b4d8);
+    border-radius: 15px 15px 0 0;
+}
+
+@media (max-width: 768px) {
+    .cta h2 {
+        font-size: 2rem;
     }
-    
-    .cta .btn:hover {
-      background-color: var(--main-color);
-      color: #ffffff;
-      border: 3px solid #fff;
+
+    .cta p {
+        font-size: 1rem;
     }
-  
-  /* End CTA Section */
-  
-  /* Start How it work */
-  
-  
-  
-  .how-it-works {
-      margin: 50px 0;
+
+    .btn {
+        padding: 12px 30px;
     }
+}
+
+/* End CTA Section */
+/* Start How it work */
+.how-it-works {
+    margin: 50px 0;
+}
     
     h3 {
       font-size: 2em;

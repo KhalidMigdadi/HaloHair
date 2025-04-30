@@ -14,9 +14,36 @@
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
+    
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/men.css" asp-append-version="true" />
+    <link href="~/css/salon.css" rel="stylesheet" asp-append-version="true" />
+    <link rel="stylesheet" href="~/HaloHair.styles.css" asp-append-version="true" />
+
+    <link href="~/css/aboutMen.css" rel="stylesheet" asp-append-version="true" />
+
+
+
+
+
+
+    <link href="~/css/ContactMen.css" rel="stylesheet" asp-append-version="true" />
+
+
+
+
+
+
+
+    <link href="~/css/getJob.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/css/license.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/css/profileMen.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/css/selectBarber.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/css/selectService.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/css/selectTime.css" rel="stylesheet" asp-append-version="true" />
+
 	@RenderSection("Style", required: false) <!-- Render the Scripts section if it exists -->
-
-
+ 
 
 
 </head>
@@ -24,152 +51,193 @@
 
 
 	<header>
-		<!-- Navbar -->
-	@* 	<nav class="navbar navbar-expand-lg navbar-light fixed-top mask-custom shadow-0"
-			 id="navbar">
-			<div class="container">
-				<a class="navbar-brand" href="#!">
-					<span style="color: #1e293b">Halo</span><span style="color: #fff">Hair</span>
-				</a>
-				<button class="navbar-toggler"
-						type="button"
-						data-mdb-collapse-init
-						data-mdb-target="#navbarSupportedContent"
-						aria-controls="navbarSupportedContent"
-						aria-expanded="false"
-						aria-label="Toggle navigation">
-					<i class="fas fa-bars"></i>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="navbar-nav me-auto">
-						<li class="nav-item">
-							<a class="nav-link bar" asp-controller="Men" asp-action="Men">Home</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link bar" href="menStore.html">Store</a>
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top mask-custom shadow-0" id="navbar" style="background: linear-gradient(135deg, #1e293b 0%, #334155 100%);">
+            <div class="container-fluid px-4 px-lg-5">
+                <!-- Brand Logo -->
+                <a class="navbar-brand d-flex align-items-center" href="#!">
+                    <span class="fw-bold" style="color: #fff; font-size: 1.8rem;">Halo</span>
+                    <span class="fw-bold" style="color: #f8f9fa; font-size: 1.8rem;">Hair</span>
+                </a>
 
-						</li>
-						<li class="nav-item">
-							<a class="nav-link bar" href="#">Job Search</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link bar" asp-controller="Men" asp-action="CourseMen">Courses</a>
+                <!-- Mobile Toggle Button -->
+                <button class="navbar-toggler"
+                        type="button"
+                        data-mdb-collapse-init
+                        data-mdb-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <i class="fas fa-bars text-white"></i>
+                </button>
 
-						</li>
-						<!-- <li class="nav-item">
-						  <a class="nav-link bar" href="menStore.html">Store</a>
-						</li> -->
-						<li class="nav-item">
-							<a class="nav-link bar" asp-controller="Men" asp-action="AboutMen">About us</a>
+                <!-- Navbar Content -->
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- Left Side Navigation Links -->
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link bar px-3 py-2 mx-1 rounded" asp-controller="Home" asp-action="Index">
+                                <i class="fas fa-home me-2"></i>Home
+                            </a>
+                        </li>
+                       
+                        <li class="nav-item">
+                            <a class="nav-link bar px-3 py-2 mx-1 rounded" asp-controller="Home" asp-action="AllJobs">
+                                <i class="fas fa-briefcase me-2"></i>Job Search
+                            </a>
+                        </li>
+                       @*  <li class="nav-item">
+                            <a class="nav-link bar px-3 py-2 mx-1 rounded" asp-controller="Men" asp-action="CourseMen">
+                                <i class="fas fa-graduation-cap me-2"></i>Courses
+                            </a>
+                        </li> *@
+                        <li class="nav-item">
+                            <a class="nav-link bar px-3 py-2 mx-1 rounded" asp-controller="Men" asp-action="AboutUs">
+                                <i class="fas fa-info-circle me-2"></i>About us
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link bar px-3 py-2 mx-1 rounded" asp-controller="Men" asp-action="ContaciUs">
+                                <i class="fas fa-envelope me-2"></i>Contact
+                            </a>
+                        </li>
+                    </ul>
+                   
 
-						</li>
-						<li class="nav-item">
-							<a class="nav-link bar" asp-controller="Men" asp-action="ContactMen">Contact</a>
+                    <!-- Right Side Icons/Auth -->
+                    <ul class="navbar-nav d-flex flex-row align-items-center ms-auto">
+                        @if (Context.Session.GetInt32("UserId") != null)
+                        {
+                            <!-- Show profile picture for logged-in users -->
+                            <li class="nav-item dropdown">
+                                @{
+                                    var profileImagePath = Context.Session.GetString("ProfileImagePath") ?? "Images/default_profile.png";
+                                }
 
-						</li>
-					</ul>
-					<ul class="navbar-nav d-flex flex-row align-items-center">
-						<li class="nav-item me-3 me-lg-0">
-							<a class="nav-link" href="./makeup.html">
-								<i class="fas fa-shopping-cart fa-2x"
-								   style="margin-top: 20px; margin-right: 30px"></i>
-							</a>
-						</li>
-						<!-- Avatar Dropdown -->
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle d-flex align-items-center"
-							   href="#"
-							   id="navbarDropdownMenuLink"
-							   role="button"
-							   data-mdb-toggle="dropdown"
-							   aria-expanded="false">
-								<img src="../Images/Men_Images/menProfile.jpeg"
-									 class="rounded-circle"
-									 height="50px"
-									 width="50px"
-									 alt=""
-									 loading="lazy" />
-							</a>
-							<ul class="dropdown-menu dropdown-menu-end"
-								aria-labelledby="navbarDropdownMenuLink">
-								<li>
-									<a class="dropdown-item" asp-controller="MenProfile" asp-action="Profile">My profile</a>
-								</li>
-								<li><a class="dropdown-item" href="#">Settings</a></li>
-								<li><a class="dropdown-item" href="index.html">Logout</a></li>
-							</ul>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</nav> *@
+                                <a class="nav-link dropdown-toggle d-flex align-items-center"
+                                   href="#"
+                                   id="navbarDropdownMenuLink"
+                                   role="button"
+                                   data-mdb-toggle="dropdown"
+                                   aria-expanded="false">
+                                    <div class="position-relative">
+                                        <img src="@(Url.Content("~/" + profileImagePath))"
+                                             class="rounded-circle border border-3 border-white"
+                                             height="50px"
+                                             width="50px"
+                                             alt="Profile"
+                                             loading="lazy"
+                                             style="display: block !important; opacity: 1 !important; visibility: visible !important;" />
+                                       
+                                    </div>
+                                </a>
+                             
 
+                                <ul class="dropdown-menu dropdown-menu-end shadow-lg"
+                                    aria-labelledby="navbarDropdownMenuLink">
+                                    <li>
+                                        <a class="dropdown-item py-2" asp-controller="MenProfile" asp-action="Profile">
+                                            <i class="fas fa-user-circle me-2"></i>My profile
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item py-2" href="#">
+                                            <i class="fas fa-cog me-2"></i>Settings
+                                        </a>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <a  class="dropdown-item py-2 text-danger" asp-controller="Home" asp-action="Logout">
+                                            <i class="fas fa-sign-out-alt me-2"></i>Logout
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <!-- Show login button for users who aren't logged in -->
+                            <li class="nav-item ms-2">
+                                <a href="@Url.Action("BarberOrUser","Home")" style="color: #fff !important"
+                                   class=" btn-outline-light px-4 py-2 rounded-pill border-2 no-scale">
+                                    <i class="fas fa-sign-in-alt me-2"></i>Login
+                                </a>
+                            </li>
 
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
 
+        <style>
+            /* Custom Styles */
+            .mask-custom {
+                backdrop-filter: blur(5px);
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+                transition: all 0.3s ease;
+            }
 
+            .navbar.scrolled {
+                background: rgba(30, 41, 59, 0.95) !important;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+            }
 
-		<!-- Navbar -->
-		<nav class="navbar navbar-expand-lg navbar-light fixed-top mask-custom shadow-0"
-			 id="navbar">
-			<div class="container">
-				<a class="navbar-brand" href="#!">
-					<span style="color: #1E293B">Halo</span><span style="color: #fff">Hair</span>
-				</a>
-				<button class="navbar-toggler"
-						type="button"
-						data-mdb-collapse-init
-						data-mdb-target="#navbarSupportedContent"
-						aria-controls="navbarSupportedContent"
-						aria-expanded="false"
-						aria-label="Toggle navigation">
-					<i class="fas fa-bars"></i>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="navbar-nav me-auto">
-						<li class="nav-item">
-							<a class="nav-link bar" href="#">Home</a>
-						</li>
-						<!-- <li class="nav-item">
-						  <a class="nav-link bar" href="#offer">Offers</a>
-						</li>
-						<li class="nav-item">
-						  <a class="nav-link bar" href="#">Booking</a>
-						</li>
-						<li class="nav-item">
-						  <a class="nav-link bar" href="#">Gallery</a>
-						</li> -->
-						@* <li class="nav-item">
-							<a class="nav-link bar" href="menStore.html">Store</a>
-						</li> *@
-						<li class="nav-item">
-							<a class="nav-link bar" href="#">Job Search</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link bar" href="license.html">Courses</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link bar" href="aboutMen.html">About</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link bar" href="ContactMen.html">Contact</a>
-						</li>
-					</ul>
-					<ul class="navbar-nav d-flex flex-row align-items-center">
-						<li class="nav-item me-3 me-lg-0">
-							<a class="nav-link" href="./makeup.html">
-								<i>
-									<a href="@Url.Action("BarberOrUser","Home")" class="btn btn-outline-light">Login</a>
-								</i>
-							</a>
-						</li>
+            .nav-link.bar {
+                color: rgba(255, 255, 255, 0.8);
+                font-weight: 500;
+                transition: all 0.3s ease;
+            }
 
-					</ul>
-				</div>
-			</div>
-		</nav>
-		<!-- Navbar -->
+                .nav-link.bar:hover, .nav-link.bar:focus {
+                    color: #fff;
+                    background: rgba(255, 255, 255, 0.1);
+                }
 
+            .dropdown-menu {
+                border: none;
+                border-radius: 10px;
+            }
 
+            .dropdown-item {
+                border-radius: 5px;
+                margin: 2px 5px;
+                width: auto;
+            }
+
+                .dropdown-item:hover {
+                    background: #f8f9fa;
+                }
+
+            .no-scale {
+                transform: none !important;
+                transition: none !important;
+            }
+
+                .no-scale:active {
+                    transform: none !important;
+                }
+            /* لتكثيف الحدود البيضاء */
+            .btn-outline-light {
+                border: 2px solid white !important;
+            }
+
+                .btn-outline-light:hover {
+                    background-color: transparent !important;
+                    color: white !important;
+                }
+        </style>
+
+        <script>
+            // Add scroll effect
+            window.addEventListener('scroll', function() {
+                const navbar = document.getElementById('navbar');
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+        </script>
 
 
 		<!-- Navbar -->

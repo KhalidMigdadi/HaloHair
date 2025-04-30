@@ -103,13 +103,24 @@ namespace HaloHair.Controllers
         {
             if (ModelState.IsValid)
             {
-                model.UpdatedAt = DateTime.Now;
-                _context.Vacancies.Update(model);
+                var oldVacancy = _context.Vacancies.Find(model.Id);
+
+                if (oldVacancy == null)
+                    return NotFound();
+
+                // عدل فقط الخصائص التي تريد تعديلها
+                oldVacancy.Position = model.Position;
+                oldVacancy.Description = model.Description;
+                oldVacancy.Salary = model.Salary;
+
+                oldVacancy.UpdatedAt = DateTime.Now;
+
                 _context.SaveChanges();
                 return RedirectToAction("MyVacancies");
             }
             return View(model);
         }
+
 
 
 
@@ -176,47 +187,139 @@ namespace HaloHair.Controllers
             await _context.SaveChangesAsync();
 
             TempData["SuccessMessage"] = "تم تقديم طلبك بنجاح!";
-            return RedirectToAction("AllJobs");
+            return RedirectToAction("Index", "Home");
         }
 
 
 
         public IActionResult Applications()
         {
+            // الحصول على معرف الحلاق الحالي
+            int? barberId = HttpContext.Session.GetInt32("BarberId");
+
+            if (barberId == null)
+            {
+                return RedirectToAction("Barber", "LoginBarberMen");
+            }
+
+            var barber = _context.Barbers.FirstOrDefault(b => b.Id == barberId);
+
+            if (barber == null || barber.SalonId == null)
+            {
+                return Forbid();
+            }
+
+            // الحصول على معرف الصالون
+            int salonId = barber.SalonId.Value;
+
+            // طباعة معرف الصالون للتحقق
+            Console.WriteLine($"Barber ID: {barberId}, Salon ID: {salonId}");
+
+            // أولاً، احصل على جميع الوظائف الخاصة بالصالون
+            var salonVacancies = _context.Vacancies
+                .Where(v => v.SalonId == salonId)
+                .ToList();
+
+            // طباعة معلومات الوظائف للتحقق
+            Console.WriteLine($"Found {salonVacancies.Count} vacancies for salon {salonId}");
+            foreach (var vacancy in salonVacancies)
+            {
+                Console.WriteLine($"Vacancy ID: {vacancy.Id}, Position: {vacancy.Position}, SalonId: {vacancy.SalonId}");
+            }
+
+            var salonVacancyIds = salonVacancies.Select(v => v.Id).ToList();
+
+            // ثم احصل على طلبات التوظيف لهذه الوظائف
             var applications = _context.JobApplications
                 .Include(a => a.Vacancy)
+                .Where(a => salonVacancyIds.Contains(a.VacancyId))
                 .ToList();
+
+            // طباعة معلومات الطلبات للتحقق
+            Console.WriteLine($"Found {applications.Count} applications for salon {salonId}");
+
             return View(applications);
-
-
-
         }
+
+
 
 
         [HttpPost]
         public IActionResult Approve(int id)
         {
-            var app = _context.JobApplications.Find(id);
+            int? barberId = HttpContext.Session.GetInt32("BarberId");
+
+            if (barberId == null)
+            {
+                return RedirectToAction("Barber", "LoginBarberMen");
+            }
+
+            var barber = _context.Barbers.FirstOrDefault(b => b.Id == barberId);
+
+            if (barber == null || barber.SalonId == null)
+            {
+                return Forbid();
+            }
+
+            int salonId = barber.SalonId.Value;
+
+            // التحقق من أن الطلب ينتمي لصالون الحلاق
+            var app = _context.JobApplications
+                .Include(a => a.Vacancy)
+                .FirstOrDefault(a => a.Id == id && a.Vacancy.SalonId == salonId);
+
             if (app != null)
             {
                 app.Status = "Approved";
                 _context.SaveChanges();
             }
+
             return RedirectToAction("Applications");
         }
+
+
+
+
+
 
         [HttpPost]
         public IActionResult Reject(int id)
         {
-            var app = _context.JobApplications.Find(id);
+            int? barberId = HttpContext.Session.GetInt32("BarberId");
+
+            if (barberId == null)
+            {
+                return RedirectToAction("Barber", "LoginBarberMen");
+            }
+
+            var barber = _context.Barbers.FirstOrDefault(b => b.Id == barberId);
+
+            if (barber == null || barber.SalonId == null)
+            {
+                return Forbid();
+            }
+
+            int salonId = barber.SalonId.Value;
+
+            // التحقق من أن الطلب ينتمي لصالون الحلاق
+            var app = _context.JobApplications
+                .Include(a => a.Vacancy)
+                .FirstOrDefault(a => a.Id == id && a.Vacancy.SalonId == salonId);
+
             if (app != null)
             {
                 app.Status = "Rejected";
                 _context.SaveChanges();
             }
+
             return RedirectToAction("Applications");
         }
 
+
+
+
+
+   
 
 
         public IActionResult MyApplications(string email)

@@ -131,6 +131,11 @@ namespace HaloHair.Controllers
 
 
 
+        public IActionResult ContactMassages()
+        {
+            return View(_context.Contacts.ToList());
+        }
+
 
 
     }

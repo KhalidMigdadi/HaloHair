@@ -33,6 +33,8 @@ public partial class MyDbContext : DbContext
 
     public virtual DbSet<BookingsHistory> BookingsHistories { get; set; }
 
+    public virtual DbSet<Contact> Contacts { get; set; }
+
     public virtual DbSet<Favorite> Favorites { get; set; }
 
     public virtual DbSet<JobApplication> JobApplications { get; set; }
@@ -242,7 +244,7 @@ public partial class MyDbContext : DbContext
             entity.Property(e => e.Notes).HasMaxLength(500);
             entity.Property(e => e.Status)
                 .HasMaxLength(50)
-                .HasDefaultValue("Pending");
+                .HasDefaultValue("Confirmed");
             entity.Property(e => e.TotalPrice).HasColumnType("decimal(10, 2)");
             entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
 
@@ -251,10 +253,25 @@ public partial class MyDbContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_BookingsHistory_Barbers");
 
+            entity.HasOne(d => d.TimeSlot).WithMany(p => p.BookingsHistories)
+                .HasForeignKey(d => d.TimeSlotId)
+                .HasConstraintName("FK_BookingHistory_TimeSlot");
+
             entity.HasOne(d => d.User).WithMany(p => p.BookingsHistories)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_BookingsHistory_Users");
+        });
+
+        modelBuilder.Entity<Contact>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Contacts__3214EC071617034F");
+
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.Email).HasMaxLength(100);
+            entity.Property(e => e.Name).HasMaxLength(100);
         });
 
         modelBuilder.Entity<Favorite>(entity =>
@@ -304,11 +321,14 @@ public partial class MyDbContext : DbContext
             entity.HasKey(e => e.Id).HasName("PK__PaymentI__3214EC073C3855E6");
 
             entity.Property(e => e.Amount).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.Notes).HasMaxLength(500);
             entity.Property(e => e.PaymentDate)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
-            entity.Property(e => e.PaymentDetails).HasMaxLength(255);
             entity.Property(e => e.PaymentMethod).HasMaxLength(50);
+            entity.Property(e => e.Status)
+                .HasMaxLength(50)
+                .HasDefaultValue("Completed");
 
             entity.HasOne(d => d.Appointment).WithMany(p => p.PaymentInfos)
                 .HasForeignKey(d => d.AppointmentId)

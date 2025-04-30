@@ -77,11 +77,11 @@ namespace HaloHair.Controllers
 
 
             var newSalonsList = _context.Salons
-    .Include(s => s.Barbers)
-    .Where(s => s.IsVisible == true)
-    .OrderByDescending(s => s.CreatedAt)
-    .Take(10)
-    .ToList();
+                    .Include(s => s.Barbers)
+                    .Where(s => s.IsVisible == true)
+                    .OrderByDescending(s => s.CreatedAt)
+                    .Take(10)
+                    .ToList();
 
             var newSalonsViewModel = new List<SalonViewModel>();
             foreach (var salon in newSalonsList)
@@ -116,12 +116,27 @@ namespace HaloHair.Controllers
 
             ViewBag.NewSalons = newSalonsViewModel;
 
+            int salonId = HttpContext.Session.GetInt32("SalonId") ?? 0;
+
+            var currentSalon = _context.Salons.FirstOrDefault(s => s.Id == salonId);
+
+
+            if (currentSalon != null)
+            {
+                ViewBag.IsPromoted = currentSalon.IsPromoted;
+                ViewBag.SalonId = currentSalon.Id;
+            }
+            else
+            {
+                ViewBag.IsPromoted = false;
+            }
+
 
             var promotedSalonsList = _context.Salons
-                .Where(s => s.IsPromoted)
-                .OrderByDescending(s => s.Id)
-                .Take(10)
-                .ToList();
+                  .Where(s => s.IsPromoted)
+                  .OrderByDescending(s => s.Id)
+                  .Take(10)
+                  .ToList();
 
             var promotedSalonsViewModel = new List<SalonViewModel>();
             foreach (var salon in promotedSalonsList)
@@ -153,6 +168,14 @@ namespace HaloHair.Controllers
             ViewBag.PromotedSalons = promotedSalonsViewModel;
 
 
+            // ? ????: ??? ??? ??????? ????????
+            var latestVacancies = _context.Vacancies
+                .Include(v => v.Salon)
+                .OrderByDescending(v => v.CreatedAt)
+                .Take(6)
+                .ToList();
+
+            ViewBag.LatestVacancies = latestVacancies;
 
 
             return View(salons);
@@ -171,16 +194,36 @@ namespace HaloHair.Controllers
 
 
 
+        public IActionResult AllJobs()
+        {
+            var allVacancies = _context.Vacancies
+                .Include(v => v.Salon)
+                .OrderByDescending(v => v.CreatedAt)
+                .ToList();
+
+            return View(allVacancies);
+        }
+
+
+
+        public IActionResult AllSalons()
+        {
+            return View(_context.Salons.ToList());
+        }
 
 
 
 
 
 
+        public IActionResult Logout()
+        {
+            // Clear all session data
+            HttpContext.Session.Clear();
 
-
-
-
+            // Redirect to home page after logout
+            return RedirectToAction("Index", "Home");
+        }
 
 
 

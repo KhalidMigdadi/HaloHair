@@ -129,9 +129,9 @@
 				@foreach (var barber in Model.Barbers)
 				{
 					<div class="team-card">
-						<img src="~/Images/Barbers/@(barber.Id).webp"
+						@* <img src="~/Images/Barbers/@(barber.Id).webp"
 							 alt="@barber.FirstName @barber.LastName"
-							 onerror="this.onerror=null; this.src='~/Images/default-barber.jpg';" />
+							 onerror="this.onerror=null; this.src='~/Images/default-barber.jpg';" /> *@
 						<div class="info">
 							<h3>@barber.FirstName @barber.LastName</h3>
 							<p>@(barber.UserType ?? "Barber")</p>
@@ -162,7 +162,7 @@
 						<h4>@Model.Name</h4>
 					</div>
 					<div class="card-body">
-						<p><strong>العنوان:</strong> @Model.Address</p>
+						<p><strong>Address:</strong> @Model.Address</p>
 						<!-- معلومات أخرى -->
 					</div>
 				</div>
@@ -172,7 +172,7 @@
 				{
 					<div class="card">
 						<div class="card-header">
-							<h5>موقع الصالون</h5>
+							<h5>Salon Location</h5>
 						</div>
 						<div class="card-body">
 							<div id="salon-map" style="height: 400px; width: 100%;"></div>
@@ -213,23 +213,25 @@
 					<!-- work -->
 					<div class="salon-work">
 						<h2>Our Salon Work</h2>
+
 						@foreach (var barber in Model.Barbers)
 						{
-							<div>
-								<h5>Work Images</h5>
-								<div class="work-images">
-									@foreach (var workImage in barber.BarberWorkImages)
-									{
-										<div class="work-image">
-											<img src="@workImage.ImageUrl" alt="Work Image" class="img-thumbnail" />
-										</div>
-									}
+							if (barber.BarberWorkImages != null && barber.BarberWorkImages.Any())
+							{
+								<div>
+									<h5>Work Images</h5>
+									<div class="work-images">
+										@foreach (var workImage in barber.BarberWorkImages)
+										{
+											<div class="work-image">
+												<img src="@workImage.ImageUrl" alt="Work Image" class="img-thumbnail" />
+											</div>
+										}
+									</div>
 								</div>
-							</div>
+							}
 						}
 					</div>
-
-
 
 					<!-- review -->
 					<div class="reviews-section">

@@ -31,14 +31,14 @@
             <h2>Sign Up</h2>
 
             <!-- Display Success/Error messages -->
-            @if (TempData["Error"] != null)
+            @* @if (TempData["Error"] != null)
             {
                 <p class="text-danger">@TempData["Error"]</p>
             }
             @if (TempData["Success"] != null)
             {
                 <p class="text-success">@TempData["Success"]</p>
-            }
+            } *@
 
             <!-- Registration Form -->
             <form asp-controller="Barber" asp-action="RegisterBarber" method="post">

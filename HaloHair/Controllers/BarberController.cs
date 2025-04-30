@@ -25,6 +25,19 @@ namespace HaloHair.Controllers
         {
             var barberId = HttpContext.Session.GetInt32("BarberId");
 
+
+            // Use the parameter if provided, otherwise fall back to session
+            int barberIdToUse = barberId ?? HttpContext.Session.GetInt32("BarberId") ?? 0;
+
+            if (barberIdToUse == 0)
+            {
+                TempData["Error"] = "Session expired! Please log in.";
+                return RedirectToAction("LoginBarberMen");
+            }
+
+
+
+
             if (barberId == null || barberId == 0)
             {
                 TempData["Error"] = "Session expired! Please log in.";
@@ -64,14 +77,17 @@ namespace HaloHair.Controllers
             var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
 
             decimal monthlyTotal = payments
-                .Where(p => p.PaymentDate.HasValue &&
-                           p.PaymentDate.Value >= firstDayOfMonth &&
-                           p.PaymentDate.Value <= lastDayOfMonth)
+                .Where(p =>
+                p.PaymentDate >= firstDayOfMonth &&
+                p.PaymentDate <= lastDayOfMonth)
                 .Sum(p => p.Amount);
+
+
+
 
             // آخر المدفوعات
             var recentPayments = payments
-                .OrderByDescending(p => p.PaymentDate ?? DateTime.MinValue)
+                .OrderByDescending(p => p.PaymentDate)
                 .Take(5)
                 .ToList();
 
@@ -84,6 +100,51 @@ namespace HaloHair.Controllers
             ViewBag.MonthlyTotal = monthlyTotal;
             ViewBag.RecentPayments = recentPayments;
             ViewBag.CurrentMonth = currentDate.ToString("MMMM yyyy");
+
+            // to make the total booking in dashbaord dynamic 
+            var totalBookings = _context.BookingsHistories
+                        .Where(b => b.BarberId == barberId)
+                        .Count();
+
+            ViewBag.TotalBookings = totalBookings;
+
+            //get the total users that make register in this barber 
+            var uniqueCustomers = _context.BookingsHistories
+                       .Where(b => b.BarberId == barberId)
+                       .Select(b => b.UserId)
+                       .Distinct()
+                       .Count();
+            ViewBag.UniqueCustomers = uniqueCustomers;
+
+
+            // the next booking 
+            var upcomingBookings = _context.BookingsHistories
+                        .Where(b => b.BarberId == barberId && b.BookingDate > DateTime.Now && b.Status == "Confirmed")
+                        .Count();
+            ViewBag.UpcomingBookings = upcomingBookings;
+
+
+
+
+            // إضافة قائمة العملاء (Clients) إلى ViewBag
+            var clients = _context.Appointments
+                .Include(a => a.User)
+                .Where(a => a.BarberId == barberId && a.UserId != null)
+                .GroupBy(a => a.UserId)
+                .Select(g => new ClientViewModel
+                {
+                    UserId = g.Key.Value,
+                    FullName = g.First().User.FirstName + " " + g.First().User.LastName,
+                    PhoneNumber = g.First().User.PhoneNumber,
+                    LastAppointmentDate = g.Max(a => a.AppointmentDate),
+                    AppointmentsCount = g.Count()
+                })
+                .ToList();
+
+
+            ViewBag.Clients = clients;
+
+
 
 
             return View(barber);
@@ -206,6 +267,9 @@ namespace HaloHair.Controllers
                 // ربط الصالون بالحلاق
                 model.BarberOwnerId = barberId;
 
+                model.IsVisible = true;
+
+
                 // إضافة الصالون إلى قاعدة البيانات
                 _context.Salons.Add(model);
                 await _context.SaveChangesAsync(); // الآن يتم حفظ الصالون في قاعدة البيانات أولاً، و يتم تعيين Id
@@ -273,33 +337,41 @@ namespace HaloHair.Controllers
             return View();
         }
 
-        [HttpPost]
         public IActionResult LoginBarberMen(Barber barber)
         {
-            var loggedBabrber = _context.Barbers.FirstOrDefault(u => u.Email == barber.Email);
 
-            // Add this to set role if needed
-            if (loggedBabrber.Email == "admin@gmail.com")
+            if (barber.Email == "admin@gmail.com")
             {
-                HttpContext.Session.SetString("Email", loggedBabrber.Email);
-            }
-            if (loggedBabrber != null)
-            {
-                // Set session data
-                HttpContext.Session.SetString("Email", loggedBabrber.Email);
-                HttpContext.Session.SetString("FName", loggedBabrber.FirstName);
-                HttpContext.Session.SetString("LName", loggedBabrber.LastName);
-                HttpContext.Session.SetString("Phone", loggedBabrber.PhoneNumber);
-
+                // تخزين معلومات المشرف في الجلسة
+                HttpContext.Session.SetString("Email", barber.Email);
                 return RedirectToAction("EnterPasswordB", "Barber");
             }
-            else
+
+
+
+            var loggedBabrber = _context.Barbers.FirstOrDefault(u => u.Email == barber.Email);
+
+            if (loggedBabrber == null)
             {
                 TempData["EmailError"] = "Email not found. Please try again.";
                 return RedirectToAction("RegisterBarber");
             }
 
+            // Now loggedBabrber is not null, it's safe to access its properties
+            if (loggedBabrber.Email == "admin@gmail.com")
+            {
+                HttpContext.Session.SetString("Email", loggedBabrber.Email);
+            }
+
+            // Set session data
+            HttpContext.Session.SetString("Email", loggedBabrber.Email);
+            HttpContext.Session.SetString("FName", loggedBabrber.FirstName);
+            HttpContext.Session.SetString("LName", loggedBabrber.LastName);
+            HttpContext.Session.SetString("Phone", loggedBabrber.PhoneNumber);
+
+            return RedirectToAction("EnterPasswordB", "Barber");
         }
+
 
         public IActionResult EnterPasswordB()
         {
@@ -314,44 +386,7 @@ namespace HaloHair.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //public IActionResult EnterPasswordB(Barber barber, string password)
-        //{
-        //    var email = HttpContext.Session.GetString("Email");
-
-        //    if (string.IsNullOrEmpty(email))
-        //    {
-        //        return RedirectToAction("LoginBarberMen", "Barber");
-        //    }
-
-        //    // Check if Super Admin
-        //    if (email == "admin@gmail.com" && password == "admin123")
-        //    {
-        //        HttpContext.Session.GetString("Email");
-        //        return RedirectToAction("Dashboard", "SuperAdmin");
-        //    }
-
-        //    var loggedBarber = _context.Barbers.FirstOrDefault(u => u.Email == email);
-
-        //    if (loggedBarber != null)
-        //    {
-        //        var passwordHasher = new PasswordHasher<Barber>();
-        //        var passwordVerificationResult = passwordHasher.VerifyHashedPassword(loggedBarber, loggedBarber.PasswordHash, password);
-
-        //        if (passwordVerificationResult == PasswordVerificationResult.Success)
-        //        {
-        //            HttpContext.Session.SetInt32("BarberId", loggedBarber.Id); // حفظ الـ barberId في الـ Session
-        //            return RedirectToAction("Index", "Barber", new { barberId = loggedBarber.Id });
-        //        }
-        //        else
-        //        {
-        //            TempData["PasswordError"] = "Invalid password. Please try again.";
-        //            return RedirectToAction("EnterPasswordB", "Barber");
-        //        }
-        //    }
-
-        //    return RedirectToAction("LoginBarberMen", "Barber");
-        //}
+  
 
 
 
@@ -364,11 +399,14 @@ namespace HaloHair.Controllers
                 return RedirectToAction("LoginBarberMen", "Barber");
             }
             // Check if Super Admin
-            if (email == "admin@gmail.com" && password == "admin123")
+            if (email == "admin@gmail.com" && password == "admin")
             {
                 HttpContext.Session.GetString("Email");
                 return RedirectToAction("Dashboard", "SuperAdmin");
             }
+
+
+
             var loggedBarber = _context.Barbers.FirstOrDefault(u => u.Email == email);
             if (loggedBarber != null)
             {
@@ -388,6 +426,21 @@ namespace HaloHair.Controllers
             }
             return RedirectToAction("LoginBarberMen", "Barber");
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         // to check if the barber is owner or normal barber
         private bool UserIsOwner()
@@ -567,7 +620,14 @@ namespace HaloHair.Controllers
 
 
 
+        public IActionResult Logout()
+        {
+            // Clear all session data
+            HttpContext.Session.Clear();
 
+            // Redirect to home page after logout
+            return RedirectToAction("Index", "Home");
+        }
 
     }
 }

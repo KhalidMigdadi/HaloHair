@@ -13,7 +13,11 @@ public partial class TimeSlot
 
     public DateTime EndTime { get; set; }
 
+    public bool IsBooked { get; set; }
+
     public virtual Barber Barber { get; set; } = null!;
 
     public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
+
+    public virtual ICollection<BookingsHistory> BookingsHistories { get; set; } = new List<BookingsHistory>();
 }

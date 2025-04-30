@@ -24,11 +24,13 @@ namespace HaloHair.Controllers
             // استعلام عن المدفوعات
             var payments = _context.PaymentInfos
                 .Include(p => p.Appointment)
-                .Where(p => p.Appointment.BarberId == barberId &&
-                           p.PaymentDate.HasValue &&
-                           p.PaymentDate.Value.Month == currentMonth &&
-                           p.PaymentDate.Value.Year == currentYear)
+               .Where(p =>
+                p.Appointment.BarberId == barberId &&
+                p.PaymentDate.Month == currentMonth &&
+                p.PaymentDate.Year == currentYear)
                 .ToList();
+
+
 
             // حساب المجموع
             decimal totalAmount = payments.Sum(p => p.Amount);

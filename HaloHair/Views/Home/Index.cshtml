@@ -1,13 +1,16 @@
-﻿@{
+﻿@model List<HaloHair.Models.Salon>
+
+
+@{
 	ViewData["Title"] = "Index";
 	Layout = "~/Views/Shared/_Layout_Men.cshtml";
 
+	var vacancies = ViewBag.LatestVacancies as List<HaloHair.Models.Vacancy>;
 }
 
 @section Style {
 	<link href="~/css/main.css" rel="stylesheet" />
 	<link href="~/css/men.css" rel="stylesheet" />
-
 }
 
 
@@ -54,73 +57,73 @@
 	<h2>Popular Services</h2>
 	<p>
 		At HaloHair, we provide top-notch grooming and beauty services tailored
-		to your needs. From haircuts and skincare to makeup and relaxation, our
+		to your needs. From haircuts and skincare and relaxation, our
 		experts ensure you look and feel your best every time you visit.
 	</p>
 </div>
 
-<div class="filter-buttons">
+@* <div class="filter-buttons">
 	<button onclick="filterSalons('all')" class="active">All</button>
 	<button onclick="filterSalons('male')">Men's Salons</button>
 	<button onclick="filterSalons('female')">Women's Salons</button>
-</div>
+</div> *@
 
 <div class="salon-grid">
 	<div class="salon-card male">
 		<img src="../Images/Home/haircut.jpg" alt="Men's Haircut" />
 		<h3>Men's Haircut</h3>
 		<p>Professional haircuts and beard grooming.</p>
-		<button class="book-now">Browse Salons</button>
+		<a asp-controller="Home" asp-action="AllSalons" class="book-now browse-salons-btn">Browse Salons</a>
 	</div>
 
-	<div class="salon-card female">
+@* 	<div class="salon-card female">
 		<img src="../Images/Home/makeup-artist.jpg" alt="Women's Makeup" />
 		<h3>Women's Makeup</h3>
 		<p>Bridal and party makeup services.</p>
 		<button class="book-now">Browse Salons</button>
-	</div>
+	</div> *@
 
 	<div class="salon-card male">
 		<img src="../Images/Home/beard.webp" alt="Beard Trim" />
 		<h3>Beard Grooming</h3>
 		<p>Perfect beard shaping and styling.</p>
-		<button class="book-now">Browse Salons</button>
+		<a asp-controller="Home" asp-action="AllSalons" class="book-now browse-salons-btn">Browse Salons</a>
 	</div>
-
+@* 
 	<div class="salon-card female">
 		<img src="../Images/Home/hairColoing.jpg" alt="Hair Coloring" />
 		<h3>Hair Coloring</h3>
 		<p>Trendy hair coloring and styling.</p>
 		<button class="book-now">Browse Salons</button>
-	</div>
+	</div> *@
 
-	<div class="salon-card female">
+@* 	<div class="salon-card female">
 		<img src="../Women Images/images (1).jpg" alt="Men's Haircut" />
 		<h3>Women’s Haircut & Styling</h3>
 		<p>Professional haircuts and beard grooming.</p>
 		<button class="book-now">Browse Salons</button>
-	</div>
+	</div> *@
 
 	<div class="salon-card male">
-		<img src="../Men Images/Screenshot-2024-06-25-130921-600x600.png" alt="Women's Makeup" />
+		<img src="~/Images/Men’sFacial&SkinCare.jpg" alt="Men’sFacial" />
 		<h3>Men’s Facial & Skin Care</h3>
 		<p>Bridal and party makeup services.</p>
-		<button class="book-now">Browse Salons</button>
+		<a asp-controller="Home" asp-action="AllSalons" class="book-now browse-salons-btn">Browse Salons</a>
 	</div>
 
 	<div class="salon-card male">
-		<img src="../Men Images/images (2).jpg" alt="Beard Trim" />
+		<img src="/Images/HotTowelShave.jpg" alt="Beard Trim" />
 		<h3>Hot Towel Shave</h3>
 		<p>Perfect beard shaping and styling.</p>
-		<button class="book-now">Browse Salons</button>
+		<a asp-controller="Home" asp-action="AllSalons" class="book-now browse-salons-btn">Browse Salons</a>
 	</div>
-
+@* 
 	<div class="salon-card female">
 		<img src="../Women Images/nails.jpg" alt="Hair Coloring" />
 		<h3>Nail Art</h3>
 		<p>Trendy hair coloring and styling.</p>
 		<button class="book-now">Browse Salons</button>
-	</div>
+	</div> *@
 </div>
 
 
@@ -196,7 +199,7 @@
 <section class="join-barber">
 	<div class="overlay1">
 		<div class="content">
-			<h2>Become Part of Our Elite Barber Community!</h2>
+			<h2 style="color: #fff">Become Part of Our Elite Barber Community!</h2>
 			<p>
 				Expand your client base, enjoy flexibility, and take your career to
 				the next level with our platform.
@@ -288,7 +291,7 @@
 
 <!-- VIP -->
 
-<section class="vip-section">
+@* <section class="vip-section">
 	<h2>Unlock Exclusive VIP Membership</h2>
 	<p>
 		Join our premium club and enjoy special perks, discounts, and priority
@@ -337,10 +340,179 @@
 		</div>
 	</div>
 </section>
-
+ *@
 <!-- End VIP -->
+<!-- Job Listings Section -->
+<section class="job-listings">
+	<div class="containerJob">
+		<h2>Job Opportunities for Barbers</h2>
+		<div class="row">
+			@if (vacancies != null && vacancies.Count > 0)
+			{
+				foreach (var vacancy in vacancies)
+				{
+					<div class="col-md-4">
+						<div class="job-card">
+							<h3>@vacancy.Position</h3>
+							<p><strong>Location:</strong> @vacancy.Location</p>
+							<p><strong>Salary:</strong> @vacancy.Salary</p>
+							<p><strong>Requirements:</strong> @vacancy.Requirements</p>
+
+							<!-- زر التقديم يفتح مودال خاص -->
+							<button class="btn-primary"
+									data-bs-toggle="modal"
+									data-bs-target="#applyModal-@vacancy.Id">
+								Apply Now
+							</button>
+						</div>
+					</div>
+
+					<!-- Modal خاص بكل وظيفة -->
+					<div class="modal fade" id="applyModal-@vacancy.Id" tabindex="-1" aria-labelledby="applyModalLabel-@vacancy.Id" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered">
+							<div class="modal-content">
+								<form asp-action="Apply" asp-controller="BarberVacancy" method="post" enctype="multipart/form-data">
+									<div class="modal-header">
+										<h5 class="modal-title" id="applyModalLabel-@vacancy.Id">Apply for @vacancy.Position</h5>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+
+									<div class="modal-body">
+										<input type="hidden" name="VacancyId" value="@vacancy.Id" />
+
+										<div class="mb-3">
+											<label class="form-label">Full Name</label>
+											<input type="text" class="form-control" name="FullName" required />
+										</div>
+
+										<div class="mb-3">
+											<label class="form-label">Email</label>
+											<input type="email" class="form-control" name="Email" required />
+										</div>
+
+										<div class="mb-3">
+											<label class="form-label">Phone</label>
+											<input type="tel" class="form-control" name="Phone" required />
+										</div>
+
+										<div class="mb-3">
+											<label class="form-label">Upload Resume</label>
+											<input type="file" class="form-control" name="ResumeFile" required />
+										</div>
+
+										<div class="mb-3">
+											<label class="form-label">Cover Letter</label>
+											<textarea class="form-control" name="CoverLetter" rows="4"></textarea>
+										</div>
+									</div>
+
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+										<button type="submit" class="btn btn-primary">Submit Application</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				
+				
+				
+				}
+			}
+			else
+			{
+				<div class="col-md-12 text-center">
+					<p>No job opportunities available at this time.</p>
+				</div>
+			}
+		</div>
+	</div>
+
+	<div class="text-center mt-4">
+		<a href="@Url.Action("AllJobs", "Home")" class=" btn-outline-primary">
+			Show All Jobs
+		</a>
+	</div>
+</section>
+
+
+<!-- Job Application Modal -->
+<div class="modal fade"
+	 id="applyModal"
+	 tabindex="-1"
+	 aria-labelledby="applyModalLabel"
+	 aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<!-- Modal Header -->
+			<div class="modal-header">
+				<h5 class="modal-title" id="applyModalLabel">Apply for Job</h5>
+				<button type="button"
+						class="btn-close"
+						data-bs-dismiss="modal"
+						aria-label="Close"></button>
+			</div>
+
+			<!-- Modal Body (Application Form) -->
+			<div class="modal-body">
+				<form id="jobApplicationForm"
+					  method="post"
+					  enctype="multipart/form-data"
+					  asp-action="Apply"
+					  asp-controller="BarberVacancy">
+					<input type="hidden" name="VacancyId" value="@Model.FirstOrDefault()?.Id" />
+
+
+					<!-- باقي الحقول (fullName, email, phone...) خلي اسم كل input نفس اسم الخاصية في الـ ViewModel -->
+
+					<div class="mb-3">
+						<label for="fullName" class="form-label">Full Name</label>
+						<input type="text" class="form-control" id="fullName" name="FullName" required />
+					</div>
+
+					<div class="mb-3">
+						<label for="email" class="form-label">Email Address</label>
+						<input type="email" class="form-control" id="email" name="Email" required />
+					</div>
+
+					<div class="mb-3">
+						<label for="phone" class="form-label">Phone Number</label>
+						<input type="tel" class="form-control" id="phone" name="Phone" required />
+					</div>
+
+					<div class="mb-3">
+						<label for="resume" class="form-label">Upload Resume</label>
+						<input type="file" class="form-control" id="resume" name="ResumeFile" required />
+					</div>
+
+					<div class="mb-3">
+						<label for="coverLetter" class="form-label">Cover Letter</label>
+						<textarea class="form-control" id="coverLetter" name="CoverLetter" rows="4"></textarea>
+					</div>
+				</form>
+
+			</div>
+
+			<!-- Modal Footer -->
+			<div class="modal-footer">
+				<button type="button"
+						class="btn btn-secondary"
+						data-bs-dismiss="modal">
+					Close
+				</button>
+				<button type="submit"
+						form="jobApplicationForm"
+						class="btn btn-primary">
+					Submit Application
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- End Jobs -->
 <!-- CTA Section -->
-<section class="cta">
+<section class="cta1">
 	<h2>Ready to Book Your Appointment?</h2>
 	<a href="@Url.Action("LoginUserMen","Men")" class="btn">Sign Up Now</a>
 </section>
