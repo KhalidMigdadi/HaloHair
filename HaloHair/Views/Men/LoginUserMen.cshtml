@@ -23,6 +23,9 @@
                 <p class="p1">
                     <a style="font-weight:bold; color: #5e9693; " href="@Url.Action("RegisterUserMen","Men")">Sign up</a> or log in to book and manage your appointments
                 </p>
+
+
+
                 <form asp-action="LoginUserMen" asp-controller="Men" method="post">
                     <div class="form-group">
                         <input type="email"
@@ -35,19 +38,22 @@
 
 
                 </form>
-                @if (TempData["EmailError"] != null)
+
+
+
+                @if (TempData["EmailErrorLogin"] != null)
                 {
                     <div class="alert alert-danger">
-                        @TempData["EmailError"]
+                        @TempData["EmailErrorLogin"]
                     </div>
                 }
 
         
 
-                @if (TempData["BlockedError"] != null)
+                @if (TempData["BlockedErrorLogin"] != null)
                 {
                     <div class="alert alert-danger">
-                        @TempData["BlockedError"]
+                        @TempData["BlockedErrorLogin"]
                     </div>
                 }
 

@@ -7,12 +7,7 @@ namespace HaloHair.Controllers
 {
     public class HomeController : Controller
     {
-        //private readonly ILogger<HomeController> _logger;
-
-        //public HomeController(ILogger<HomeController> logger)
-        //{
-        //    _logger = logger;
-        //}
+       
 
 
         private readonly MyDbContext _context;
@@ -168,7 +163,8 @@ namespace HaloHair.Controllers
             ViewBag.PromotedSalons = promotedSalonsViewModel;
 
 
-            // ? ????: ??? ??? ??????? ????????
+
+
             var latestVacancies = _context.Vacancies
                 .Include(v => v.Salon)
                 .OrderByDescending(v => v.CreatedAt)
@@ -180,6 +176,14 @@ namespace HaloHair.Controllers
 
             return View(salons);
         }
+
+
+
+
+
+
+
+
 
 
         public IActionResult BarberOrUser()

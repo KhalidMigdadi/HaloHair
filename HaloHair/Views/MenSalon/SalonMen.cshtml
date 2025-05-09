@@ -9,6 +9,9 @@
 @section Style {
 	<link href="~/css/salon.css" rel="stylesheet" />
 	<link href="~/css/Men/Salon/SalonMen.css" rel="stylesheet" />
+
+	@* <link href="~/css/SalonMen/salonMen.css" rel="stylesheet" /> *@
+
 }
 
 
@@ -16,14 +19,7 @@
 <div class="head-Salon">
 	<div>
 		<h1>@Model.Name</h1>
-		@* 	<p>
-			<span>5.0 </span><i class="fa-solid fa-star"></i>
-			<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
-			<i class="fa-solid fa-star"></i>
-			<i class="fa-solid fa-star"></i> (5023). Hatamle Commercial Centre,
-			شارع الثقافة, Irbid 21110.
-			<a href="">Go to Salon</a>
-		</p> *@
+
 	</div>
 	<div>
 		<i class="fa-solid fa-share fa-3x"></i>
@@ -101,10 +97,7 @@
 								<p style="margin: 20px 0 10px; color: #666">@service.Duration mins</p>
 								<p>@service.Price JOD</p>
 							</div>
-							<button class="book-btn"
-									onclick="updateBookingDetails('@service.ServiceName', @service.Duration, @service.Price)">
-								Book Now
-							</button>
+
 						</div>
 					}
 
@@ -129,9 +122,7 @@
 				@foreach (var barber in Model.Barbers)
 				{
 					<div class="team-card">
-						@* <img src="~/Images/Barbers/@(barber.Id).webp"
-							 alt="@barber.FirstName @barber.LastName"
-							 onerror="this.onerror=null; this.src='~/Images/default-barber.jpg';" /> *@
+
 						<div class="info">
 							<h3>@barber.FirstName @barber.LastName</h3>
 							<p>@(barber.UserType ?? "Barber")</p>
@@ -259,26 +250,6 @@
 						}
 					</div>
 
-					<div class="book">
-						<h3>@Model.Name</h3>
-
-						<div class="rating">⭐⭐⭐⭐⭐ (4.9/5 - 320 Reviews)</div>
-
-						<!-- تفاصيل الخدمات المختارة -->
-						<div class="services">
-							<b>Selected Services:</b> <span id="selected-service">Choose a service</span>
-						</div>
-
-						<div class="services">
-							<b>Duration:</b> <span id="selected-duration">--</span> mins
-						</div>
-
-						<div class="services">
-							<b>Price:</b> <span id="selected-price">--</span> JOD
-						</div>
-
-						<button type="submit">Confirm Booking</button>
-					</div>
 
 
 
@@ -404,6 +375,7 @@
 						if (serviceName.Contains("beard")) return "beard";
 						if (serviceName.Contains("package")) return "packages";
 
+						return "other";
 						return "other";
 					}
 				}

@@ -1,0 +1,85 @@
+﻿@{
+    ViewData["Title"] = "Verify Code";
+    Layout = "~/Views/Shared/_Layout_Services.cshtml";
+}
+@section Style {
+    <link href="~/css/loginUser.css" rel="stylesheet" />
+    <style>
+        .code-input {
+            letter-spacing: 5px;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        .reset-header {
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .reset-text {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--para-color);
+        }
+
+        .resend-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+            .resend-link a {
+                color: var(--main-text-color);
+                text-decoration: underline;
+            }
+    </style>
+}
+<section class="login-section">
+    <div class="containerLogin">
+        <div class="login-container">
+            <div class="login-form">
+                <div class="arrow">
+                    <a href="@Url.Action("ForgotPasswordBarber","Barber")">
+                        <i class="fa-solid fa-arrow-left fa-2x"></i>
+                    </a>
+                </div>
+                <h1 class="reset-header">Enter Verification Code</h1>
+                <p class="reset-text">A verification code has been sent to your email: @ViewBag.Email</p>
+
+                <form asp-action="HandleVerifyCodeBarber" asp-controller="Barber" method="post">
+                    <div class="form-group">
+                        <input type="text"
+                               id="code"
+                               name="code"
+                               class="code-input"
+                               placeholder="Enter the 6-digit code"
+                               maxlength="6"
+                               required />
+                    </div>
+                    <button type="submit" class="btn-submit">Verify</button>
+                </form>
+
+                @if (TempData["CodeError"] != null)
+                {
+                    <div class="alert alert-danger">
+                        @TempData["CodeError"]
+                    </div>
+                }
+
+                @if (TempData["VerificationMessage"] != null)
+                {
+                    <div class="alert alert-success">
+                        @TempData["VerificationMessage"]
+                    </div>
+                }
+
+                <div class="resend-link">
+                    <a href="@Url.Action("ForgotPasswordBarber", "Barber")">Resend Code</a>
+                </div>
+            </div>
+
+            <div class="login-image">
+                <!-- Place your image here -->
+            </div>
+        </div>
+    </div>
+</section>

@@ -4,37 +4,17 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>@ViewData["Title"] - HaloHair</title>
-	<!-- Bootstrap Link -->
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-		  rel="stylesheet" />
+    <!-- تحميل CSS - تم ترتيبها وإزالة التكرار -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-	<!-- Font Awsome -->
-	<link rel="stylesheet"
-		  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
-    
+    <!-- ملفات CSS المحلية -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/men.css" asp-append-version="true" />
     <link href="~/css/salon.css" rel="stylesheet" asp-append-version="true" />
     <link rel="stylesheet" href="~/HaloHair.styles.css" asp-append-version="true" />
-
     <link href="~/css/aboutMen.css" rel="stylesheet" asp-append-version="true" />
-
-
-
-
-
-
     <link href="~/css/ContactMen.css" rel="stylesheet" asp-append-version="true" />
-
-
-
-
-
-
-
     <link href="~/css/getJob.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/css/license.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/css/profileMen.css" rel="stylesheet" asp-append-version="true" />
@@ -42,9 +22,92 @@
     <link href="~/css/selectService.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/css/selectTime.css" rel="stylesheet" asp-append-version="true" />
 
-	@RenderSection("Style", required: false) <!-- Render the Scripts section if it exists -->
- 
+    @RenderSection("Style", required: false)
 
+    <style>
+        /* Custom Styles للناف بار */
+        .mask-custom {
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(30, 41, 59, 0.95) !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .nav-link.bar {
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+            .nav-link.bar:hover, .nav-link.bar:focus {
+                color: #fff;
+                background: rgba(255, 255, 255, 0.1);
+            }
+
+        .dropdown-menu {
+            border: none;
+            border-radius: 10px;
+        }
+
+        .dropdown-item {
+            border-radius: 5px;
+            margin: 2px 5px;
+            width: auto;
+        }
+
+            .dropdown-item:hover {
+                background: #f8f9fa;
+            }
+
+        .no-scale {
+            transform: none !important;
+            transition: none !important;
+        }
+
+            .no-scale:active {
+                transform: none !important;
+            }
+
+        .btn-outline-light {
+            border: 2px solid white !important;
+        }
+
+            .btn-outline-light:hover {
+                background-color: transparent !important;
+                color: white !important;
+            }
+
+        /* تعديلات الريسبونسف للناف بار */
+        @@media (max-width: 992px) {
+            .navbar-collapse
+
+        {
+            background: rgba(30, 41, 59, 0.95);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+        }
+
+        .nav-link.bar {
+            margin: 5px 0;
+            padding: 10px 15px !important;
+            border-radius: 5px;
+        }
+
+        .dropdown-menu {
+            background: white;
+            margin: 5px auto;
+            width: 90%;
+        }
+
+        }
+    </style>
+
+        
 
 </head>
 <body>
@@ -62,8 +125,8 @@
                 <!-- Mobile Toggle Button -->
                 <button class="navbar-toggler"
                         type="button"
-                        data-mdb-collapse-init
-                        data-mdb-target="#navbarSupportedContent"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent"
                         aria-controls="navbarSupportedContent"
                         aria-expanded="false"
                         aria-label="Toggle navigation">
@@ -357,19 +420,29 @@
 		<!-- Copyright -->
 	</footer>
 	<!-- Footer -->
+    <!-- Add the necessary MDB Bootstrap JS for dropdown functionality -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
 
 
 
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- تحميل ملفات JavaScript - تم ترتيبها وإزالة التكرار -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        // Add scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
 
 
-	<!-- Bootstrap JS -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-	<!-- Bootstrap JS (for MDB) -->
-	<!-- Add the necessary MDB Bootstrap JS for dropdown functionality -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
-
-
-	@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

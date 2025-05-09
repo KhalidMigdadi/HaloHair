@@ -1,0 +1,119 @@
+/* ????? ??????? */
+@media only screen and (max-width: 600px) {
+    .slider-container {
+        height: 300px; /* ????? ???????? ??????? */
+        margin-top: -29% !important;
+    }
+
+    .slider-image {
+        background-size: cover;
+        background-position: center;
+    }
+
+    .salon-grid {
+        display: grid;
+        grid-template-columns: 1fr; /* ??? ???? ???? ?? ?? ?? */
+        gap: 10px;
+    }
+
+    .join-barber {
+        display: none;
+    }
+
+    .salon-card {
+        width: 100%;
+        text-align: center;
+    }
+
+        .salon-card img {
+            width: 100%;
+            height: auto;
+        }
+
+    .head-component h2 {
+        font-size: 1.5rem;
+    }
+
+    .new-container h2 {
+        font-size: 1.25rem;
+    }
+
+    /* ????? ??????? */
+    .cta-btn, .vip-btn {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .slider-container {
+        margin-top: -15%;
+    }
+}
+
+/* ????? ??????? ??????? */
+@media only screen and (max-width: 768px) {
+    .slider-container {
+        height: 400px; /* ????? ???????? ??????? ??????? */
+    }
+
+    .salon-grid {
+        display: grid;
+        grid-template-columns: 1fr; /* ??? ?????? ?? ?? ?? */
+        gap: 15px;
+    }
+
+    .salon-card {
+        width: 100%;
+    }
+
+    .new-container h2 {
+        font-size: 1.5rem;
+    }
+
+    .container-withArrow {
+        display: block;
+    }
+    .join-barber {
+        display: none;
+    }
+    .slider-container {
+        margin-top: -15%;
+    }
+}
+
+
+/* ????? ???? ??????? ??????? */
+@media only screen and (max-width: 600px) {
+    .join-barber {
+        display: none;
+    }
+    .slider-container {
+        height: 200px;
+    }
+
+    .slider-image {
+        background-size: cover;
+        background-position: center;
+    }
+
+    .overlay {
+        padding: 10px;
+    }
+
+    .text {
+        font-size: 1rem;
+        text-align: center;
+    }
+
+    .slider-container {
+        margin-top: -15%;
+    }
+}
+
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+
+

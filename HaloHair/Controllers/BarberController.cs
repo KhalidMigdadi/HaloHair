@@ -6,8 +6,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Scripting;
 using Microsoft.EntityFrameworkCore;
-using BCrypt.Net;
-using Microsoft.AspNetCore.Http;
+using MailKit.Net.Smtp;
+using MimeKit;
+using MailKit.Security;
 
 
 namespace HaloHair.Controllers
@@ -436,12 +437,6 @@ namespace HaloHair.Controllers
 
 
 
-
-
-
-
-
-
         // to check if the barber is owner or normal barber
         private bool UserIsOwner()
         {
@@ -628,6 +623,200 @@ namespace HaloHair.Controllers
             // Redirect to home page after logout
             return RedirectToAction("Index", "Home");
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // 1. عرض صفحة نسيان كلمة المرور
+        public IActionResult ForgotPasswordBarber()
+        {
+            return View();
+        }
+
+        // 2. التعامل مع الإيميل المدخل وإرسال الرمز
+        [HttpPost]
+        public async Task<IActionResult> HandleForgotPasswordBarber(string email)
+        {
+            var barber = await _context.Barbers.FirstOrDefaultAsync(b => b.Email == email);
+            if (barber == null)
+            {
+                TempData["ResetError"] = "البريد الإلكتروني غير موجود!";
+                return RedirectToAction("ForgotPasswordBarber");
+            }
+
+            // إنشاء رمز تحقق
+            var verificationCode = new Random().Next(100000, 999999);
+            HttpContext.Session.SetString("ResetCodeBarber", verificationCode.ToString());
+            HttpContext.Session.SetString("ResetEmailBarber", email);
+
+            await SendEmailAsync(email, "رمز إعادة تعيين كلمة المرور", $"رمز إعادة التعيين الخاص بك هو: {verificationCode}");
+
+            TempData["VerificationMessage"] = "تم إرسال رمز التحقق إلى بريدك الإلكتروني!";
+            return RedirectToAction("VerifyResetCodeBarber");
+        }
+
+
+
+
+
+
+
+        // 3. عرض صفحة التحقق من الرمز
+        public IActionResult VerifyResetCodeBarber()
+        {
+            var email = HttpContext.Session.GetString("ResetEmailBarber");
+            if (string.IsNullOrEmpty(email))
+            {
+                return RedirectToAction("ForgotPasswordBarber");
+            }
+
+            ViewBag.Email = email;
+            return View();
+        }
+
+
+
+
+
+        // 4. التحقق من الرمز المدخل
+        [HttpPost]
+        public IActionResult HandleVerifyCodeBarber(string code)
+        {
+            var storedCode = HttpContext.Session.GetString("ResetCodeBarber");
+            var email = HttpContext.Session.GetString("ResetEmailBarber");
+
+            if (storedCode != code)
+            {
+                TempData["CodeError"] = "رمز التحقق غير صحيح!";
+                return RedirectToAction("VerifyResetCodeBarber");
+            }
+
+            return RedirectToAction("NewPasswordBarber");
+        }
+
+
+
+
+
+        // 5. عرض صفحة تعيين كلمة مرور جديدة
+        public IActionResult NewPasswordBarber()
+        {
+            var email = HttpContext.Session.GetString("ResetEmailBarber");
+            if (string.IsNullOrEmpty(email))
+            {
+                return RedirectToAction("ForgotPasswordBarber");
+            }
+
+            ViewBag.Email = email;
+            return View();
+        }
+
+        // 6. تحديث كلمة المرور في قاعدة البيانات
+        [HttpPost]
+        public async Task<IActionResult> UpdatePasswordBarber(string newPassword, string confirmPassword)
+        {
+            var email = HttpContext.Session.GetString("ResetEmailBarber");
+            if (string.IsNullOrEmpty(email))
+            {
+                TempData["PasswordError"] = "انتهت الجلسة. يرجى المحاولة مرة أخرى.";
+                return RedirectToAction("ForgotPasswordBarber");
+            }
+
+            if (newPassword != confirmPassword)
+            {
+                TempData["PasswordError"] = "كلمات المرور غير متطابقة!";
+                return RedirectToAction("NewPasswordBarber");
+            }
+
+            var barber = await _context.Barbers.FirstOrDefaultAsync(b => b.Email == email);
+            if (barber == null)
+            {
+                TempData["PasswordError"] = "الحلاق غير موجود!";
+                return RedirectToAction("ForgotPasswordBarber");
+            }
+
+            var passwordHasher = new PasswordHasher<Barber>();
+            barber.PasswordHash = passwordHasher.HashPassword(barber, newPassword);
+            await _context.SaveChangesAsync();
+
+            TempData["PasswordSuccess"] = "تم تحديث كلمة المرور بنجاح!";
+            return RedirectToAction("LoginBarberMen");
+        }
+
+
+
+
+        public async Task SendEmailAsync(string toEmail, string subject, string body)
+        {
+            try
+            {
+                // إنشاء رسالة البريد الإلكتروني
+                var message = new MimeMessage();
+
+                // تعيين المرسل
+                message.From.Add(new MailboxAddress("إعادة تعيين كلمة المرور", "cafeuse18@gmail.com"));
+
+                // تعيين المستلم
+                message.To.Add(new MailboxAddress("المستلم", toEmail)); // يمكنك إضافة اسم المستلم هنا
+
+                // تعيين الموضوع والنص
+                message.Subject = subject;
+                message.Body = new TextPart("plain") { Text = body };
+
+                // إرسال البريد الإلكتروني
+                using (var client = new SmtpClient())
+                {
+                    // الاتصال بالخادم باستخدام TLS عبر المنفذ 587
+                    await client.ConnectAsync("smtp.gmail.com", 465, SecureSocketOptions.SslOnConnect);
+
+                    // مصادقة البريد الإلكتروني باستخدام كلمة مرور التطبيق
+                    await client.AuthenticateAsync("cafeuse18@gmail.com", "mecd idlj jnxt vrrw");
+
+                    // إرسال البريد الإلكتروني
+                    await client.SendAsync(message);
+
+                    // قطع الاتصال
+                    await client.DisconnectAsync(true);
+                }
+
+                Console.WriteLine("تم إرسال البريد الإلكتروني بنجاح!");
+            }
+            catch (Exception ex)
+            {
+                // طباعة رسالة الخطأ
+                Console.WriteLine($"خطأ في إرسال البريد الإلكتروني: {ex.Message}");
+                Console.WriteLine($"تفاصيل الاستثناء: {ex}");
+            }
+        }
+
 
     }
 }
