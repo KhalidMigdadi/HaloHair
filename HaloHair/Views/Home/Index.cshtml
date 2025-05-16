@@ -11,6 +11,8 @@
 @section Style {
 	<link href="~/css/menNew.css" rel="stylesheet" />
 	<link href="~/css/Responsive/index.css" rel="stylesheet" />
+	<link href="~/css/Responsive/index1.css" rel="stylesheet" />
+
 
 
 }
@@ -324,7 +326,7 @@
 
 					<!-- Modal خاص بكل وظيفة -->
 					<div class="modal fade" id="applyModal-@vacancy.Id" tabindex="-1" aria-labelledby="applyModalLabel-@vacancy.Id" aria-hidden="true">
-						<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-dialog modal-xl modal-dialog-centered">
 							<div class="modal-content">
 								<form asp-action="Apply" asp-controller="BarberVacancy" method="post" enctype="multipart/form-data">
 									<div class="modal-header">
@@ -362,9 +364,14 @@
 									</div>
 
 									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-										<button type="submit" class="btn btn-primary">Submit Application</button>
+										<button type="button" class=" btn-secondary" data-bs-dismiss="modal">
+											Close
+										</button>
+										<button type="submit" class=" btn-primary">
+											Submit Application
+										</button>
 									</div>
+
 								</form>
 							</div>
 						</div>
@@ -397,7 +404,7 @@
 	 tabindex="-1"
 	 aria-labelledby="applyModalLabel"
 	 aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered">
+	<div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
 		<div class="modal-content">
 			<!-- Modal Header -->
 			<div class="modal-header">

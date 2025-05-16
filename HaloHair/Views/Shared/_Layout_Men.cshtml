@@ -310,6 +310,75 @@
 		@RenderBody()
 	</main>
 
+
+
+    <style>
+        footer {
+            background: rgba(30, 41, 59, 0.95) !important;
+            color: #ccc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+            footer a {
+                color: #ccc;
+                text-decoration: none;
+                transition: color 0.3s ease;
+            }
+
+                footer a:hover {
+                    color: #fff;
+                }
+
+            footer h6 {
+                color: #fff;
+                font-weight: 600;
+                margin-bottom: 1rem;
+            }
+
+            footer .social-container a i {
+                transition: transform 0.3s ease, color 0.3s ease;
+            }
+
+            footer .social-container a:hover i {
+                transform: scale(1.2);
+                color: #00aced; /* Twitter blue */
+            }
+
+            footer p {
+                font-size: 0.95rem;
+                line-height: 1.6;
+            }
+
+            footer .border-bottom {
+                border-color: rgba(255, 255, 255, 0.1) !important;
+            }
+
+            footer .fab,
+            footer .fas {
+                color: #ccc;
+            }
+
+                footer .fab:hover,
+                footer .fas:hover {
+                    color: #fff;
+                }
+
+        /* Responsive tweaks */
+        @@media (max-width: 767px) {
+            footer h6
+
+        {
+            text-align: center;
+        }
+
+        footer .row > div {
+            margin-bottom: 2rem;
+        }
+
+        }
+    </style>
+
+
 	<!-- Footer -->
 	<footer class="text-center text-lg-start text-muted">
 		<!-- Section: Social media -->
