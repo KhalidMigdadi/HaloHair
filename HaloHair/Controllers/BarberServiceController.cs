@@ -198,7 +198,7 @@ namespace HaloHair.Controllers
                 await _context.SaveChangesAsync();
 
                 TempData["Success"] = "Service added successfully!";
-                return RedirectToAction("MyService", "BarberService", new { barberId = barberId });
+                return RedirectToAction("Index", "Barber", new { barberId = barberId });
             }
 
             return View(model);

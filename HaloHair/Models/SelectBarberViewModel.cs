@@ -2,6 +2,9 @@
 {
     public class SelectBarberViewModel
     {
+
+        public int SalonId { get; set; }
+
         public List<SelectedService> SelectedServices { get; set; }
         public List<BarberViewModel> Barbers { get; set; }
         public string SelectedBarber { get; set; }

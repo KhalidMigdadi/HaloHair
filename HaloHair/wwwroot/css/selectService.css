@@ -1,271 +1,220 @@
 :root {
-  --main-color: #8892b0;
-  --main-text-color: #f8f8f8;
-  --transparent-color: rgb(15 116 143 / 70%);
-  --section-padding: 100px;
-  --para-color: #666;
+    --main-color: #8892b0;
+    --main-text-color: #f8f8f8;
+    --transparent-color: rgb(15 116 143 / 70%);
+    --section-padding: 100px;
+    --para-color: #666;
+    --accent-color: #ffcc00;
 }
 
 html {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
 
 body {
-  font-family: "Arial", sans-serif;
-  margin: 0;
-  padding: 0;
+    font-family: "Arial", sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
 .head {
-  margin: 50px 3%;
-  display: flex;
-  justify-content: space-between;
+    margin: 30px 3%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .container {
-  display: flex;
-  justify-content: space-between;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 3%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-/* services-salon */
-
+/* Left side - Service Selection */
 .left-side {
-    height: 1420px;
+    width: 60%;
+    padding-right: 20px;
 }
+
+    .left-side h1 {
+        margin-bottom: 20px;
+    }
 
 /* Dropdown Filter */
 .filter-container {
-  margin-bottom: 20px;
-  margin-left: 1%;
+    margin-bottom: 20px;
 }
 
-.filter-container select {
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  width: 200px;
-}
+    .filter-container select {
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        width: 100%;
+        max-width: 200px;
+    }
 
 /* Service List */
 .service-list {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  max-width: 500px;
-  width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
 }
 
 /* Service Item */
 .service {
-  width: 170%;
-  color: #000;
-  padding: 15px;
-  border-radius: 8px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    color: #000;
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
-.services-salon {
-  font-family: Arial, sans-serif;
-  margin: 20px;
-}
+    .service:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 10px rgba(0, 0, 0, 0.2);
+    }
 
-h2 {
-  margin-left: 2%;
-}
+    .service h3 {
+        margin: 0;
+        font-size: 18px;
+    }
 
-/* Dropdown Filter */
-.filter-container {
-  margin-bottom: 20px;
-  margin-left: 1%;
-}
+    .service p {
+        margin: 5px 0;
+    }
 
-.filter-container select {
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  width: 200px;
-}
-
-.service-item {
-  padding: 10px;
-  background: #f8f8f8;
-  border-radius: 5px;
-  margin-top: 10px;
-}
-
-/* Service List */
-.service-list {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  max-width: 500px;
-}
-
-/* Service Item */
-.service {
-  color: #000;
-  padding: 15px;
-  border-radius: 8px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-}
-
-.service:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 10px rgba(0, 0, 0, 0.2);
-}
-
-.service h3 {
-  margin: 0;
-  font-size: 18px;
+.time {
+    margin: 8px 0 5px !important;
+    color: #666;
 }
 
 /* Book Button */
 .book-btn {
-  background-color: #ffcc00;
-  color: black;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
+    background-color: var(--accent-color);
+    color: black;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    white-space: nowrap;
 }
 
-.book-btn:hover {
-  background-color: #e6b800;
-}
+    .book-btn:hover {
+        background-color: #e6b800;
+    }
 
 .discount {
     color: red;
     display: inline;
-}
-
-.time {
-    margin: 20px 0 10px; 
-    color: #666"
+    font-weight: bold;
 }
 
 .seeAll {
-  width: 30%;
-  padding: 10px 20px;
-  background-color: transparent;
-  border-radius: 15px;
-  transition: transform 0.3s ease;
+    width: 30%;
+    padding: 10px 20px;
+    background-color: transparent;
+    border-radius: 15px;
+    transition: transform 0.3s ease;
+    margin: 20px auto;
+    display: block;
 }
 
-.seeAll:hover {
-  transform: translateY(-3px);
+    .seeAll:hover {
+        transform: translateY(-3px);
+    }
+
+/* Right side - Booking Summary */
+.right-side {
+    width: 35%;
 }
-
-/* Responsive */
-@media (max-width: 480px) {
-  .service {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .book-btn {
-    margin-top: 10px;
-  }
-}
-
-/* right side  */
 
 .book {
-  /* with scroll */
-
-  /* width: 500px;
-  min-height: 200px; 
-  max-height: 500px; 
-  overflow-y: auto;  */
-
-  /* without scroll */
-
-  width: 500px;
-  min-height: 200px;
-  height: auto; /* Makes height adjust dynamically */
-  overflow: hidden; /* Prevents unwanted scrollbars */
-
-  position: sticky;
-  top: 150px;
-  right: 0px;
-  background: white;
-  padding: 10px;
-  border-radius: 12px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out;
-  border: 1px solid;
+    width: 100%;
+    min-height: 200px;
+    height: auto;
+    overflow: hidden;
+    position: sticky;
+    top: 100px;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    border: 1px solid #ddd;
 }
 
-.book:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-}
+    .book:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
 
-.book .head {
-  display: flex;
-}
+    .book .head {
+        display: flex;
+        margin: 0 0 15px 0;
+        align-items: center;
+    }
 
-.book .head img {
-  width: 64px;
-  height: 64px;
-  margin-right: 20px;
-}
+        .book .head img {
+            width: 60px;
+            height: 60px;
+            margin-right: 15px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
 
+        .book .head .info {
+            flex-grow: 1;
+        }
 
-.book h3 {
-  font-size: 20px;
-  color: #333;
-  font-weight: bold;
-}
+    .book h3 {
+        font-size: 18px;
+        color: #333;
+        font-weight: bold;
+        margin: 5px 0;
+    }
 
 /* Rating */
 .rating {
-  color: #ffc107;
-  font-size: 12px;
-  margin-left: 5px;
+    color: #ffc107;
+    font-size: 12px;
+    margin: 5px 0;
+    display: flex;
+    align-items: center;
 }
 
-.book .services {
-  font-size: 14px;
-  color: #555;
-  /* margin-bottom: 20px; */
+.book .info i {
+    font-size: 12px;
+    margin-right: 5px;
 }
-
-
-@media (max-width: 426px) {
-  .book {
-    display: none;
-  }
-}
-
 
 .selected-services {
-    margin-top: 10px;
-    max-height: 200px; /* Adds scroll if too many services */
+    margin-top: 15px;
+    max-height: 200px;
     overflow-y: auto;
+    border-radius: 5px;
 }
 
 .booked-service {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 5px 10px;
+    padding: 10px;
     background: #f4f4f4;
     border-radius: 5px;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
 }
 
 .remove-btn {
@@ -275,34 +224,123 @@ h2 {
     padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 12px;
 }
-
 
 .continue {
     background-color: var(--main-color);
     color: #fff;
-    padding: 10px 20px;
+    padding: 12px 20px;
     border: none;
-    margin-left: 50%;
-    transform: translateX(-50%);
-    margin-bottom: 10px;
-    margin-top: 10px;
+    margin: 20px auto 10px;
+    display: block;
     font-weight: bold;
     border-radius: 15px;
-
+    width: 80%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.continue a {
-  color: #fff;
-  text-decoration: none;
+    .continue:hover {
+        background-color: #737b96;
+    }
+
+    .continue a {
+        color: #fff;
+        text-decoration: none;
+    }
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .left-side, .right-side {
+        width: 100%;
+        padding-right: 0;
+    }
+
+    .book {
+        position: static;
+        margin-top: 30px;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .head {
+        margin: 20px 3%;
+    }
+
+    .book .head {
+        flex-direction: column;
+        text-align: center;
+    }
+
+        .book .head img {
+            margin-right: 0;
+            margin-bottom: 10px;
+        }
+
+    .rating {
+        justify-content: center;
+    }
+
+    .continue {
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .service {
+        flex-direction: column;
+        text-align: center;
+        padding: 15px 10px;
+    }
+
+    .book-btn {
+        margin-top: 10px;
+        width: 100%;
+    }
+
+    .book .head {
+        margin-bottom: 20px;
+    }
+
+    .head i {
+        font-size: 1.5rem !important;
+    }
+
+    .left-side h1 {
+        font-size: 24px;
+        text-align: center;
+    }
+
+    .filter-container select {
+        max-width: 100%;
+    }
+
+    .booked-service {
+        flex-direction: column;
+    }
+
+    .remove-btn {
+        margin-top: 10px;
+        width: 100%;
+    }
 }
 
 
 
 
 
-
-
-
-
-
+@media (max-width: 426px) {
+    .book {
+        display: block; /* ??? display: none */
+        width: 100%;
+        position: static;
+        top: auto;
+        right: auto;
+    }
+}

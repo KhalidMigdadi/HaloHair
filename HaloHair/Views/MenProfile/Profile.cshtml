@@ -87,7 +87,7 @@
 						</div>
 						<div class="mb-3">
 							<label for="Email" class="form-label">Email address</label>
-							<input type="email" class="form-control" name="Email" id="Email" value="@Model.User.Email" required />
+							<input disabled type="email" class="form-control" name="Email" id="Email" value="@Model.User.Email" required />
 						</div>
 						<div class="mb-3">
 							<label for="PhoneNumber" class="form-label">Phone</label>
@@ -112,7 +112,7 @@
 					<button type="button" id="closeBtn" data-bs-dismiss="modal">
 						Close
 					</button>
-					<button type="submit" class="btn btn-primary" form="editProfileForm">Save Changes</button>
+					<button type="submit" class=" btn-primary" form="editProfileForm">Save Changes</button>
 				</div>
 			</div>
 		</div>
@@ -214,7 +214,8 @@
 						<p>Duration: @booking.TotalDuration minutes</p>
 						<p>Price: JOD @booking.TotalPrice</p>
 						<p>Status: @booking.Status</p>
-						@if (booking.Status == "Confirmed")
+
+						@if (booking.Status?.Equals("Confirmed", StringComparison.OrdinalIgnoreCase) == true)
 						{
 							// Calculate time until appointment
 							var appointmentDateTime = new DateTime(
@@ -227,10 +228,10 @@
 
 							var hoursUntilAppointment = (appointmentDateTime - DateTime.Now).TotalHours;
 
-							@if (hoursUntilAppointment > 8)
+							if (hoursUntilAppointment > 8)
 							{
 								<a asp-controller="MenAppointments" asp-action="CancelBooking" asp-route-bookingId="@booking.Id"
-								   class="btn btn-outline-danger btn-sm"
+								   class="btn-outline-danger btn-sm"
 								   onclick="return confirm('Are you sure you want to cancel this appointment?');">
 									Cancel Appointment
 								</a>
@@ -249,6 +250,9 @@
 			<p>لا يوجد سجل حجوزات بعد.</p>
 		}
 	</div>
+
+
+
 
 	<!-- Review Tab -->
 	<div class="tab-pane fade" id="statistics" role="tabpanel">
@@ -342,7 +346,7 @@
 						}
 						else
 						{
-							<img src="~/images/default-salon.jpg" class="card-img-top" alt="Default Salon Image">
+							<img src="@salon.ImageUrl" class="card-img-top" alt="Default Salon Image" style="width: 100px;">
 						}
 
 

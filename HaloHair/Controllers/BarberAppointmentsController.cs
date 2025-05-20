@@ -1,4 +1,5 @@
-﻿using HaloHair.Models;
+﻿
+using HaloHair.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -30,13 +31,13 @@ namespace HaloHair.Controllers
             {
                 BarberId = barberId,
                 StartTime = startTime,
-                EndTime = startTime.AddMinutes(60) 
+                EndTime = startTime.AddMinutes(60)
             };
 
             _context.TimeSlots.Add(slot);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("MySchedule"); 
+            return RedirectToAction("MySchedule");
         }
 
 

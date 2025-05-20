@@ -10,13 +10,15 @@
 }
 
 <div class="head">
-	<a href="salon.html"><i class="fa-solid fa-arrow-left fa-2x"></i></a>
-	<i class="fa-solid fa-xmark fa-2x"></i>
+	<a href="@Url.Action("SalonMen", "MenSalon", new { id = Model.Id })">
+		<i class="fa-solid fa-arrow-left fa-2x"></i>
+	</a>
+
 </div>
 <div class="container">
 	<div class="left-side">
 		<h1>Select Service</h1>
-		<div class="filter-container">
+		@* 	<div class="filter-container">
 			<label for="service-filter">Filter by Service:</label>
 			<select id="service-filter" onchange="filterServices()">
 				<option value="all">All Services</option>
@@ -26,7 +28,7 @@
 				<option value="beard">Beard</option>
 				<option value="packages">Packages</option>
 			</select>
-		</div>
+		</div> *@
 
 		<div class="service-list">
 			@if (Model.Services.Any())
@@ -48,18 +50,19 @@
 				<p>No services available.</p>
 			}
 		</div>
+
+
 	</div>
 
 	<div class="right-side">
 		<div class="book">
 			<div class="head">
 				<div>
-					<img src="../Images/Men_Images/YousofAfandi/shop.png" alt="" />
-					<div class="rating">⭐ (4.9)</div>
+					<img src="@Model.ImageUrl" alt="" />
 				</div>
 				<div class="info">
-					<h3>Yousef Afandi</h3>
-					<i class="fa-solid fa-location-dot"></i> Hatamle Commercial Centre, شارع الثقافة, Irbid 21110
+					<h3>@Model.Name</h3>
+					<i class="fa-solid fa-location-dot"></i> @Model.Address
 				</div>
 			</div>
 			<div class="selected-services"></div>
@@ -95,7 +98,7 @@
 			const totalPriceElement = document.getElementById("total-price");
 			const totalTimeElement = document.getElementById("total-time");
 
-			let selectedServices = new Set();
+			let selectedServices = new Set(); // to avoid duplicate services
 			let totalPrice = 0;
 			let totalTime = 0;
 
@@ -183,6 +186,8 @@
 			continueBtn.addEventListener("click", function () {
 				const services = [];
 
+
+				// get all info from right side
 				document.querySelectorAll(".booked-service").forEach(serviceElement => {
 					const name = serviceElement.querySelector(".service-name").innerText;
 					const timeText = serviceElement.querySelector("p:nth-child(2)").innerText;
@@ -245,17 +250,7 @@
 
 		serviceName = serviceName.ToLower();
 
-		if (serviceName.Contains("cut"))
-			return "haircut";
-		else if (serviceName.Contains("beard"))
-			return "beard";
-		else if (serviceName.Contains("consult"))
-			return "consultant";
-		else if (serviceName.Contains("package"))
-			return "packages";
-		else if (serviceName.Contains("discount"))
-			return "discount";
-		else
-			return "other";
+
+		return "other";
 	}
 }

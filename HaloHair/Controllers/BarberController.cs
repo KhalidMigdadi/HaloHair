@@ -254,7 +254,6 @@ namespace HaloHair.Controllers
 
             if (ModelState.IsValid)
             {
-                // التعامل مع الصورة
                 if (salonImage != null && salonImage.Length > 0)
                 {
                     var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", salonImage.FileName);
@@ -289,7 +288,11 @@ namespace HaloHair.Controllers
                     barber.SalonId = model.Id;  // ربط الحلاق بالصالون
                     barber.IsOwner = true;  // تعيين IsOwner كـ true للحلاق الذي يملك الصالون
 
+
                     await _context.SaveChangesAsync();  // حفظ التحديثات في جدول الحلاق
+
+
+                    HttpContext.Session.SetInt32("SalonId", model.Id);
                 }
 
                 // إضافة ساعات العمل لكل يوم

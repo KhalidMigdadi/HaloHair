@@ -18,31 +18,7 @@ namespace HaloHair.Controllers
             return View();
         }
 
-        public IActionResult BookingDetails(int salonId, int serviceId)
-        {
-            var salon = _context.Salons.FirstOrDefault(s => s.Id == salonId);
-            var service = _context.Services.FirstOrDefault(s => s.Id == serviceId);
 
-            if (salon == null || service == null)
-            {
-                TempData["Error"] = "Invalid booking request!";
-                return RedirectToAction("Index", "Home");
-            }
-
-            var viewModel = new BookingDetailsViewModel
-            {
-                SalonId = salon.Id,
-                SalonName = salon.Name,
-                ServiceId = service.Id,
-                ServiceName = service.ServiceName,
-                Price = service.Price ?? 0m, // إذا كان null، استخدم 0
-                Duration = service.Duration ?? 0, // إذا كان null، استخدم 0
-                Location = salon.Address
-            };
-
-
-            return View(viewModel);
-        }
 
 
         public IActionResult SelectService(int salonId)
@@ -57,6 +33,8 @@ namespace HaloHair.Controllers
             return View(salon); // نفترض إن الموديل يحتوي على قائمة Services
         }
 
+
+        // add list services to DB
 
         [HttpPost]
         public async Task<IActionResult> SaveSelectedServices(int salonId, [FromBody] List<SelectedService> services)
@@ -82,14 +60,12 @@ namespace HaloHair.Controllers
                 return Json(new { success = false, message = "User not logged in." });
             }
 
-            // إضافة الخدمات إلى قاعدة البيانات
             foreach (var service in services)
             {
                 // تحديد الـ SalonId و UserId
                 service.SalonId = salonId;
                 service.UserId = userId.Value;
 
-                // إضافة الخدمة إلى جدول SelectedServices
                 _context.SelectedServices.Add(service);
             }
 
@@ -104,7 +80,9 @@ namespace HaloHair.Controllers
 
 
 
-        // GET: يعرض الحلاقين
+
+
+
         [HttpGet]
         public async Task<IActionResult> SelectBarberMen()
         {
@@ -121,6 +99,7 @@ namespace HaloHair.Controllers
                 return RedirectToAction("SelectService", "Service");
 
             var salonId = selectedServices.FirstOrDefault()?.SalonId;
+
             var barbers = await _context.Barbers
                 .Where(b => b.SalonId == salonId)
                 .Select(b => new BarberViewModel
@@ -146,9 +125,7 @@ namespace HaloHair.Controllers
         [HttpPost]
         public async Task<IActionResult> SelectBarberMen(string selectedBarber, int selectedBarberId)
         {
-            // تحقق من البيانات
-            Console.WriteLine("Selected Barber Name: " + selectedBarber);
-            Console.WriteLine("Selected Barber ID: " + selectedBarberId);
+
 
             var userId = HttpContext.Session.GetInt32("UserId");
 
@@ -303,9 +280,14 @@ namespace HaloHair.Controllers
             ViewBag.TotalDuration = totalDuration;
             ViewBag.SlotsNeeded = (int)Math.Ceiling(totalDuration / 60.0);
 
-            return View(validSlots);
-        }
+            // إزالة التكرار حسب StartTime
+            var distinctValidSlots = validSlots
+                .GroupBy(slot => slot.StartTime)
+                .Select(group => group.First())
+                .ToList();
 
+            return View(distinctValidSlots);
+        }
 
 
         [HttpPost]
@@ -346,7 +328,7 @@ namespace HaloHair.Controllers
                 EndTime = appointmentEndTime,
                 TotalDuration = totalDuration,
                 AppointmentDate = startingSlot.StartTime.Date,
-                Status = "Confirmed", // Set as pending until payment
+                Status = "Confirmed", 
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now
             };
@@ -474,9 +456,6 @@ namespace HaloHair.Controllers
 
 
 
-        // 5. Process payment action
-        // تعديل دالة ProcessPayment
-        // Update the ProcessPayment method in MenAppointmentsController
         [HttpPost]
         public async Task<IActionResult> ProcessPayment(string paymentMethod, string paymentDetails)
         {
@@ -762,6 +741,39 @@ namespace HaloHair.Controllers
                         ts.StartTime >= startTime &&
                         ts.StartTime < endTime &&
                         ts.IsBooked);
+        }
+
+
+
+
+
+
+
+
+        public IActionResult BookingDetails(int salonId, int serviceId)
+        {
+            var salon = _context.Salons.FirstOrDefault(s => s.Id == salonId);
+            var service = _context.Services.FirstOrDefault(s => s.Id == serviceId);
+
+            if (salon == null || service == null)
+            {
+                TempData["Error"] = "Invalid booking request!";
+                return RedirectToAction("Index", "Home");
+            }
+
+            var viewModel = new BookingDetailsViewModel
+            {
+                SalonId = salon.Id,
+                SalonName = salon.Name,
+                ServiceId = service.Id,
+                ServiceName = service.ServiceName,
+                Price = service.Price ?? 0m, // إذا كان null، استخدم 0
+                Duration = service.Duration ?? 0, // إذا كان null، استخدم 0
+                Location = salon.Address
+            };
+
+
+            return View(viewModel);
         }
 
     }

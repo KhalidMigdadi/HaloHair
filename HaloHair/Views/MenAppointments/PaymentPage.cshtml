@@ -26,6 +26,8 @@
                                 <option value="">-- Select Payment Method --</option>
                                 <option value="Visa">Credit Card (Visa/MasterCard)</option>
                                 <option value="OrangeMoney">Orange Money</option>
+                                <option value="Cash">Cash (Pay at the salon)</option>
+
                             </select>
                         </div>
 
@@ -87,34 +89,39 @@
     <script>
         $(document).ready(function() {
             // Show/hide payment forms based on selection
-            $('#paymentMethod').change(function() {
-                $('.payment-form').hide();
+                    $('#paymentMethod').change(function() {
+            $('.payment-form').hide();
 
-                if ($(this).val() === 'Visa') {
-                    $('#creditCardForm').show();
-                } else if ($(this).val() === 'OrangeMoney') {
-                    $('#orangeMoneyForm').show();
-                }
-            });
+            if ($(this).val() === 'Visa') {
+                $('#creditCardForm').show();
+            } else if ($(this).val() === 'OrangeMoney') {
+                $('#orangeMoneyForm').show();
+            }
+            // No need to show anything for Cash
+        });
+
 
             // Handle form submission
             $('form').submit(function(e) {
                 // Collect payment details based on selected method
-                let paymentDetails = {};
-                const paymentMethod = $('#paymentMethod').val();
+                        let paymentDetails = {};
+        const paymentMethod = $('#paymentMethod').val();
 
-                if (paymentMethod === 'Visa') {
-                    paymentDetails = {
-                        cardNumber: $('#cardNumber').val(),
-                        expiryDate: $('#expiryDate').val(),
-                        cvv: $('#cvv').val(),
-                        cardholderName: $('#cardholderName').val()
-                    };
-                } else if (paymentMethod === 'OrangeMoney') {
-                    paymentDetails = {
-                        phoneNumber: $('#phoneNumber').val()
-                    };
-                }
+        if (paymentMethod === 'Visa') {
+            paymentDetails = {
+                cardNumber: $('#cardNumber').val(),
+                expiryDate: $('#expiryDate').val(),
+                cvv: $('#cvv').val(),
+                cardholderName: $('#cardholderName').val()
+            };
+        } else if (paymentMethod === 'OrangeMoney') {
+            paymentDetails = {
+                phoneNumber: $('#phoneNumber').val()
+            };
+        } else if (paymentMethod === 'Cash') {
+            paymentDetails = {}; // أو ممكن تكتب { method: 'Cash' } فقط للتوثيق
+        }
+
 
                 // Convert to JSON and store in hidden field
                 $('#paymentDetails').val(JSON.stringify(paymentDetails));

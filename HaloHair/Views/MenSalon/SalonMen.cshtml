@@ -14,7 +14,6 @@
 	<div class="salon-header">
 		<h1>@Model.Name</h1>
 		<div class="salon-actions">
-			<i class="fa-solid fa-share fa-lg"></i>
 			<i class="fa-regular fa-heart fa-lg favorite-icon"
 			id="favorite-@Model.Id"
 			data-salon-id="@Model.Id"
@@ -50,7 +49,7 @@
 		<!-- Services Section -->
 		<div class="services-section">
 			<h2>Services</h2>
-			<div class="filter-container">
+			@* <div class="filter-container">
 				<label for="service-filter">Filter by Service:</label>
 				<select id="service-filter" onchange="filterServices()">
 					<option value="all">All Services</option>
@@ -60,22 +59,25 @@
 					<option value="beard">Beard</option>
 					<option value="packages">Packages</option>
 				</select>
-			</div>
+			</div> *@
 
 			<div class="services-list">
 				@if (Model.Services.Any())
 				{
 					@foreach (var service in Model.Services.Take(5))
 					{
-						<div class="service-card" data-category="@GetServiceCategory(service.ServiceName)">
 							<div class="service-info">
 								<h3>@service.ServiceName</h3>
 								<p class="duration">@service.Duration mins</p>
 								<p class="price">@service.Price JOD</p>
 							</div>
-						</div>
 					}
-					<a href="@Url.Action("SelectService", "MenAppointments", new { salonId = Model.Id })" class="see-all-btn">See All</a>
+					<a href="@Url.Action("SelectService", "MenAppointments", new { salonId = Model.Id })"
+					   style="display: inline-block; padding: 8px 16px; background-color: #0d6efd; color: white; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 14px; transition: background-color 0.3s;"
+					   onmouseover="this.style.backgroundColor='#0d6efd'"
+					   onmouseout="this.style.backgroundColor='#0d6efd'">
+						See All
+					</a>
 				}
 				else
 				{
@@ -173,7 +175,7 @@
 	</div>
 
 	<!-- Reviews Section (Same functionality) -->
-	<div class="reviews-section">
+	<div class="reviews-section" style="width: 100%;">
 		<h2>What Our Customers Say</h2>
 
 		<div class="reviews-container">
@@ -268,19 +270,3 @@
 	}
 }
 
-@functions {
-	public string GetServiceCategory(string serviceName)
-	{
-		if (string.IsNullOrEmpty(serviceName)) return "other";
-
-		serviceName = serviceName.ToLower();
-
-		if (serviceName.Contains("discount")) return "discount";
-		if (serviceName.Contains("consult")) return "consultant";
-		if (serviceName.Contains("hair cut") || serviceName.Contains("haircut")) return "haircut";
-		if (serviceName.Contains("beard")) return "beard";
-		if (serviceName.Contains("package")) return "packages";
-
-		return "other";
-	}
-}

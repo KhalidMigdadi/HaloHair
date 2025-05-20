@@ -70,7 +70,7 @@ namespace HaloHair.Controllers
             // تحديث البيانات الأساسية
             user.FirstName = model.FirstName;
             user.LastName = model.LastName;
-            user.Email = model.Email;
+            //user.Email = model.Email;
             user.PhoneNumber = model.PhoneNumber;
 
             // معالجة الصورة الجديدة إن وُجدت
@@ -93,18 +93,7 @@ namespace HaloHair.Controllers
                 // تحديث مسار الصورة في قاعدة البيانات
                 user.ProfileImagePath = $"Images/ProfilePictures/{fileName}";
             }
-
-            // تغيير كلمة السر في حال تم إدخالها
-            if (!string.IsNullOrEmpty(NewPassword))
-            {
-                if (NewPassword != ConfirmPassword)
-                {
-                    ModelState.AddModelError("ConfirmPassword", "Passwords do not match.");
-                    return View("Profile", model);
-                }
-
-                user.PasswordHash = NewPassword; // تأكد من استخدام تشفير إذا كنت تستخدم هوية ASP.NET Identity
-            }
+       
 
             _context.Users.Update(user);
             await _context.SaveChangesAsync();
